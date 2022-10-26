@@ -34,6 +34,10 @@ import {
   CREATE_PROJECT_BEGIN,
   CREATE_PROJECT_ERROR,
   CREATE_PROJECT_SUCCESS,
+  GET_ALL_PROJECTS_BEGIN,
+  GET_ALL_PROJECTS_SUCCESS,
+  GET_ALL_USERS_BEGIN,
+  GET_ALL_USERS_SUCCESS,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -312,6 +316,36 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
+    };
+  }
+  //get all projects
+  if (action.type === GET_ALL_PROJECTS_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+      showAlert: false,
+    };
+  }
+  if (action.type === GET_ALL_PROJECTS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      projects: action.payload.projects,
+    };
+  }
+  //get all users
+  if (action.type === GET_ALL_USERS_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+      showAlert: false,
+    };
+  }
+  if (action.type === GET_ALL_USERS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      users: action.payload.users,
     };
   }
   throw new Error(`no such action:${action.type}`);

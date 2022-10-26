@@ -37,6 +37,10 @@ import {
   CREATE_PROJECT_BEGIN,
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_ERROR,
+  GET_ALL_PROJECTS_BEGIN,
+  GET_ALL_PROJECTS_SUCCESS,
+  GET_ALL_USERS_BEGIN,
+  GET_ALL_USERS_SUCCESS,
 } from "./actions";
 //set as default
 const user = localStorage.getItem("user");
@@ -61,6 +65,7 @@ export const initialState = {
   page: 1,
   cart: [],
   projects: [],
+  users: [],
   projectName: "",
   projectLocation: "",
   projectEstimatedCost: 0,
@@ -381,6 +386,48 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   };
+  //get all projects
+  const getAllProjects = async () => {
+    dispatch({ type: GET_ALL_PROJECTS_BEGIN });
+    try {
+      const { data } = await authFetch.get("/Projects/");
+      // console.log(data);
+      const { projects } = data;
+      // console.log(products);
+      dispatch({
+        type: GET_ALL_PROJECTS_SUCCESS,
+        payload: {
+          projects,
+        },
+      });
+      // console.log(state.products);
+    } catch (error) {
+      console.log(error);
+      logoutUser();
+    }
+    clearAlert();
+  };
+  //get all projects
+  const getAllUsers = async () => {
+    dispatch({ type: GET_ALL_USERS_BEGIN });
+    try {
+      const { data } = await axios.get("/api/auth/");
+      // console.log(data);
+      const { users } = data;
+      // console.log(products);
+      dispatch({
+        type: GET_ALL_USERS_SUCCESS,
+        payload: {
+          users,
+        },
+      });
+      // console.log(state.products);
+    } catch (error) {
+      console.log(error);
+      logoutUser();
+    }
+    clearAlert();
+  };
   return (
     <AppContext.Provider
       value={{
@@ -402,6 +449,9 @@ const AppProvider = ({ children }) => {
         getCart,
         clearCart,
         createProject,
+        getAllProjects,
+        getAllProjects,
+        getAllUsers,
       }}
     >
       {children}

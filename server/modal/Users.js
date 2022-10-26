@@ -32,6 +32,10 @@ const userScheme = new Schema(
       required: [true, "Please provide ac type."],
       trim: true,
     },
+    allocatedProject: {
+      type: String,
+      default: "none",
+    },
     password: {
       type: String,
       required: [true, "Please provide password."],

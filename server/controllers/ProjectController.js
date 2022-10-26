@@ -5,13 +5,13 @@ const {
   NotFoundError,
   UnauthenticatedError,
 } = require("../errors/index");
-// //get all products
-// const getProducts = async (req, res) => {
-//   const products = await Product.find({ createdBy: req.user.userId });
-//   res
-//     .status(StatusCodes.OK)
-//     .send({ products, totalProducts: products.length, numOfPages: 1 });
-// };
+//get all projects
+const getProjects = async (req, res) => {
+  const projects = await Project.find({});
+  res
+    .status(StatusCodes.OK)
+    .send({ projects, totalProjects: projects.length, numOfPages: 1 });
+};
 // //get single product
 // const getSingleProduct = async (req, res) => {
 //   try {
@@ -86,4 +86,5 @@ const createProjects = async (req, res) => {
 
 module.exports = {
   createProjects,
+  getProjects,
 };

@@ -43,7 +43,7 @@ const AddNewProject = () => {
   return (
     <Wrapper>
       <form className="form">
-        <h3>{isEditing ? "Edit Product" : "Add Product"}</h3>
+        <h3>{isEditing ? "Edit Project" : "Add Project"}</h3>
         {showAlert && <Alert />}
         <div className="form-center">
           <FormRow
