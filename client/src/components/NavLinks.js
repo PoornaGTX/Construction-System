@@ -5,15 +5,17 @@ import links from "../utils/links";
 const NavLinks = ({ toggleSidebar }) => {
   const { user } = useAppContext();
   let newLinks = links;
-  if (user.type === "Site Manager") {
-    newLinks = links.filter((link) => {
+  if (user.type === "Site Manager" || user.type === "ProcurementManager") {
+    console.log("in");
+    newLinks = newLinks.filter((link) => {
       if (link.path !== "add-product") {
         return link;
       }
     });
+    console.log(newLinks);
   }
-  if (user.type === "Supplier") {
-    newLinks = links.filter((link) => {
+  if (user.type === "Supplier" || user.type === "ProcurementManager") {
+    newLinks = newLinks.filter((link) => {
       if (link.path !== "add-to-cart") {
         return link;
       }
