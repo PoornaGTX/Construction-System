@@ -17,6 +17,7 @@ const initialState = {
   alertType: "",
   user: "",
   token: "",
+  isLogedIn: false,
 };
 
 const AppContext = React.createContext();
@@ -29,7 +30,10 @@ const AppProvider = ({ children }) => {
   const registerUser = async (currentUser) => {
     dispatch({ type: REGISTER_USER_BEGIN });
     try {
-      const response = await axios.post("/api/v1/auth/register", currentUser);
+      const response = await axios.post(
+        "http://10.0.2.2:5000/api/v1/auth/register",
+        currentUser
+      );
       const { user, token, location } = response.data;
       dispatch({
         type: REGISTER_USER_SUCCESS,
@@ -51,22 +55,23 @@ const AppProvider = ({ children }) => {
   const loginUser = async (currentUser) => {
     dispatch({ type: LOGIN_USER_BEGIN });
     try {
-      const response = await axios.post("/api/v1/auth/login", currentUser);
+      const response = await axios.post(
+        "http://10.0.2.2:5000/api/auth/login",
+        currentUser
+      );
 
-      const { user, token, location } = response.data;
+      const { user, token } = response.data;
+      console.log(response.data.user);
       dispatch({
         type: LOGIN_USER_SUCCESS,
-        payload: { user, token, location },
+        payload: { user, token },
       });
-
-      addUserToLocalStorage({ user, token, location });
     } catch (error) {
       dispatch({
         type: LOGIN_USER_ERROR,
         payload: { msg: error.response.data.msg },
       });
     }
-    clearAlert();
   };
 
   return (

@@ -18,6 +18,8 @@ import ManageGradesScreen from "./screens/ManageGradesScreen";
 import StatsScreenAdmin from "./screens/StatsScreenAdmin";
 
 import { AppProvider } from "./context/appContext";
+import { useAppContext } from "./context/appContext";
+import { Colors } from "./constants/styles";
 
 const Stack = createNativeStackNavigator();
 const Bottom = createBottomTabNavigator();
@@ -82,58 +84,56 @@ const AdminBottomTabHome = () => {
   );
 };
 
-// function Navigation() {
-//   const authCtx = [];
-//   return (
-//     <NavigationContainer>
-//       {!authCtx.isLogedIn && <AuthStack />}
-//       {authCtx.isLogedIn && <AuthenticatedStack />}
-//     </NavigationContainer>
-//   );
-// }
+function AuthenticatedStack() {
+  return (
+    <Bottom.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: "#3db1ff" },
+        tabBarStyle: { backgroundColor: "#3db1ff" },
+        tabBarActiveTintColor: "red",
+      }}
+    >
+      <Bottom.Screen
+        name="AdminHome"
+        component={AdminBottomTabHome}
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" size={size} color="black" />
+          ),
+        }}
+      />
+      <Bottom.Screen
+        name="Stats"
+        component={StatsScreenAdmin}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="stats-chart" size={size} color="black" />
+          ),
+          headerTitleAlign: "center",
+        }}
+      />
+    </Bottom.Navigator>
+  );
+}
+
+function Navigation() {
+  const { isLogedIn } = useAppContext();
+  return (
+    <NavigationContainer>
+      {!isLogedIn ? <AuthStack /> : <AuthenticatedStack />}
+    </NavigationContainer>
+  );
+}
 
 export default function App() {
-  const user = "Admin"; //temp
-
   return (
     <>
       <StatusBar style="light" />
       <AppProvider>
-        <NavigationContainer>
-          <Bottom.Navigator
-            screenOptions={{
-              headerStyle: { backgroundColor: "#3db1ff" },
-              tabBarStyle: { backgroundColor: "#3db1ff" },
-              tabBarActiveTintColor: "red",
-            }}
-          >
-            <Bottom.Screen
-              name="AdminHome"
-              component={AdminBottomTabHome}
-              options={{
-                headerShown: false,
-                tabBarShowLabel: false,
-                tabBarIcon: ({ color, size }) => (
-                  <Ionicons name="home" size={size} color="black" />
-                ),
-              }}
-            />
-
-            {user === "Admin" && (
-              <Bottom.Screen
-                name="Stats"
-                component={StatsScreenAdmin}
-                options={{
-                  tabBarShowLabel: false,
-                  tabBarIcon: ({ color, size }) => (
-                    <Ionicons name="stats-chart" size={size} color="black" />
-                  ),
-                  headerTitleAlign: "center",
-                }}
-              />
-            )}
-          </Bottom.Navigator>
-        </NavigationContainer>
+        <Navigation />
       </AppProvider>
     </>
   );
