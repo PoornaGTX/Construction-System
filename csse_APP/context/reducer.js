@@ -44,6 +44,7 @@ const reducer = (state, action) => {
       isLoading: false,
       token: action.payload.token,
       user: action.payload.user,
+      isLogedIn: true,
       showAlert: true,
       alertType: "success",
       alertText: "Login Successful! Redirecting",
