@@ -38,6 +38,7 @@ import {
   GET_ALL_PROJECTS_SUCCESS,
   GET_ALL_USERS_BEGIN,
   GET_ALL_USERS_SUCCESS,
+  DELETE_PROJECT_BEGIN,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -347,6 +348,9 @@ const reducer = (state, action) => {
       isLoading: false,
       users: action.payload.users,
     };
+  } //delete project
+  if (action.type === DELETE_PROJECT_BEGIN) {
+    return { ...state, isLoading: true };
   }
   throw new Error(`no such action:${action.type}`);
 };

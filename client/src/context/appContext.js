@@ -41,6 +41,7 @@ import {
   GET_ALL_PROJECTS_SUCCESS,
   GET_ALL_USERS_BEGIN,
   GET_ALL_USERS_SUCCESS,
+  DELETE_PROJECT_BEGIN,
 } from "./actions";
 //set as default
 const user = localStorage.getItem("user");
@@ -55,6 +56,7 @@ export const initialState = {
   alertType: "",
   showSidebar: false,
   isEditing: false,
+  isEditingProject: false,
   editProductId: "",
   pName: "",
   price: "",
@@ -427,6 +429,15 @@ const AppProvider = ({ children }) => {
       logoutUser();
     }
     clearAlert();
+  }; //delete project
+  const deleteProject = async (id) => {
+    dispatch({ type: DELETE_PROJECT_BEGIN });
+    try {
+      await authFetch.delete(`/Projects/${id}`);
+      getAllProjects();
+    } catch (error) {
+      logoutUser();
+    }
   };
   return (
     <AppContext.Provider
@@ -452,6 +463,7 @@ const AppProvider = ({ children }) => {
         getAllProjects,
         getAllProjects,
         getAllUsers,
+        deleteProject,
       }}
     >
       {children}

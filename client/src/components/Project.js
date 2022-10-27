@@ -22,7 +22,7 @@ const Project = ({
   createdAt,
   _id,
 }) => {
-  const { setEditProduct, deleteProduct, user, addItemToCart } =
+  const { deleteProject, setEditProduct, deleteProduct, user, addItemToCart } =
     useAppContext();
   let date = moment(createdAt);
   date = date.format("MMM Do, YYYY");
@@ -42,35 +42,22 @@ const Project = ({
           <ProductInfo icon={<BsCart4 />} text={dueDate} />
         </div>
         <footer>
-          {/* {user.type !== "Customer" && (
-            <div className="actions">
-              <Link
-                to="/add-product"
-                onClick={() => setEditProduct(_id)}
-                className="btn edit-btn"
-              >
-                Edit
-              </Link>
-              <button
-                type="button"
-                className="btn delete-btn"
-                onClick={() => deleteProduct(_id)}
-              >
-                Delete
-              </button>
-            </div>
-          )}
-          {user.type === "Customer" && (
-            <div className="actions">
-              <Link
-                to={`/add-to-cart`}
-                onClick={() => addItemToCart({ name, price, qty, _id })}
-                className="btn edit-btn"
-              >
-                Add to cart
-              </Link>
-            </div>
-          )} */}
+          <div className="actions">
+            {/* <Link
+              to="/add-product"
+              onClick={() => setEditProduct(_id)}
+              className="btn edit-btn"
+            >
+              Edit
+            </Link> */}
+            <button
+              type="button"
+              className="btn delete-btn"
+              onClick={() => deleteProject(_id)}
+            >
+              Delete
+            </button>
+          </div>
         </footer>
       </div>
     </Wrapper>

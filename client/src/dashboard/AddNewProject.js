@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAppContext } from "../context/appContext";
 import { FormRow, Alert } from "../components/index";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 const AddNewProject = () => {
+  const [startDate, setStartDate] = useState(new Date());
   const {
-    isEditing,
+    isEditingProject,
     showAlert,
     displayAlert,
     handleChange,
@@ -24,14 +25,12 @@ const AddNewProject = () => {
       displayAlert();
       return;
     }
-    if (isEditing) {
+    if (isEditingProject) {
       //edit function
       //   editProduct();
       return;
     }
-    // createProduct();
     createProject();
-    // alert(new Date(projectDeadLine));
   };
   //handle inputs
   const handleProductInput = (e) => {
@@ -43,7 +42,7 @@ const AddNewProject = () => {
   return (
     <Wrapper>
       <form className="form">
-        <h3>{isEditing ? "Edit Project" : "Add Project"}</h3>
+        <h3>{isEditingProject ? "Edit Project" : "Add Project"}</h3>
         {showAlert && <Alert />}
         <div className="form-center">
           <FormRow
@@ -68,7 +67,7 @@ const AddNewProject = () => {
             handleChange={handleProductInput}
           />
           <FormRow
-            type="text"
+            type="date"
             labelText="Project Deadline"
             name="projectDeadLine"
             value={projectDeadLine}

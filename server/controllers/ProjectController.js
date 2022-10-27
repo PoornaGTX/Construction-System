@@ -24,18 +24,18 @@ const getProjects = async (req, res) => {
 //     res.status(404).send({ msg: error });
 //   }
 // };
-// //delete a product
-// const deleteProduct = async (req, res) => {
-//   const { id: pid } = req.params;
-//   try {
-//     const products = await Product.findOneAndDelete({
-//       _id: pid,
-//     });
-//     res.status(200).send({ msg: products });
-//   } catch (error) {
-//     res.status(404).send({ msg: error });
-//   }
-// };
+//delete a product
+const deleteProject = async (req, res) => {
+  const { id: pid } = req.params;
+  try {
+    const projects = await Project.findOneAndDelete({
+      _id: pid,
+    });
+    res.status(200).send({ msg: projects });
+  } catch (error) {
+    res.status(404).send({ msg: error });
+  }
+};
 // //update a product
 // const updateProduct = async (req, res) => {
 //   const { id: pid } = req.params;
@@ -87,4 +87,5 @@ const createProjects = async (req, res) => {
 module.exports = {
   createProjects,
   getProjects,
+  deleteProject,
 };

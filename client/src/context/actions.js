@@ -55,3 +55,5 @@ export const GET_ALL_PROJECTS_SUCCESS = "GET_ALL_PROJECTS_SUCCESS";
 //get all users
 export const GET_ALL_USERS_BEGIN = "GET_ALL_USERS_BEGIN";
 export const GET_ALL_USERS_SUCCESS = "GET_ALL_USERS_SUCCESS";
+//delete projects
+export const DELETE_PROJECT_BEGIN = "DELETE_PROJECT_BEGIN";
