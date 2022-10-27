@@ -5,25 +5,25 @@ import links from "../utils/links";
 const NavLinks = ({ toggleSidebar }) => {
   const { user } = useAppContext();
   let newLinks = links;
-  if (user.type === "Site Manager") {
-    newLinks = links.filter((link) => {
-      if (link.path !== "add-product" || link.path !== "orders") {
+
   if (user.type === "Site Manager" || user.type === "ProcurementManager") {
     console.log("in");
     newLinks = newLinks.filter((link) => {
-      if (link.path !== "add-product") {
+      if (link.path !== "add-product" || link.path !== "orders") {
         return link;
       }
     });
     console.log(newLinks);
   }
-  if (user.type === "Supplier" || user.type === "ProcurementManager") {
+ 
+  if (user.type === "Supplier" ) {
     newLinks = newLinks.filter((link) => {
-      if (link.path !== "add-to-cart") {
+      if (link.path !== "add-to-cart" || link.path !== "all-projects" || link.path !== "all-site-managers" || link.path !== "add-new-project" || link.path !== "order-requests" ) {
         return link;
       }
     });
   }
+
   return (
     <div className="nav-links">
       {newLinks.map((link) => {

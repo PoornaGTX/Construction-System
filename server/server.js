@@ -172,7 +172,7 @@ tr:nth-child(even) {
 // });
 //other routes
 app.use("/api/auth", authRoutes);
-app.use("/api/Customers", CustomerRoutes);r
+app.use("/api/Customers", CustomerRoutes);
 app.use("/api", authenticateUser, supplierRoutes);
 app.use("/api/Projects", ProjectRoutes);
 app.use("*", notFound);
