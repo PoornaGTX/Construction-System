@@ -37,20 +37,43 @@ const AddProduct = () => {
     const value = e.target.value;
     handleChange({ name, value });
   };
-
+  const imageSelector = () => {
+    if (pName === "Sand") {
+      return "/products/sand.jpg";
+    } else if (pName === "Bricks") {
+      return "/products/bricks.webp";
+    } else if (pName === "Cement") {
+      return "/products/cement.webp";
+    } else {
+      return "/products/sand.jpg";
+    }
+  };
   return (
     <Wrapper>
       <form className="form">
         <h3>{isEditing ? "Edit Product" : "Add Product"}</h3>
         {showAlert && <Alert />}
+        {pName && (
+          <img src={imageSelector()} alt="product" width={250} height={250} />
+        )}
         <div className="form-center">
-          <FormRow
-            type="text"
-            labelText="Product Name"
-            name="pName"
-            value={pName}
-            handleChange={handleProductInput}
-          />
+          <div className="form-row">
+            <label htmlFor="type" className="form-label">
+              Product
+            </label>
+            <select
+              name="pName"
+              labelText="Product Name"
+              value={pName}
+              onChange={handleProductInput}
+              className="form-input"
+            >
+              <option value="">select</option>
+              <option value="Sand">Sand</option>
+              <option value="Cement">Cement</option>
+              <option value="Bricks">Bricks</option>
+            </select>
+          </div>
           <FormRow
             type="text"
             labelText="Quantity"

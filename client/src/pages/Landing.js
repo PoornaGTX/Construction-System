@@ -9,7 +9,7 @@ const Landing = () => {
       <div className="container page">
         <div className="info">
           <h1>
-            Farmer <span>Trade</span> app
+            Construction <span>Trade</span> app
           </h1>
           <p>
             Educated during the grip of the COVID-19 pandemic, the class of 2021

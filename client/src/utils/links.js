@@ -2,6 +2,7 @@ import { MdQueryStats } from "react-icons/md";
 import { FaWpforms } from "react-icons/fa";
 import { BsBuilding } from "react-icons/bs";
 import { ImProfile } from "react-icons/im";
+import { IoWalletOutline } from "react-icons/io5";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { BiAddToQueue } from "react-icons/bi";
 import { GoRequestChanges } from "react-icons/go";
@@ -30,6 +31,12 @@ const links = [
     text: "My Cart",
     path: "add-to-cart",
     icon: <ImProfile />,
+  },
+  {
+    id: 50,
+    text: "Orders",
+    path: "orders",
+    icon: <IoWalletOutline/>,
   },
   {
     id: 5,
