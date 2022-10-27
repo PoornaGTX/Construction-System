@@ -1,107 +1,36 @@
-import { View, Text, Dimensions, StyleSheet, ScrollView } from "react-native";
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from "react-native-chart-kit";
+import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 
-const StatsScreenAdmin = () => {
-  const mydata = [
-    { date: "dec", count: 2 },
-    { date: "lk", count: 4 },
-    { date: "lkkl", count: 3 },
-    { date: "lke", count: 1 },
-    { date: "lkss", count: 5 },
-    { date: "lscl", count: 6 },
-  ];
+const StatsScreenAdmin = ({ route }) => {
+  const ProductID = route.params?.pID;
+  const ProductPrice = route.params?.pPrice;
+  const ProductQty = route.params?.pqty;
+  const ProductSupName = route.params?.supName;
 
-  const date = mydata.map((item) => {
-    return item.date;
-  });
-
-  const value = mydata.map((pl) => {
-    return pl.count;
-  });
+  const proData = [];
+  proData.push({ ProductID, ProductPrice, ProductQty, ProductSupName });
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.statstext}>APP STATISTICS</Text>
-        <View style={styles.totalUsers}>
-          <Text style={styles.totalUsersText}>Total users</Text>
-          <View style={styles.userContainer}>
-            <Text style={styles.userText}>Teachers : 20</Text>
-            <Text style={styles.userText}>Students : 20</Text>
-          </View>
-        </View>
-
-        <View style={[styles.totalUsers, styles.subjectContainer]}>
-          <Text style={styles.totalUsersText}>Total subjects</Text>
-          <View style={styles.userContainer}>
-            <View style={styles.totalSubRow}>
-              <Text style={styles.userText}>Grade 1 : 12</Text>
-              <Text style={styles.userText}>Grade 2 : 12</Text>
-              <Text style={styles.userText}>Grade 3 : 12</Text>
-              <Text style={styles.userText}>Grade 4 : 12</Text>
-              <Text style={styles.userText}>Grade 5 : 12</Text>
-              <Text style={styles.userText}>Grade 6 : 12</Text>
-              <Text style={styles.userText}>Grade 7 : 12</Text>
-              <Text style={styles.userText}>Grade 8 : 12</Text>
-              <Text style={styles.userText}>Grade 10 : 12</Text>
-              <Text style={styles.userText}>Grade 11 : 12</Text>
-              <Text style={styles.userText}>Grade 12 : 12</Text>
-              <Text style={styles.userText}>Grade 13 : 12</Text>
-            </View>
-          </View>
-        </View>
-
-        <Text style={styles.headingText}>Monthly User Creation</Text>
-        <View style={styles.chartContainer}>
-          <LineChart
-            data={{
-              labels: date,
-              datasets: [
-                {
-                  data: value,
-                },
-              ],
-            }}
-            width={390} // from react-native
-            height={220}
-            yAxisInterval={1} // optional, defaults to 1
-            y
-            chartConfig={{
-              backgroundColor: "#e26a00",
-              strokeWidth: 0,
-              backgroundGradientFrom: "#fb8c00",
-              backgroundGradientTo: "#ffa726",
-              decimalPlaces: 0, // optional, defaults to 2dp
-              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              style: {
-                borderRadius: 16,
-              },
-              propsForDots: {
-                r: "6",
-                strokeWidth: "5",
-                stroke: "#ffa726",
-              },
-            }}
-            bezier
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
-            }}
-          />
+    <View style={styles.container}>
+      <View style={styles.mainBody}>
+        <View>
+          {proData.map((item) => {
+            const { ProductID, ProductPrice, ProductQty, ProductSupName } =
+              item;
+            return (
+              <View key={ProductID}>
+                <Text>{ProductID}</Text>
+                <Text>{ProductPrice}</Text>
+                <Text>{ProductQty}</Text>
+                <Text>{ProductSupName}</Text>
+              </View>
+            );
+          })}
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
-
+const height = Dimensions.get("window").height;
 export default StatsScreenAdmin;
 
 const styles = StyleSheet.create({
@@ -163,5 +92,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     justifyContent: "space-between",
+  },
+
+  mainBody: {
+    margin: 60,
   },
 });
