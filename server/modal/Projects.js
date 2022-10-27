@@ -21,8 +21,7 @@ const projectScheme = new Schema(
     },
     projectManager: {
       type: String,
-      required: true,
-      trim: true,
+      default: "none",
     },
     projectDeadLine: {
       type: Date,

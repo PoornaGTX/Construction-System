@@ -39,6 +39,10 @@ import {
   GET_ALL_USERS_BEGIN,
   GET_ALL_USERS_SUCCESS,
   DELETE_PROJECT_BEGIN,
+  EDIT_PROJECT_BEGIN,
+  EDIT_PROJECT_ERROR,
+  EDIT_PROJECT_SUCCESS,
+  SET_EDIT_PROJECT,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -164,6 +168,13 @@ const reducer = (state, action) => {
       pName: "",
       price: "",
       qty: 0,
+      projectName: "",
+      projectLocation: "",
+      projectEstimatedCost: 0,
+      projectDeadLine: "",
+      projectManager: "",
+      editProjectId: "",
+      isEditingProject: false,
     };
     return { ...state, ...initialState };
   }
@@ -352,6 +363,55 @@ const reducer = (state, action) => {
   if (action.type === DELETE_PROJECT_BEGIN) {
     return { ...state, isLoading: true };
   }
+  //set edit project
+  if (action.type === SET_EDIT_PROJECT) {
+    const project = state.projects.find(
+      (product) => product._id === action.payload.id
+    );
+    const {
+      projectName,
+      projectLocation,
+      projectEstimatedCost,
+      projectDeadLine,
+      projectManager,
+      _id,
+    } = project;
+    return {
+      ...state,
+      isLoading: true,
+      isEditingProject: true,
+      projectName,
+      projectLocation,
+      projectEstimatedCost,
+      projectDeadLine,
+      projectManager,
+      editProjectId: _id,
+    };
+  }
+
+  //edit product
+  if (action.type === EDIT_PROJECT_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === EDIT_PROJECT_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "Project Updated!",
+    };
+  }
+  if (action.type === EDIT_PROJECT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
   throw new Error(`no such action:${action.type}`);
 };
 

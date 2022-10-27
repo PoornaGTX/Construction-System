@@ -22,8 +22,14 @@ const Project = ({
   createdAt,
   _id,
 }) => {
-  const { deleteProject, setEditProduct, deleteProduct, user, addItemToCart } =
-    useAppContext();
+  const {
+    deleteProject,
+    setEditProduct,
+    deleteProduct,
+    user,
+    addItemToCart,
+    setEditProject,
+  } = useAppContext();
   let date = moment(createdAt);
   date = date.format("MMM Do, YYYY");
   let dueDate = moment(projectDeadLine);
@@ -43,13 +49,13 @@ const Project = ({
         </div>
         <footer>
           <div className="actions">
-            {/* <Link
-              to="/add-product"
-              onClick={() => setEditProduct(_id)}
+            <Link
+              to="/add-new-project"
+              onClick={() => setEditProject(_id)}
               className="btn edit-btn"
             >
               Edit
-            </Link> */}
+            </Link>
             <button
               type="button"
               className="btn delete-btn"

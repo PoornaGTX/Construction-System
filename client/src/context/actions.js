@@ -57,3 +57,10 @@ export const GET_ALL_USERS_BEGIN = "GET_ALL_USERS_BEGIN";
 export const GET_ALL_USERS_SUCCESS = "GET_ALL_USERS_SUCCESS";
 //delete projects
 export const DELETE_PROJECT_BEGIN = "DELETE_PROJECT_BEGIN";
+
+//set edit project
+export const SET_EDIT_PROJECT = "SET_EDIT_PROJECT";
+//edit project
+export const EDIT_PROJECT_BEGIN = "EDIT_PROJECT_BEGIN";
+export const EDIT_PROJECT_SUCCESS = "EDIT_PROJECT_SUCCESS";
+export const EDIT_PROJECT_ERROR = "EDIT_PROJECT_ERROR";

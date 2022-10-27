@@ -4,13 +4,14 @@ const {
   createProjects,
   getProjects,
   deleteProject,
+  updateProject,
 } = require("../controllers/ProjectController");
 
 const router = express.Router();
 
 // router.get("/getProducts/:id", getSingleProduct);
 router.delete("/:id", deleteProject);
-// router.patch("/updateProducts/:id", updateProduct);
+router.patch("/:id", updateProject);
 router.post("/", createProjects);
 router.get("/", getProjects);
 

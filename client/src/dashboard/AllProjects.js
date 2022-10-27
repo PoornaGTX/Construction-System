@@ -3,7 +3,6 @@ import { SearchContainer, ProjectContainer } from "../components/index";
 const AllProjects = () => {
   return (
     <>
-      <SearchContainer />
       <ProjectContainer />
     </>
   );

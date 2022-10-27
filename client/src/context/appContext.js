@@ -42,6 +42,10 @@ import {
   GET_ALL_USERS_BEGIN,
   GET_ALL_USERS_SUCCESS,
   DELETE_PROJECT_BEGIN,
+  EDIT_PROJECT_BEGIN,
+  EDIT_PROJECT_ERROR,
+  EDIT_PROJECT_SUCCESS,
+  SET_EDIT_PROJECT,
 } from "./actions";
 //set as default
 const user = localStorage.getItem("user");
@@ -56,8 +60,9 @@ export const initialState = {
   alertType: "",
   showSidebar: false,
   isEditing: false,
-  isEditingProject: false,
   editProductId: "",
+  editProjectId: "",
+  isEditingProject: false,
   pName: "",
   price: "",
   qty: 0,
@@ -439,6 +444,47 @@ const AppProvider = ({ children }) => {
       logoutUser();
     }
   };
+  //set edit project
+  const setEditProject = (id) => {
+    dispatch({ type: SET_EDIT_PROJECT, payload: { id } });
+  };
+
+  //edit job
+  const editProject = async () => {
+    dispatch({ type: EDIT_PROJECT_BEGIN });
+    try {
+      const {
+        projectName,
+        projectLocation,
+        projectEstimatedCost,
+        projectDeadLine,
+        projectManager,
+      } = state;
+      await authFetch.patch(`/Projects/${state.editProjectId}`, {
+        projectName,
+        projectLocation,
+        projectEstimatedCost,
+        projectDeadLine,
+        projectManager,
+      });
+      dispatch({
+        type: EDIT_PROJECT_SUCCESS,
+      });
+      dispatch({ type: CLEAR_VALUES });
+    } catch (error) {
+      if (error.response.status === 401) {
+        return;
+      }
+      dispatch({
+        type: EDIT_PROJECT_ERROR,
+        payload: {
+          msg: error.response.data.msg,
+        },
+      });
+    }
+    clearAlert();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -464,6 +510,8 @@ const AppProvider = ({ children }) => {
         getAllProjects,
         getAllUsers,
         deleteProject,
+        setEditProject,
+        editProject,
       }}
     >
       {children}

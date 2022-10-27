@@ -3,7 +3,6 @@ import { useAppContext } from "../context/appContext";
 import { FormRow, Alert } from "../components/index";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 const AddNewProject = () => {
-  const [startDate, setStartDate] = useState(new Date());
   const {
     isEditingProject,
     showAlert,
@@ -16,6 +15,7 @@ const AddNewProject = () => {
     projectDeadLine,
     projectManager,
     createProject,
+    editProject,
   } = useAppContext();
   //handle submit
   const handleSubmit = (e) => {
@@ -26,8 +26,7 @@ const AddNewProject = () => {
       return;
     }
     if (isEditingProject) {
-      //edit function
-      //   editProduct();
+      editProject();
       return;
     }
     createProject();
@@ -38,7 +37,6 @@ const AddNewProject = () => {
     const value = e.target.value;
     handleChange({ name, value });
   };
-
   return (
     <Wrapper>
       <form className="form">

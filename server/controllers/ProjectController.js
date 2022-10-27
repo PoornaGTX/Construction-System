@@ -36,38 +36,41 @@ const deleteProject = async (req, res) => {
     res.status(404).send({ msg: error });
   }
 };
-// //update a product
-// const updateProduct = async (req, res) => {
-//   const { id: pid } = req.params;
-//   const { name, price, qty } = req.body;
+// //update a project
+const updateProject = async (req, res) => {
+  const { id: pid } = req.params;
+  const {
+    projectName,
+    projectLocation,
+    projectEstimatedCost,
+    projectDeadLine,
+    projectManager,
+  } = req.body;
 
-//   if (!name || !price || !qty) {
-//     throw new BadRequestError("Please Provide All Values.");
-//   }
-//   const product = await Product.find({ _id: pid });
-//   console.log(product);
-//   if (!product) {
-//     throw new NotFoundError(`No Product found with id ${pid}`);
-//   }
-//   console.log(product.createdBy);
-//   console.log(req.user.userId);
-//   console.log(typeof req.user.userId);
-//   console.log(typeof product.createdBy);
-//   // //check permissions
-//   // if (req.user.userId !== product.createdBy) {
-//   //   throw new UnauthenticatedError("Not authorized to access this route");
-//   // }
-//   const UpdatedProduct = await Product.findOneAndUpdate(
-//     { _id: pid },
-//     req.body,
-//     {
-//       new: true,
-//       runValidators: true,
-//     }
-//   );
-//   res.status(200).send({ UpdatedProduct });
-// };
-//create a new product
+  if (
+    !projectName ||
+    !projectLocation ||
+    !projectEstimatedCost ||
+    !projectDeadLine
+  ) {
+    throw new BadRequestError("Please Provide All Values.");
+  }
+  const project = await Project.find({ _id: pid });
+  console.log(project);
+  if (!project) {
+    throw new NotFoundError(`No Product found with id ${pid}`);
+  }
+  const UpdatedProject = await Project.findOneAndUpdate(
+    { _id: pid },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.status(200).send({ UpdatedProject });
+};
+//create a new project
 const createProjects = async (req, res) => {
   const {
     projectName,
@@ -88,4 +91,5 @@ module.exports = {
   createProjects,
   getProjects,
   deleteProject,
+  updateProject,
 };
