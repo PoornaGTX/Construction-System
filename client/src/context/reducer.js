@@ -31,6 +31,9 @@ import {
   GET_ALL_CART_BEGIN,
   GET_ALL_CART_SUCCESS,
   CLEAR_CART,
+  CREATE_PROJECT_BEGIN,
+  CREATE_PROJECT_ERROR,
+  CREATE_PROJECT_SUCCESS,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -288,6 +291,28 @@ const reducer = (state, action) => {
   //clear cart
   if (action.type === CLEAR_CART) {
     return { ...state, isLoading: true };
+  }
+  //create project
+  if (action.type === CREATE_PROJECT_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === CREATE_PROJECT_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "New Product added!",
+    };
+  }
+  if (action.type === CREATE_PROJECT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
   }
   throw new Error(`no such action:${action.type}`);
 };

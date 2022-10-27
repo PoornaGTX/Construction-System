@@ -34,6 +34,9 @@ import {
   GET_ALL_CART_SUCCESS,
   GET_ALL_CART_BEGIN,
   CLEAR_CART,
+  CREATE_PROJECT_BEGIN,
+  CREATE_PROJECT_SUCCESS,
+  CREATE_PROJECT_ERROR,
 } from "./actions";
 //set as default
 const user = localStorage.getItem("user");
@@ -57,6 +60,12 @@ export const initialState = {
   numOfPages: 1,
   page: 1,
   cart: [],
+  projects: [],
+  projectName: "",
+  projectLocation: "",
+  projectEstimatedCost: 0,
+  projectDeadLine: "",
+  projectManager: "",
 };
 
 const AppContext = React.createContext();
@@ -338,6 +347,40 @@ const AppProvider = ({ children }) => {
       logoutUser();
     }
   };
+
+  //create product
+  const createProject = async () => {
+    dispatch({
+      type: CREATE_PROJECT_BEGIN,
+    });
+    try {
+      const {
+        projectName,
+        projectLocation,
+        projectEstimatedCost,
+        projectDeadLine,
+        projectManager,
+      } = state;
+      await authFetch.post("/Projects/", {
+        projectName,
+        projectLocation,
+        projectEstimatedCost,
+        projectDeadLine: new Date(projectDeadLine),
+        projectManager,
+      });
+      dispatch({
+        type: CREATE_PROJECT_SUCCESS,
+      });
+      dispatch({ type: CLEAR_VALUES });
+    } catch (error) {
+      if (error.response.status === 401) return;
+      dispatch({
+        type: CREATE_PROJECT_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  };
   return (
     <AppContext.Provider
       value={{
@@ -358,6 +401,7 @@ const AppProvider = ({ children }) => {
         addItemToCart,
         getCart,
         clearCart,
+        createProject,
       }}
     >
       {children}

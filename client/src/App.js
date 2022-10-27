@@ -7,12 +7,18 @@ import {
   Profile,
   SharedLayout,
   Cart,
+  AllProjects,
+  AllSiteManagers,
+  AddNewProject,
+  OrderRequests,
 } from "./dashboard/index";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import ProtectedRouter from "./components/ProtectedRoute";
 import ProtectedSupplierRoute from "./components/ProtectedSupplierRoute";
 import ProtectedCustomerRoute from "./components/ProtectedCustomerRoute";
 import Orders from "./dashboard/Orders";
+import ProtectedManagerRoute from "./components/ProtectedManagerRoute";
+
 
 function App() {
   return (
@@ -52,6 +58,38 @@ function App() {
                   <ProtectedCustomerRoute>
                     <Cart />
                   </ProtectedCustomerRoute>
+                }
+              />
+              <Route
+                path="all-projects"
+                element={
+                  <ProtectedManagerRoute>
+                    <AllProjects />
+                  </ProtectedManagerRoute>
+                }
+              />
+              <Route
+                path="all-site-managers"
+                element={
+                  <ProtectedManagerRoute>
+                    <AllSiteManagers />
+                  </ProtectedManagerRoute>
+                }
+              />
+              <Route
+                path="add-new-project"
+                element={
+                  <ProtectedManagerRoute>
+                    <AddNewProject />
+                  </ProtectedManagerRoute>
+                }
+              />
+              <Route
+                path="order-requests"
+                element={
+                  <ProtectedManagerRoute>
+                    <OrderRequests />
+                  </ProtectedManagerRoute>
                 }
               />
             </Route>

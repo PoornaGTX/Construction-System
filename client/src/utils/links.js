@@ -1,7 +1,11 @@
 import { MdQueryStats } from "react-icons/md";
 import { FaWpforms } from "react-icons/fa";
+import { BsBuilding } from "react-icons/bs";
 import { ImProfile } from "react-icons/im";
 import { IoWalletOutline } from "react-icons/io5";
+import { MdOutlineManageAccounts } from "react-icons/md";
+import { BiAddToQueue } from "react-icons/bi";
+import { GoRequestChanges } from "react-icons/go";
 
 const links = [
   {
@@ -33,6 +37,30 @@ const links = [
     text: "Orders",
     path: "orders",
     icon: <IoWalletOutline/>,
+  },
+  {
+    id: 5,
+    text: "All Projects",
+    path: "all-projects",
+    icon: <BsBuilding />,
+  },
+  {
+    id: 6,
+    text: "All Site Managers",
+    path: "all-site-managers",
+    icon: <MdOutlineManageAccounts />,
+  },
+  {
+    id: 7,
+    text: "Add New Project",
+    path: "add-new-project",
+    icon: <BiAddToQueue />,
+  },
+  {
+    id: 8,
+    text: "Order Requests",
+    path: "order-requests",
+    icon: <GoRequestChanges />,
   },
 ];
 

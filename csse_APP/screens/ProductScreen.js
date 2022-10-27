@@ -1,20 +1,21 @@
 import { useLayoutEffect } from "react";
 import { FlatList } from "react-native";
 
-import { grades } from "../dummyData/data";
+import { ProductName } from "../dummyData/data";
 import GradeGirdTitle from "../components/GradeGirdTitle";
 import IconButton from "../components/icons/IconButton";
 
-const GradesScreen = ({ navigation }) => {
+const ProductScreen = ({ navigation }) => {
   const renderGradesItem = (itemData) => {
     const pressHandler = () => {
-      navigation.navigate("Subjects", { singlegardeID: itemData.item.id });
+      navigation.navigate("Suppliers", { typeName: itemData.item.Name });
     };
 
     return (
       <GradeGirdTitle
-        grade={itemData.item.Grade}
+        name={itemData.item.Name}
         color={itemData.item.color}
+        type={itemData.item.type}
         onPressProp={pressHandler}
       />
     );
@@ -41,7 +42,7 @@ const GradesScreen = ({ navigation }) => {
 
   return (
     <FlatList
-      data={grades}
+      data={ProductName}
       keyExtractor={(item) => item.id}
       renderItem={renderGradesItem}
       numColumns={2}
@@ -49,4 +50,4 @@ const GradesScreen = ({ navigation }) => {
   );
 };
 
-export default GradesScreen;
+export default ProductScreen;

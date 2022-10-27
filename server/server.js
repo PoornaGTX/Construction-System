@@ -15,6 +15,7 @@ const { v4: uuid } = require("uuid");
 const authenticateUser = require("./middleware/auth");
 const supplierRoutes = require("./routes/supplierRoutes");
 const CustomerRoutes = require("./routes/CustomerRoutes");
+const ProjectRoutes = require("./routes/projectsRoutes");
 const authRoutes = require("./routes/authRoutes");
 const notFound = require("./middleware/not-found");
 const errorHandler = require("./middleware/error-handler");
@@ -171,8 +172,9 @@ tr:nth-child(even) {
 // });
 //other routes
 app.use("/api/auth", authRoutes);
-app.use("/api/Customers", CustomerRoutes);
+app.use("/api/Customers", CustomerRoutes);r
 app.use("/api", authenticateUser, supplierRoutes);
+app.use("/api/Projects", ProjectRoutes);
 app.use("*", notFound);
 //error handler middleware
 app.use(errorHandler);
