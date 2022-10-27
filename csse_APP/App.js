@@ -10,15 +10,33 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //screens
-import GradesScreen from "./screens/GradesScreen";
-import GradeSubjects from "./screens/GradeSubjects";
+import LoginScreen from "./screens/LoginScreen";
+import ProductScreen from "./screens/ProductScreen";
+import SuppliersScreen from "./screens/SuppliersScreen";
 import ManageSubjectScreen from "./screens/ManageSubjectScreen";
-import KnowledgelabContextProvider from "./store/KLab-context";
 import ManageGradesScreen from "./screens/ManageGradesScreen";
 import StatsScreenAdmin from "./screens/StatsScreenAdmin";
 
+import { AppProvider } from "./context/appContext";
+
 const Stack = createNativeStackNavigator();
 const Bottom = createBottomTabNavigator();
+
+//for unathunticated users
+const AuthStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: Colors.primary500 },
+        headerTintColor: "white",
+        contentStyle: { backgroundColor: Colors.primary100 },
+      }}
+    >
+      <Stack.Screen name="Login" component={LoginScreen} />
+      {/* <Stack.Screen name="Signup" component={SignupScreen} /> */}
+    </Stack.Navigator>
+  );
+};
 
 //use by admin
 const AdminBottomTabHome = () => {
@@ -30,16 +48,16 @@ const AdminBottomTabHome = () => {
       }}
     >
       <Stack.Screen
-        name="All Grades"
-        component={GradesScreen}
+        name="Products"
+        component={ProductScreen}
         options={{
           contentStyle: { backgroundColor: "white" },
           headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
-        name="Subjects"
-        component={GradeSubjects}
+        name="Suppliers"
+        component={SuppliersScreen}
         options={{
           contentStyle: { backgroundColor: "white" },
           headerTitleAlign: "center",
@@ -64,35 +82,15 @@ const AdminBottomTabHome = () => {
   );
 };
 
-{
-  /* <Stack.Navigator
-            screenOptions={{ headerStyle: { backgroundColor: "white" } }}
-          >
-            <Stack.Screen
-              name="All Grades"
-              component={GradesScreen}
-              options={{ contentStyle: { backgroundColor: "white" } }}
-            />
-            <Stack.Screen
-              name="Subjects"
-              component={GradeSubjects}
-              options={{ contentStyle: { backgroundColor: "white" } }}
-            />
-            <Stack.Screen
-              name="ManageSubjects"
-              component={ManageSubjectScreen}
-              options={{ presentation: "modal", title: "Manage Subject" }}
-            />
-
-            <Stack.Screen
-              name="ManageGrade"
-              component={ManageGradesScreen}
-              options={{ presentation: "modal", title: "Manage Grades" }}
-            />
-
-            <Stack.Screen name="AdminStatslk" component={adminBottomTab} />
-          </Stack.Navigator> */
-}
+// function Navigation() {
+//   const authCtx = [];
+//   return (
+//     <NavigationContainer>
+//       {!authCtx.isLogedIn && <AuthStack />}
+//       {authCtx.isLogedIn && <AuthenticatedStack />}
+//     </NavigationContainer>
+//   );
+// }
 
 export default function App() {
   const user = "Admin"; //temp
@@ -100,7 +98,7 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <KnowledgelabContextProvider>
+      <AppProvider>
         <NavigationContainer>
           <Bottom.Navigator
             screenOptions={{
@@ -136,7 +134,7 @@ export default function App() {
             )}
           </Bottom.Navigator>
         </NavigationContainer>
-      </KnowledgelabContextProvider>
+      </AppProvider>
     </>
   );
 }

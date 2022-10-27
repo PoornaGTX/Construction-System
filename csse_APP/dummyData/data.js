@@ -1,8 +1,66 @@
-export const grades = [
-  { id: "Grade 1", Grade: "Grade 1", color: "#f5428d" },
-  { id: "Grade 2", Grade: "Grade 2", color: "#f54242" },
-  { id: "Grade 3", Grade: "Grade 3", color: "#f5a442" },
-  { id: "Grade 4", Grade: "Grade 4", color: "#f5d142" },
-  { id: "Grade 5", Grade: "Grade 5", color: "#368dff" },
-  { id: "Grade 6", Grade: "Grade 6", color: "#41d95d" },
+export const ProductName = [
+  { id: "Pn1", Name: "Cement", color: "#f5428d" },
+  { id: "Pn2", Name: "Sand", color: "#f54242" },
+  { id: "Pn3", Name: "Bricks", color: "#f5a442" },
+  { id: "Pn4", Name: "Product1", color: "#f5d142" },
+  { id: "Pn5", Name: "Product2", color: "#368dff" },
+  { id: "Pn6", Name: "Product3", color: "#41d95d" },
+  { id: "Pn7", Name: "Product4", color: "#368dff" },
+  { id: "Pn8", Name: "Product5", color: "#41d95d" },
 ];
+
+export const Prodcuts = [
+  {
+    id: "p1",
+    type: "cement",
+    price: 750.0,
+    qty: 20,
+    supName: "RT CONSRCDTION",
+    color: "#f5428d",
+  },
+  {
+    id: "p2",
+    type: "cement",
+    price: 850.0,
+    qty: 10,
+    supName: "LT Sup",
+    color: "#f5a442",
+  },
+  {
+    id: "p3",
+    type: "sand",
+    price: 7500.0,
+    qty: 20,
+    supName: "QT Sup",
+    color: "#41d95d",
+  },
+  {
+    id: "p4",
+    type: "sand",
+    price: 10000.0,
+    qty: 50,
+    supName: "ST Sup",
+    color: "#368dff",
+  },
+  {
+    id: "p12",
+    type: "cement",
+    price: 760.0,
+    qty: 10,
+    supName: "RT Sup",
+    color: "#f5428d",
+  },
+  {
+    id: "p15",
+    type: "cement",
+    price: 780.0,
+    qty: 10,
+    supName: "RT Sup",
+    color: "#f5428d",
+  },
+];
+
+// { id: "Pn1", Grade: "Grade 1", color: "#f5428d" },
+// { id: "Pn1", Grade: "Grade 2", color: "#f54242" },
+// { id: "Pn1", Grade: "Grade 3", color: "#f5a442" },
+// { id: "Pn1", Grade: "Grade 4", color: "#f5d142" },
