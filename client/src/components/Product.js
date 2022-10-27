@@ -18,9 +18,23 @@ const Product = ({ name, createdAt, price, qty, _id }) => {
     useAppContext();
   let date = moment(createdAt);
   date = date.format("MMM Do, YYYY");
+
+  const imageSelector = () => {
+    if(name==='Sand'){
+      return "/products/sand.jpg"
+    }else if(name==='Bricks'){
+      return "/products/bricks.webp"
+    }else if(name==='Cement'){
+      return "/products/cement.webp"
+    }else{
+      return "/products/sand.jpg"
+    }
+  }
   return (
     <Wrapper>
-      <header></header>
+      <header>
+        <img src={imageSelector()} alt="product" width={250} height={250}/>
+      </header>
       <div className="content">
         {/* content center later */}
         <div className="content-center">

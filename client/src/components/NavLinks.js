@@ -7,7 +7,7 @@ const NavLinks = ({ toggleSidebar }) => {
   let newLinks = links;
   if (user.type === "Site Manager") {
     newLinks = links.filter((link) => {
-      if (link.path !== "add-product") {
+      if (link.path !== "add-product" || link.path !== "orders") {
         return link;
       }
     });

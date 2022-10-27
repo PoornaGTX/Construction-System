@@ -3,9 +3,17 @@ import styled from 'styled-components'
 const Wrapper = styled.article`
   background: var(--white);
   border-radius: var(--borderRadius);
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   grid-template-rows: 1fr auto;
   box-shadow: var(--shadow-2);
+
+   @media (min-width: 576px) {
+      flex-direction: row;
+  }
+
 
   header {
     padding: 1rem 1.5rem;

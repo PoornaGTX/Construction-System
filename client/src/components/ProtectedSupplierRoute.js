@@ -1,7 +1,7 @@
 import { useAppContext } from "../context/appContext";
 import { Navigate } from "react-router-dom";
 
-const ProtectedFarmerRoute = ({ children }) => {
+const ProtectedSupplierRoute = ({ children }) => {
   const { user } = useAppContext();
   console.log(user.type);
   if (user.type === "Customer") {
@@ -10,4 +10,4 @@ const ProtectedFarmerRoute = ({ children }) => {
   return children;
 };
 
-export default ProtectedFarmerRoute;
+export default ProtectedSupplierRoute;

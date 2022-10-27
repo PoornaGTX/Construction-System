@@ -13,7 +13,7 @@ const stripe = require("stripe")(
 const { v4: uuid } = require("uuid");
 
 const authenticateUser = require("./middleware/auth");
-const farmerRoutes = require("./routes/farmerRoutes");
+const supplierRoutes = require("./routes/supplierRoutes");
 const CustomerRoutes = require("./routes/CustomerRoutes");
 const authRoutes = require("./routes/authRoutes");
 const notFound = require("./middleware/not-found");
@@ -172,7 +172,7 @@ tr:nth-child(even) {
 //other routes
 app.use("/api/auth", authRoutes);
 app.use("/api/Customers", CustomerRoutes);
-app.use("/api", authenticateUser, farmerRoutes);
+app.use("/api", authenticateUser, supplierRoutes);
 app.use("*", notFound);
 //error handler middleware
 app.use(errorHandler);

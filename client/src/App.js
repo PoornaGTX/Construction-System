@@ -10,8 +10,9 @@ import {
 } from "./dashboard/index";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import ProtectedRouter from "./components/ProtectedRoute";
-import ProtectedFarmerRoute from "./components/ProtectedFarmerRoute";
+import ProtectedSupplierRoute from "./components/ProtectedSupplierRoute";
 import ProtectedCustomerRoute from "./components/ProtectedCustomerRoute";
+import Orders from "./dashboard/Orders";
 
 function App() {
   return (
@@ -31,9 +32,17 @@ function App() {
               <Route
                 path="add-product"
                 element={
-                  <ProtectedFarmerRoute>
+                  <ProtectedSupplierRoute>
                     <AddProduct />
-                  </ProtectedFarmerRoute>
+                  </ProtectedSupplierRoute>
+                }
+              />
+              <Route
+                path="orders"
+                element={
+                  <ProtectedSupplierRoute>
+                    <Orders />
+                  </ProtectedSupplierRoute>
                 }
               />
               <Route path="profile" element={<Profile />} />
