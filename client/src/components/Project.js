@@ -21,6 +21,7 @@ const Project = ({
   projectManager,
   createdAt,
   _id,
+  siteManagers,
 }) => {
   const {
     deleteProject,
@@ -34,9 +35,15 @@ const Project = ({
   date = date.format("MMM Do, YYYY");
   let dueDate = moment(projectDeadLine);
   dueDate = dueDate.format("MMM Do, YYYY");
+
   return (
     <Wrapper>
-      <header></header>
+      <header>
+        <div className="main-icon">{projectName.charAt(0)}</div>
+        <div className="info">
+          <h5>{projectName}</h5>
+        </div>
+      </header>
       <div className="content">
         {/* content center later */}
         <div className="content-center">

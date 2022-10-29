@@ -75,7 +75,7 @@ export const initialState = {
   users: [],
   projectName: "",
   projectLocation: "",
-  projectEstimatedCost: 0,
+  projectEstimatedCost: "",
   projectDeadLine: "",
   projectManager: "",
 };

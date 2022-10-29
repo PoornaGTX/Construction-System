@@ -36,6 +36,10 @@ const userScheme = new Schema(
       type: String,
       default: "none",
     },
+    allocatedProjectId: {
+      type: mongoose.Types.ObjectId,
+      ref: "Project",
+    },
     password: {
       type: String,
       required: [true, "Please provide password."],

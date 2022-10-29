@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/appContext";
 import { FormRow, Alert } from "../components/index";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 const AddNewProject = () => {
+  const [] = useState();
   const {
     isEditingProject,
     showAlert,
@@ -16,7 +17,15 @@ const AddNewProject = () => {
     projectManager,
     createProject,
     editProject,
+    getAllUsers,
+    users,
   } = useAppContext();
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+  let siteManagers = users.filter((user) => {
+    return user.type === "Site Manager";
+  });
   //handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,6 +39,7 @@ const AddNewProject = () => {
       return;
     }
     createProject();
+    console.log(projectManager);
   };
   //handle inputs
   const handleProductInput = (e) => {
@@ -71,14 +81,26 @@ const AddNewProject = () => {
             value={projectDeadLine}
             handleChange={handleProductInput}
           />
-          <FormRow
-            type="text"
-            labelText="Project Manager"
-            name="projectManager"
-            value={projectManager}
-            handleChange={handleProductInput}
-          />
+          <div className="form-row">
+            <label htmlFor="type" className="form-label">
+              Project Managers
+            </label>
+            <select
+              value={projectManager}
+              name="projectManager"
+              onChange={handleProductInput}
+              className="form-input"
+            >
+              {siteManagers.map((manager) => {
+                return <option value={manager.email}>{manager.email}</option>;
+              })}
 
+              <option value="None">None</option>
+              {projectManager && (
+                <option value={projectManager}>{projectManager}</option>
+              )}
+            </select>
+          </div>
           <div className="btn-container">
             <button
               className="btn btn-block submit-btn"

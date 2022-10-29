@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Wrapper from "../assets/wrappers/JobsContainer";
 import { useAppContext } from "../context/appContext";
-import Product from "./Product";
 import Loading from "./Loading";
 import Project from "./Project";
 import User from "./User";
@@ -28,7 +27,7 @@ const AllSiteManagersContainer = () => {
   return (
     <Wrapper>
       <h5>
-        {siteManagers.length} project{siteManagers.length > 1 && "s"}
+        {siteManagers.length} site manager{siteManagers.length > 1 && "s"}
       </h5>
       <div className="jobs">
         {siteManagers.map((user) => {

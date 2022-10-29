@@ -6,9 +6,11 @@ import Loading from "./Loading";
 import Project from "./Project";
 
 const ProjectContainer = () => {
-  const { getAllProjects, projects, isLoading } = useAppContext();
+  const { getAllProjects, projects, isLoading, users, getAllUsers } =
+    useAppContext();
   useEffect(() => {
     getAllProjects();
+    getAllUsers();
   }, []);
   if (isLoading) {
     return <Loading center />;
@@ -20,7 +22,9 @@ const ProjectContainer = () => {
       </Wrapper>
     );
   }
-
+  let siteManagers = users.filter((user) => {
+    return user.type === "Site Manager";
+  });
   return (
     <Wrapper>
       <h5>
@@ -28,7 +32,13 @@ const ProjectContainer = () => {
       </h5>
       <div className="jobs">
         {projects.map((project) => {
-          return <Project key={project._id} {...project} />;
+          return (
+            <Project
+              key={project._id}
+              {...project}
+              siteManagers={siteManagers}
+            />
+          );
         })}
       </div>
     </Wrapper>
