@@ -1,34 +1,55 @@
 import { useLayoutEffect, useContext, useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text } from "react-native";
+import { FlatList, StyleSheet, Text, Alert, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/core";
 
 //components
 import SubjectGirdTitle from "../components/SubjectGirdTitle";
-import { Prodcuts } from "../dummyData/data";
 import IconButton from "../components/icons/IconButton";
-import { KnowledgelabContext } from "../store/KLab-context";
-
-//http request
-import { getAllSubject } from "../utill/http";
+import { useAppContext } from "../context/appContext";
 
 //route will resive to any registred screens
 const SuppliersScreen = ({ route }) => {
-  const type = route.params.typeName.toLowerCase();
+  const type = route.params.typeName;
   const navigation = useNavigation();
 
-  const NevigateToCartHandler = (id, price, qty, supName) => {
-    navigation.navigate("Stats", {
-      pID: id,
-      pPrice: price,
-      pqty: qty,
-      supName: supName,
+  const { addToCart, getAllProducts, products } = useAppContext();
+
+  const NevigateToCartHandler = (_id, price, qty, supplierName, aQty, date) => {
+    const name = supplierName;
+    const pid = _id;
+    const total = +price * +aQty;
+
+    if (+qty < +aQty) {
+      return Alert.alert(
+        "Authntication failed!",
+        "Could not log you in. Please check credentials or try again later"
+      );
+    }
+
+    addToCart({
+      name,
+      price: Number(price),
+      qty,
+      pid,
+      total,
+      userQty: Number(aQty),
+      date,
     });
+
+    return Alert.alert(
+      "Add to cart success",
+      "Could not log you in. Please check credentials or try again later"
+    );
   };
 
-  const displaySubjects = Prodcuts.filter((singleProduct) => {
-    return singleProduct.type === type;
+  const displaySubjects = products.filter((singleProduct) => {
+    return singleProduct.name === type;
   });
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
 
   const renderSubjectItem = (itemData) => {
     return (
@@ -42,13 +63,13 @@ const SuppliersScreen = ({ route }) => {
   //get all subjects
 
   if (displaySubjects.length === 0) {
-    return <Text style={styles.infoText}>{displaySubjects}</Text>;
+    return <Text style={styles.infoText}>No Products</Text>;
   }
 
   return (
     <FlatList
       data={displaySubjects}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       renderItem={renderSubjectItem}
       numColumns={1}
     />

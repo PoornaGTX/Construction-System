@@ -26,15 +26,25 @@ const cartScheme = new Schema(
       unique: false,
     },
     pid: {
-      type: mongoose.Types.ObjectId,
+      type: String,
       required: [true, "Please provide pid"],
       // unique: [true, "Product is already in the cart"],
-      unique: false,
+    },
+    total: {
+      type: Number,
+      required: true,
+    },
+    userQty: {
+      type: Number,
+      required: true,
+    },
+    date: {
+      type: Date,
+      require: true,
     },
   },
   { timestamps: true }
 );
-cartScheme.index({ pid: 1, createdBy: 1 }, { unique: true });
 
 const Cart = mongoose.model("Cart", cartScheme);
 

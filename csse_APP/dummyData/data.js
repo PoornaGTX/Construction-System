@@ -11,11 +11,11 @@ export const ProductName = [
 
 export const Prodcuts = [
   {
-    id: "p1",
+    id: "p112",
     type: "cement",
     price: 750.0,
     qty: 20,
-    supName: "RT CONSRCDTION",
+    supName: "RTCONSRCDTION",
     color: "#f5428d",
   },
   {

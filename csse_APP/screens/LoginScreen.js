@@ -4,10 +4,10 @@ import AuthContent from "../components/Auth/AuthContent";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { useAppContext } from "../context/appContext";
 
-function LoginScreen() {
+function LoginScreen({ navigation }) {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
-  const { loginUser } = useAppContext();
+  const { loginUser, showAlert } = useAppContext();
 
   const loginHandler = async ({ email, password }) => {
     setIsAuthenticating(true);
@@ -21,6 +21,19 @@ function LoginScreen() {
       setIsAuthenticating(false);
     }
   };
+
+  const alertHandler = () => {
+    setIsAuthenticating(false);
+    navigation.navigate("Login");
+  };
+
+  if (showAlert) {
+    Alert.alert(
+      "Authntication failed!",
+      "Could not log you in. Please check credentials or try again later",
+      [{ text: "Okay", style: "destructive", onPress: alertHandler }]
+    );
+  }
 
   if (isAuthenticating) {
     return <LoadingOverlay message="Login you in..." />;

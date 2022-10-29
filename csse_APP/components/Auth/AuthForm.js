@@ -82,8 +82,8 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
           />
         )}
         <View style={styles.buttons}>
-          <Button onPress={submitHandler}>
-            {isLogin ? "Log In" : "Sign Up"}
+          <Button onPress={submitHandler} color="red">
+            Log In
           </Button>
         </View>
       </View>
