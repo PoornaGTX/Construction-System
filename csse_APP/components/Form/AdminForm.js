@@ -8,6 +8,9 @@ import ColorPixer from "../colorPixer/ColorPixer";
 const AdminForm = ({
   labelName1,
   labelName2,
+  labelName3,
+  labelName4,
+  labelName5,
   Grade,
   onCancel,
   onSubmit,
@@ -66,7 +69,7 @@ const AdminForm = ({
 
   return (
     <View style={styles.form}>
-      <Text style={styles.formTitle}>Subject Manager</Text>
+      <Text style={styles.formTitle}>Project Site Details</Text>
       <AdminInput
         label={labelName1}
         textInputAllProps={{
@@ -81,36 +84,27 @@ const AdminForm = ({
           value: subjectValue,
         }}
       />
-      <View style={styles.selectColorView}>
-        <Text style={styles.colorTilte}>Select Color for subject</Text>
-        <View style={[styles.viewSelect, { backgroundColor: colorSub }]}></View>
-      </View>
-
-      <View style={styles.colorViewContainer}>
-        <ColorPixer subjectColor="#f54242" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#f5a442" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#f5428d" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#f5d142" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#368dff" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#41d95d" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#f5428d" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#9eecff" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#ffc7ff" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#47fced" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#dbde3c" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#e386fc" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#ff5c95" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="red" onPressProp={subjectColorHandler} />
-      </View>
-
-      <View style={styles.buttons}>
-        <Button mode="flat" onPressProp={onCancel} style={styles.button}>
-          Cancle
-        </Button>
-        <Button onPressProp={sumbitHandler} style={styles.button}>
-          {submitButtonLabel}
-        </Button>
-      </View>
+      <AdminInput
+        label={labelName3}
+        textInputAllProps={{
+          onChangeText: subjectChangeHandler,
+          value: subjectValue,
+        }}
+      />
+      <AdminInput
+        label={labelName4}
+        textInputAllProps={{
+          onChangeText: subjectChangeHandler,
+          value: subjectValue,
+        }}
+      />
+      <AdminInput
+        label={labelName5}
+        textInputAllProps={{
+          onChangeText: subjectChangeHandler,
+          value: subjectValue,
+        }}
+      />
     </View>
   );
 };
