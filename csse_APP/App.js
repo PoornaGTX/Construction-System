@@ -13,10 +13,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "./screens/LoginScreen";
 import ProductScreen from "./screens/ProductScreen";
 import SuppliersScreen from "./screens/SuppliersScreen";
-import ManageSubjectScreen from "./screens/ManageSubjectScreen";
+import ProjectScreen from "./screens/ProjectScreen";
 import ManageGradesScreen from "./screens/ManageGradesScreen";
 import StatsScreenAdmin from "./screens/StatsScreenAdmin";
-import projectScreen from "./screens/ProjectScreen";
 
 import { AppProvider } from "./context/appContext";
 import { useAppContext } from "./context/appContext";
@@ -66,15 +65,6 @@ const AdminBottomTabHome = () => {
           headerTitleAlign: "center",
         }}
       />
-      <Stack.Screen
-        name="ManageSubjects"
-        component={ManageSubjectScreen}
-        options={{
-          presentation: "modal",
-          title: "Manage Subject",
-          headerTitleAlign: "center",
-        }}
-      />
 
       <Stack.Screen
         name="ManageGrade"
@@ -95,14 +85,15 @@ function AuthenticatedStack() {
       }}
     >
       <Bottom.Screen
-        name="project"
-        component={projectScreen}
+        name="Project"
+        component={ProjectScreen}
         options={{
-          headerShown: false,
+          headerShown: true,
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color="black" />
           ),
+          headerTitleAlign: "center",
         }}
       />
 
@@ -113,7 +104,7 @@ function AuthenticatedStack() {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color="black" />
+            <Ionicons name="construct" size={size} color="black" />
           ),
         }}
       />
