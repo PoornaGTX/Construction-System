@@ -49,4 +49,11 @@ const updateUser = async (req, res) => {
   });
 };
 
-module.exports = { register, login, updateUser };
+const getAllUsers = async (req, res) => {
+  const users = await User.find({});
+  res
+    .status(StatusCodes.OK)
+    .send({ users, totalUsers: users.length, numOfPages: 1 });
+};
+
+module.exports = { getAllUsers, register, login, updateUser };

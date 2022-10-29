@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/appContext";
 import { FormRow, Alert } from "../components/index";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 const AddNewProject = () => {
+  const [] = useState();
   const {
-    isEditing,
+    isEditingProject,
     showAlert,
     displayAlert,
     handleChange,
@@ -15,7 +16,16 @@ const AddNewProject = () => {
     projectDeadLine,
     projectManager,
     createProject,
+    editProject,
+    getAllUsers,
+    users,
   } = useAppContext();
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+  let siteManagers = users.filter((user) => {
+    return user.type === "Site Manager";
+  });
   //handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,14 +34,12 @@ const AddNewProject = () => {
       displayAlert();
       return;
     }
-    if (isEditing) {
-      //edit function
-      //   editProduct();
+    if (isEditingProject) {
+      editProject();
       return;
     }
-    // createProduct();
     createProject();
-    // alert(new Date(projectDeadLine));
+    console.log(projectManager);
   };
   //handle inputs
   const handleProductInput = (e) => {
@@ -39,11 +47,10 @@ const AddNewProject = () => {
     const value = e.target.value;
     handleChange({ name, value });
   };
-
   return (
     <Wrapper>
       <form className="form">
-        <h3>{isEditing ? "Edit Product" : "Add Product"}</h3>
+        <h3>{isEditingProject ? "Edit Project" : "Add Project"}</h3>
         {showAlert && <Alert />}
         <div className="form-center">
           <FormRow
@@ -68,20 +75,32 @@ const AddNewProject = () => {
             handleChange={handleProductInput}
           />
           <FormRow
-            type="text"
+            type="date"
             labelText="Project Deadline"
             name="projectDeadLine"
             value={projectDeadLine}
             handleChange={handleProductInput}
           />
-          <FormRow
-            type="text"
-            labelText="Project Manager"
-            name="projectManager"
-            value={projectManager}
-            handleChange={handleProductInput}
-          />
+          <div className="form-row">
+            <label htmlFor="type" className="form-label">
+              Project Managers
+            </label>
+            <select
+              value={projectManager}
+              name="projectManager"
+              onChange={handleProductInput}
+              className="form-input"
+            >
+              {siteManagers.map((manager) => {
+                return <option value={manager.email}>{manager.email}</option>;
+              })}
 
+              <option value="None">None</option>
+              {projectManager && (
+                <option value={projectManager}>{projectManager}</option>
+              )}
+            </select>
+          </div>
           <div className="btn-container">
             <button
               className="btn btn-block submit-btn"
