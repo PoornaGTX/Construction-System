@@ -16,6 +16,7 @@ import SuppliersScreen from "./screens/SuppliersScreen";
 import ManageSubjectScreen from "./screens/ManageSubjectScreen";
 import ManageGradesScreen from "./screens/ManageGradesScreen";
 import StatsScreenAdmin from "./screens/StatsScreenAdmin";
+import projectScreen from "./screens/ProjectScreen";
 
 import { AppProvider } from "./context/appContext";
 import { useAppContext } from "./context/appContext";
@@ -61,7 +62,7 @@ const AdminBottomTabHome = () => {
         name="Suppliers"
         component={SuppliersScreen}
         options={{
-          contentStyle: { backgroundColor: "white" },
+          contentStyle: { backgroundColor: "#d7dbdb" },
           headerTitleAlign: "center",
         }}
       />
@@ -94,6 +95,18 @@ function AuthenticatedStack() {
       }}
     >
       <Bottom.Screen
+        name="project"
+        component={projectScreen}
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" size={size} color="black" />
+          ),
+        }}
+      />
+
+      <Bottom.Screen
         name="AdminHome"
         component={AdminBottomTabHome}
         options={{
@@ -110,7 +123,7 @@ function AuthenticatedStack() {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="stats-chart" size={size} color="black" />
+            <Ionicons name="cart" size={size} color="black" />
           ),
           headerTitleAlign: "center",
         }}
@@ -121,6 +134,7 @@ function AuthenticatedStack() {
 
 function Navigation() {
   const { isLogedIn } = useAppContext();
+
   return (
     <NavigationContainer>
       {!isLogedIn ? <AuthStack /> : <AuthenticatedStack />}
