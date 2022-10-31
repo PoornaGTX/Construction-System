@@ -446,6 +446,7 @@ const reducer = (state, action) => {
       isEditingOrderStatus: true,
       editOrderId: _id,
       OrderStatus: status,
+      selectedOrder: orders,
     };
   }
   //edit product
