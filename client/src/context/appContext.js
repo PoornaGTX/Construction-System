@@ -88,6 +88,7 @@ export const initialState = {
   OrderStatus: "",
   isEditingOrderStatus: false,
   editOrderId: "",
+  selectedOrder: {},
 };
 
 const AppContext = React.createContext();
@@ -228,7 +229,7 @@ const AppProvider = ({ children }) => {
         name: pName,
         price,
         qty,
-        supplierName: user.name
+        supplierName: user.name,
       });
       dispatch({
         type: CREATE_PRODUCT_SUCCESS,
@@ -296,7 +297,7 @@ const AppProvider = ({ children }) => {
         name: pName,
         qty,
         price,
-        supplierName:user.name,
+        supplierName: user.name,
       });
       dispatch({
         type: EDIT_PRODUCT_SUCCESS,
