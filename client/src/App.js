@@ -11,6 +11,7 @@ import {
   AllSiteManagers,
   AddNewProject,
   OrderRequests,
+  ApproveOrder,
 } from "./dashboard/index";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import ProtectedRouter from "./components/ProtectedRoute";
@@ -18,7 +19,6 @@ import ProtectedSupplierRoute from "./components/ProtectedSupplierRoute";
 import ProtectedCustomerRoute from "./components/ProtectedCustomerRoute";
 import Orders from "./dashboard/Orders";
 import ProtectedManagerRoute from "./components/ProtectedManagerRoute";
-
 
 function App() {
   return (
@@ -43,7 +43,8 @@ function App() {
                   </ProtectedSupplierRoute>
                 }
               />
-              <Route
+             <Route path="approve-order" element={<ApproveOrder />} />
+               <Route
                 path="orders"
                 element={
                   <ProtectedSupplierRoute>
