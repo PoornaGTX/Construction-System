@@ -5,6 +5,7 @@ const {
   NotFoundError,
   UnauthenticatedError,
 } = require("../errors/index");
+const Order = require("../modal/Order");
 //get all products
 const getProducts = async (req, res) => {
   const products = await Product.find({ createdBy: req.user.userId });
@@ -78,10 +79,19 @@ const createProduct = async (req, res) => {
   res.status(StatusCodes.OK).send({ products });
 };
 
+const getMyOrders = async (req, res) => {
+  const username = req.body.user.name;
+  const orders = await Order.find({ status: "approved", 'cartproducts.supName':"Dilupa69" });
+  res
+    .status(StatusCodes.OK)
+    .send({ orders, totalOrders: orders.length, numOfPages: 1 });
+};
+
 module.exports = {
   getProducts,
   createProduct,
   getSingleProduct,
   deleteProduct,
   updateProduct,
+  getMyOrders
 };
