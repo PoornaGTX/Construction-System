@@ -13,7 +13,7 @@ import { useState } from "react";
 
 const CartGridTitle = ({
   _id,
-  name,
+  type,
   price,
   pid,
   total,
@@ -40,7 +40,7 @@ const CartGridTitle = ({
         </View>
 
         <View style={styles.innertSubContainer}>
-          <Text>{name}</Text>
+          <Text>{type}</Text>
           <Text>Rs.{price}.00</Text>
           <Text>{userQty}</Text>
           <Text>Rs.{total}.00</Text>

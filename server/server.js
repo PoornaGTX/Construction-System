@@ -17,7 +17,7 @@ const supplierRoutes = require("./routes/supplierRoutes");
 const CustomerRoutes = require("./routes/CustomerRoutes");
 const ProjectRoutes = require("./routes/projectsRoutes");
 const authRoutes = require("./routes/authRoutes");
-const orderRoutes = require("./routes/orderRoutes")
+const orderRoutes = require("./routes/orderRoutes");
 const notFound = require("./middleware/not-found");
 const errorHandler = require("./middleware/error-handler");
 const app = express();
@@ -175,7 +175,7 @@ tr:nth-child(even) {
 app.use("/api/Projects", ProjectRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/Customers", CustomerRoutes);
-app.use("/api/order",authenticateUser, orderRoutes);
+app.use("/api/order", orderRoutes);
 app.use("/api", authenticateUser, supplierRoutes);
 app.use("*", notFound);
 //error handler middleware
@@ -185,9 +185,6 @@ app.listen(port, () => {
   console.log(`Service started on port: ${port}`);
 });
 
-
-
-
 // "server": "nodemon server --ignore client",
-// "client": "npm start --prefix client",
+// "client": "npm start --prefix ../client",
 // "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
