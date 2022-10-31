@@ -17,6 +17,12 @@ import {
   DELETE_TOCART_BEGIN,
   DELETE_TOCART_SUCCESS,
   DELETE_TOCART_ERROR,
+  GET_PROJECT_BEGIN,
+  GET_PROJECT_SUCCESS,
+  GET_PROJECT_ERROR,
+  CREATE_ORDER_BEGIN,
+  CREATE_ORDER_SUCCESS,
+  CREATE_ORDER_ERROR
 } from "./action";
 
 const reducer = (state, action) => {
@@ -165,6 +171,57 @@ const reducer = (state, action) => {
   }
 
   if (action.type === DELETE_TOCART_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: "hello",
+    };
+  }
+
+  //get project
+  if (action.type === GET_PROJECT_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+
+  if (action.type === GET_PROJECT_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      projectDetails: action.payload.project,
+      alertType: "success",
+      alertText: "User Created! Redirecting",
+    };
+  }
+
+  if (action.type === GET_PROJECT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: "hello",
+    };
+  }
+
+
+  if (action.type === CREATE_ORDER_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+
+  if (action.type === CREATE_ORDER_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "User Created! Redirecting",
+    };
+  }
+
+  if (action.type === CREATE_ORDER_ERROR) {
     return {
       ...state,
       isLoading: false,

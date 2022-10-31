@@ -21,6 +21,12 @@ import {
   DELETE_TOCART_BEGIN,
   DELETE_TOCART_SUCCESS,
   DELETE_TOCART_ERROR,
+  GET_PROJECT_BEGIN,
+  GET_PROJECT_SUCCESS,
+  GET_PROJECT_ERROR,
+  CREATE_ORDER_BEGIN,
+  CREATE_ORDER_SUCCESS,
+  CREATE_ORDER_ERROR
 } from "./action";
 
 const initialState = {
@@ -33,6 +39,7 @@ const initialState = {
   isLogedIn: false,
   cart: [],
   products: [],
+  projectDetails: "",
 };
 
 const AppContext = React.createContext();
@@ -211,22 +218,41 @@ const AppProvider = ({ children }) => {
 
   //get all products
   const getAllProjectDetails = async () => {
-    dispatch({ type: GET_PRODUCTS_BEGIN });
+    dispatch({ type: GET_PROJECT_BEGIN });
+
+    const email = state.user.email;
 
     try {
       const response = await axios.get(
-        "http://10.0.2.2:5000/api/Customers/Products"
+        `http://10.0.2.2:5000/api/Projects/${email}`
       );
-      const { products } = response.data;
+      const { project } = response.data;
 
       dispatch({
-        type: GET_PRODUCTS_SUCCESS,
-        payload: { products },
+        type: GET_PROJECT_SUCCESS,
+        payload: { project },
       });
-      console.log(response.data.products);
     } catch (error) {
       dispatch({
-        type: GET_CART_ERROR,
+        type: GET_PROJECT_ERROR,
+        // payload: { msg: error.response.data.msg },
+      });
+    }
+  };
+
+
+
+  const addToOrder = async (cart,totalCart) => {
+    dispatch({ type: CREATE_ORDER_BEGIN });
+
+    try {
+      const response = await authFetch.post("/order", {createdBy:state.user._id,cart,total:totalCart});
+      dispatch({
+        type: CREATE_ORDER_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: CREATE_ORDER_ERROR,
         // payload: { msg: error.response.data.msg },
       });
     }
@@ -243,6 +269,7 @@ const AppProvider = ({ children }) => {
         getAllProducts,
         deleteCartitem,
         getAllProjectDetails,
+        addToOrder
       }}
     >
       {children}

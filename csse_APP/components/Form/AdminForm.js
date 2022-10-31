@@ -11,100 +11,22 @@ const AdminForm = ({
   labelName3,
   labelName4,
   labelName5,
-  Grade,
-  onCancel,
-  onSubmit,
-  submitButtonLabel,
-  defaultValuesForEdit,
-  GradeValueForNewSubject,
+  projectDetails,
 }) => {
-  const [subjectValue, setSubjectValue] = useState(
-    defaultValuesForEdit ? defaultValuesForEdit.subjectName : ""
-  );
-
-  const [colorSub, setColorSub] = useState(
-    defaultValuesForEdit ? defaultValuesForEdit.color : ""
-  );
-
-  //subject input handler
-  const subjectChangeHandler = (enteredAmount) => {
-    setSubjectValue(enteredAmount);
-  };
-
-  //subject color handler
-  const subjectColorHandler = (colorselect) => {
-    setColorSub(colorselect);
-  };
-
-  const sumbitHandler = () => {
-    //validate subject input
-    //CHECK STRING CONTAINS NUMBER FUNCTION
-    function containsNumbers(str) {
-      return /\d/.test(str);
-    }
-
-    const checkSubjectHasNumber = containsNumbers(subjectValue);
-    const checkSubjectNotEmpty = !!subjectValue;
-    const checkColorSelect = !!colorSub;
-
-    if (checkSubjectHasNumber || !checkSubjectNotEmpty) {
-      {
-        checkSubjectHasNumber
-          ? Alert.alert(
-              "Invalid Input",
-              "Subject name cannot contain numeric values"
-            )
-          : Alert.alert("Invalid Input", "Please enter subject name");
-      }
-      return;
-    }
-
-    if (!checkColorSelect) {
-      Alert.alert("Invalid Input", "Please select color for subject");
-      return;
-    }
-
-    onSubmit(subjectValue, GradeValueForNewSubject, colorSub);
-  };
+  // const edate = projectDetails.projectDeadLine;
+  // const estimateDate = edate.slice(0, 10);
 
   return (
     <View style={styles.form}>
       <Text style={styles.formTitle}>Project Site Details</Text>
-      <AdminInput
-        label={labelName1}
-        textInputAllProps={{
-          value: Grade || GradeValueForNewSubject,
-          editable: false,
-        }}
-      />
-      <AdminInput
-        label={labelName2}
-        textInputAllProps={{
-          onChangeText: subjectChangeHandler,
-          value: subjectValue,
-        }}
-      />
+      <AdminInput label={labelName1} value={projectDetails.projectName} />
+      <AdminInput label={labelName2} value={projectDetails.projectLocation} />
       <AdminInput
         label={labelName3}
-        textInputAllProps={{
-          onChangeText: subjectChangeHandler,
-          value: subjectValue,
-        }}
+        value={projectDetails.projectEstimatedCost}
       />
-      <AdminInput
-        label={labelName4}
-        textInputAllProps={{
-          onChangeText: subjectChangeHandler,
-          value: subjectValue,
-        }}
-      />
-      <AdminInput
-        label={labelName5}
-        textInputAllProps={{
-          onChangeText: subjectChangeHandler,
-          value: subjectValue,
-        }}
-      />
+      <AdminInput label={labelName4} value={projectDetails.projectManager} />
+      <AdminInput label={labelName5} value={projectDetails.projectDeadLine} />
     </View>
   );
 };
