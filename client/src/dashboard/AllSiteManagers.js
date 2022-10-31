@@ -3,7 +3,6 @@ import { SearchContainer, AllSiteManagersContainer } from "../components/index";
 const AllSiteManagers = () => {
   return (
     <>
-      <SearchContainer />
       <AllSiteManagersContainer />
     </>
   );

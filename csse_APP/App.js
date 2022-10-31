@@ -13,7 +13,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "./screens/LoginScreen";
 import ProductScreen from "./screens/ProductScreen";
 import SuppliersScreen from "./screens/SuppliersScreen";
-import ManageSubjectScreen from "./screens/ManageSubjectScreen";
+import ProjectScreen from "./screens/ProjectScreen";
 import ManageGradesScreen from "./screens/ManageGradesScreen";
 import StatsScreenAdmin from "./screens/StatsScreenAdmin";
 
@@ -61,16 +61,7 @@ const AdminBottomTabHome = () => {
         name="Suppliers"
         component={SuppliersScreen}
         options={{
-          contentStyle: { backgroundColor: "white" },
-          headerTitleAlign: "center",
-        }}
-      />
-      <Stack.Screen
-        name="ManageSubjects"
-        component={ManageSubjectScreen}
-        options={{
-          presentation: "modal",
-          title: "Manage Subject",
+          contentStyle: { backgroundColor: "#d7dbdb" },
           headerTitleAlign: "center",
         }}
       />
@@ -100,17 +91,31 @@ function AuthenticatedStack() {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color="black" />
+            <Ionicons name="construct" size={size} color="black" />
           ),
         }}
       />
+
+      <Bottom.Screen
+        name="Project"
+        component={ProjectScreen}
+        options={{
+          headerShown: true,
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" size={size} color="black" />
+          ),
+          headerTitleAlign: "center",
+        }}
+      />
+
       <Bottom.Screen
         name="Stats"
         component={StatsScreenAdmin}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="stats-chart" size={size} color="black" />
+            <Ionicons name="cart" size={size} color="black" />
           ),
           headerTitleAlign: "center",
         }}
@@ -121,6 +126,7 @@ function AuthenticatedStack() {
 
 function Navigation() {
   const { isLogedIn } = useAppContext();
+
   return (
     <NavigationContainer>
       {!isLogedIn ? <AuthStack /> : <AuthenticatedStack />}

@@ -23,12 +23,10 @@ const Cart = () => {
   useEffect(() => {
     getCart();
     setItems(array);
-    console.log(items);
   }, []);
 
   const cartHandle = (e, item) => {
     const { name, price, qty, _id, quantity, createdBy, pid } = item;
-    console.log(item);
     const newItems = items.filter((item) => {
       if (item._id != _id) {
         return item;

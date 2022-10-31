@@ -8,109 +8,25 @@ import ColorPixer from "../colorPixer/ColorPixer";
 const AdminForm = ({
   labelName1,
   labelName2,
-  Grade,
-  onCancel,
-  onSubmit,
-  submitButtonLabel,
-  defaultValuesForEdit,
-  GradeValueForNewSubject,
+  labelName3,
+  labelName4,
+  labelName5,
+  projectDetails,
 }) => {
-  const [subjectValue, setSubjectValue] = useState(
-    defaultValuesForEdit ? defaultValuesForEdit.subjectName : ""
-  );
-
-  const [colorSub, setColorSub] = useState(
-    defaultValuesForEdit ? defaultValuesForEdit.color : ""
-  );
-
-  //subject input handler
-  const subjectChangeHandler = (enteredAmount) => {
-    setSubjectValue(enteredAmount);
-  };
-
-  //subject color handler
-  const subjectColorHandler = (colorselect) => {
-    setColorSub(colorselect);
-  };
-
-  const sumbitHandler = () => {
-    //validate subject input
-    //CHECK STRING CONTAINS NUMBER FUNCTION
-    function containsNumbers(str) {
-      return /\d/.test(str);
-    }
-
-    const checkSubjectHasNumber = containsNumbers(subjectValue);
-    const checkSubjectNotEmpty = !!subjectValue;
-    const checkColorSelect = !!colorSub;
-
-    if (checkSubjectHasNumber || !checkSubjectNotEmpty) {
-      {
-        checkSubjectHasNumber
-          ? Alert.alert(
-              "Invalid Input",
-              "Subject name cannot contain numeric values"
-            )
-          : Alert.alert("Invalid Input", "Please enter subject name");
-      }
-      return;
-    }
-
-    if (!checkColorSelect) {
-      Alert.alert("Invalid Input", "Please select color for subject");
-      return;
-    }
-
-    onSubmit(subjectValue, GradeValueForNewSubject, colorSub);
-  };
+  // const edate = projectDetails.projectDeadLine;
+  // const estimateDate = edate.slice(0, 10);
 
   return (
     <View style={styles.form}>
-      <Text style={styles.formTitle}>Subject Manager</Text>
+      <Text style={styles.formTitle}>Project Site Details</Text>
+      <AdminInput label={labelName1} value={projectDetails.projectName} />
+      <AdminInput label={labelName2} value={projectDetails.projectLocation} />
       <AdminInput
-        label={labelName1}
-        textInputAllProps={{
-          value: Grade || GradeValueForNewSubject,
-          editable: false,
-        }}
+        label={labelName3}
+        value={projectDetails.projectEstimatedCost}
       />
-      <AdminInput
-        label={labelName2}
-        textInputAllProps={{
-          onChangeText: subjectChangeHandler,
-          value: subjectValue,
-        }}
-      />
-      <View style={styles.selectColorView}>
-        <Text style={styles.colorTilte}>Select Color for subject</Text>
-        <View style={[styles.viewSelect, { backgroundColor: colorSub }]}></View>
-      </View>
-
-      <View style={styles.colorViewContainer}>
-        <ColorPixer subjectColor="#f54242" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#f5a442" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#f5428d" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#f5d142" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#368dff" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#41d95d" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#f5428d" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#9eecff" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#ffc7ff" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#47fced" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#dbde3c" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#e386fc" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="#ff5c95" onPressProp={subjectColorHandler} />
-        <ColorPixer subjectColor="red" onPressProp={subjectColorHandler} />
-      </View>
-
-      <View style={styles.buttons}>
-        <Button mode="flat" onPressProp={onCancel} style={styles.button}>
-          Cancle
-        </Button>
-        <Button onPressProp={sumbitHandler} style={styles.button}>
-          {submitButtonLabel}
-        </Button>
-      </View>
+      <AdminInput label={labelName4} value={projectDetails.projectManager} />
+      <AdminInput label={labelName5} value={projectDetails.projectDeadLine} />
     </View>
   );
 };
