@@ -10,14 +10,19 @@ const orderScheme = new Schema(
       required: [true, "Please provide user id"],
       unique: false,
     },
-    cartproducts:{
-        type:Array,
-        required:true
+    cartproducts: {
+      type: Array,
+      required: true,
     },
-    total:{
+    total: {
       type: Number,
       required: true,
-    }
+    },
+    status: {
+      type: String,
+      enum: ["pending", "approved", "declined"],
+      default: "pending",
+    },
   },
   { timestamps: true }
 );

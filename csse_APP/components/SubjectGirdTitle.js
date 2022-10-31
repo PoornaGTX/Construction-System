@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 const SubjectGirdTitle = ({
   _id,
   supplierName,
-  type,
+  name,
   color,
   qty,
   price,
@@ -32,10 +32,10 @@ const SubjectGirdTitle = ({
     setDate(enteredAmount);
   };
 
-  const handler =()=>{
+  const handler = () => {
     setAQty(10);
     setDate(0);
-  }
+  };
 
   return (
     <View style={styles.gridItem}>
@@ -76,20 +76,29 @@ const SubjectGirdTitle = ({
 
       <View style={styles.testText}>
         <View style={styles.amountContainer}>
-           <Text style={styles.amountText}>Amount</Text>
-           <Text style={{fontSize:18,fontWeight:'bold'}}>Date</Text>
+          <Text style={styles.amountText}>Amount</Text>
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>Date</Text>
         </View>
 
         <View style={styles.amountInput}>
-          <TextInput style={styles.inputAmount} onChangeText={productAmountHandler} keyboardType="numeric" />
-          <TextInput style={styles.inputdate} value={date} onChangeText={datehandler} placeholder="MM-DD-YYYY" keyboardType="numeric"/>
+          <TextInput
+            style={styles.inputAmount}
+            onChangeText={productAmountHandler}
+            keyboardType="numeric"
+          />
+          <TextInput
+            style={styles.inputdate}
+            value={date}
+            onChangeText={datehandler}
+            placeholder="MM-DD-YYYY"
+            keyboardType="numeric"
+          />
         </View>
-     
       </View>
-     
+
       <Button
         onPressProp={() =>
-          onPressHandler(_id, price, qty, supplierName, aQty, date,handler)
+          onPressHandler(_id, price, qty, supplierName, aQty, date, name)
         }
         color="#3eabab"
         fontSize={15}
@@ -129,7 +138,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 0,
-    marginTop:10
+    marginTop: 10,
   },
   innerContainerUpdateAdmin: {
     borderRadius: 0,
@@ -174,14 +183,13 @@ const styles = StyleSheet.create({
   inputdate: {
     backgroundColor: "#d8ebeb",
     marginTop: 10,
-    fontSize:18,
-
+    fontSize: 18,
   },
 
   inputAmount: {
     backgroundColor: "#d8ebeb",
     marginTop: 10,
-    fontSize:18,
+    fontSize: 18,
   },
 
   dateTille: {
@@ -194,26 +202,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     marginHorizontal: 50,
-    marginVertical:10
+    marginVertical: 10,
   },
-  tesView:{
-    alignItems:'center',
-    alignContent:'center',
-    justifyContent:'center'
+  tesView: {
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
   },
-  amountContainer:{
-    marginLeft:40
+  amountContainer: {
+    marginLeft: 40,
   },
-  amountText:{
-    marginVertical:10,
-    fontSize:18,
-    fontWeight:'bold'
+  amountText: {
+    marginVertical: 10,
+    fontSize: 18,
+    fontWeight: "bold",
   },
-  amountInput:{
-    marginRight:40,
-    justifyContent:'center'
+  amountInput: {
+    marginRight: 40,
+    justifyContent: "center",
   },
-
 });
 
 {

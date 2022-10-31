@@ -26,7 +26,7 @@ import {
   GET_PROJECT_ERROR,
   CREATE_ORDER_BEGIN,
   CREATE_ORDER_SUCCESS,
-  CREATE_ORDER_ERROR
+  CREATE_ORDER_ERROR,
 } from "./action";
 
 const initialState = {
@@ -127,11 +127,20 @@ const AppProvider = ({ children }) => {
   };
   //login user
 
-  const addToCart = async ({ name, price, qty, pid, total, userQty, date }) => {
+  const addToCart = async ({
+    supName,
+    price,
+    qty,
+    pid,
+    total,
+    userQty,
+    date,
+    name,
+  }) => {
     dispatch({ type: ADD_TOCART_BEGIN });
 
     const product = {
-      name,
+      supName,
       price,
       qty,
       createdBy: state.user._id,
@@ -139,6 +148,7 @@ const AppProvider = ({ children }) => {
       total,
       userQty,
       date,
+      type: name,
     };
 
     try {
@@ -188,7 +198,6 @@ const AppProvider = ({ children }) => {
         type: GET_PRODUCTS_SUCCESS,
         payload: { products },
       });
-      console.log(response.data.products);
     } catch (error) {
       dispatch({
         type: GET_CART_ERROR,
@@ -200,7 +209,6 @@ const AppProvider = ({ children }) => {
   //deleteCartitem
   const deleteCartitem = async (cartItemID) => {
     dispatch({ type: DELETE_TOCART_BEGIN });
-    console.log(cartItemID);
     try {
       const response = await authFetch.delete(`/Customers/cart/${cartItemID}`);
 
@@ -240,13 +248,22 @@ const AppProvider = ({ children }) => {
     }
   };
 
-
-
-  const addToOrder = async (cart,totalCart) => {
+  const addToOrder = async (cart, totalCart) => {
     dispatch({ type: CREATE_ORDER_BEGIN });
 
+    let status;
     try {
-      const response = await authFetch.post("/order", {createdBy:state.user._id,cart,total:totalCart});
+      if (totalCart >= 100000) {
+        status = "pending";
+      } else {
+        status = "approved";
+      }
+      const response = await authFetch.post("/order", {
+        createdBy: state.user._id,
+        cartproducts: cart,
+        total: totalCart,
+        status,
+      });
       dispatch({
         type: CREATE_ORDER_SUCCESS,
       });
@@ -269,7 +286,7 @@ const AppProvider = ({ children }) => {
         getAllProducts,
         deleteCartitem,
         getAllProjectDetails,
-        addToOrder
+        addToOrder,
       }}
     >
       {children}
