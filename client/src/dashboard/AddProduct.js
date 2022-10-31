@@ -15,12 +15,13 @@ const AddProduct = () => {
     clearValues,
     createProduct,
     editProduct,
+    user
   } = useAppContext();
   //handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(pName, price, qty);
-    if (!qty || !pName || !price) {
+    if (!qty || !pName || !price ) {
       displayAlert();
       return;
     }
@@ -87,6 +88,14 @@ const AddProduct = () => {
             name="price"
             value={price}
             handleChange={handleProductInput}
+          />
+          <FormRow
+            type="text"
+            labelText="Supplier"
+            name="supplierName"
+            value={user.name}
+            handleChange={handleProductInput}
+            isDisabled= {true}
           />
           <div className="btn-container">
             <button

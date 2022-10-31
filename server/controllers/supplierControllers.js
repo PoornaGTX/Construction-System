@@ -39,9 +39,9 @@ const deleteProduct = async (req, res) => {
 //update a product
 const updateProduct = async (req, res) => {
   const { id: pid } = req.params;
-  const { name, price, qty } = req.body;
+  const { name, price, qty, supplierName } = req.body;
 
-  if (!name || !price || !qty) {
+  if (!name || !price || !qty || !supplierName) {
     throw new BadRequestError("Please Provide All Values.");
   }
   const product = await Product.find({ _id: pid });
@@ -69,8 +69,8 @@ const updateProduct = async (req, res) => {
 };
 //create a new product
 const createProduct = async (req, res) => {
-  const { qty, name, price } = req.body;
-  if (!qty || !name || !price) {
+  const { qty, name, price, supplierName } = req.body;
+  if (!qty || !name || !price || !supplierName) {
     throw new BadRequestError("Please provide all values.");
   }
   req.body.createdBy = req.user.userId;
