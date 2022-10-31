@@ -1,5 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const Order = require("../modal/Order");
+const Cart = require("../modal/Carts");
 
 const {
   BadRequestError,
@@ -17,8 +18,12 @@ const {
 
 const addToOrder = async (req, res) => {
   const Orders = await Order.create(req.body);
+  const deleteCart = await Cart.deleteMany({
+    createdBy: req.user.userId,
+  });
   res.status(200).json({ Orders });
 };
+
 
 const getOrderAboveOneLakh = async (req, res) => {
   const orders = await Order.find({ total: { $gt: 40000 } });
@@ -28,6 +33,10 @@ const getOrderAboveOneLakh = async (req, res) => {
 const getAllCart = async (req, res) => {
   const carts = await Cart.find({});
   res.status(200).json({ carts });
+}
+const getAllOrders = async (req, res) => {
+  const Orders = await Order.find({});
+  res.status(200).json({ Orders });
 };
 
 // //update cart
@@ -57,4 +66,6 @@ module.exports = {
   addToOrder,
   getOrderAboveOneLakh,
   updateCart,
+  getAllOrders,
+
 };

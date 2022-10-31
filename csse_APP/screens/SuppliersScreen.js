@@ -23,8 +23,16 @@ const SuppliersScreen = ({ route }) => {
 
   const { addToCart, getAllProducts, products } = useAppContext();
 
-  const NevigateToCartHandler = (_id, price, qty, supplierName, aQty, date,handler) => {
-    const name = supplierName;
+  const NevigateToCartHandler = (
+    _id,
+    price,
+    qty,
+    supplierName,
+    aQty,
+    date,
+    name
+  ) => {
+    const supName = supplierName;
     const pid = _id;
     const total = +price * +aQty;
 
@@ -35,7 +43,7 @@ const SuppliersScreen = ({ route }) => {
       );
     }
 
-    if (+aQty <=0) {
+    if (+aQty <= 0) {
       return Alert.alert(
         "less tha 0",
         "Could not log you in. Please check credentials or try again later"
@@ -43,32 +51,28 @@ const SuppliersScreen = ({ route }) => {
     }
 
     addToCart({
-      name,
+      supName,
       price: Number(price),
       qty,
       pid,
       total,
       userQty: Number(aQty),
       date,
+      name,
     });
 
-
-    handler();
-   
     return Alert.alert(
       "Add to cart success",
       "Could not log you in. Please check credentials or try again later"
     );
   };
 
-  
   const displaySubjects = products.filter((singleProduct) => {
     return singleProduct.name === type;
   });
 
   useEffect(() => {
     getAllProducts();
-
   }, []);
 
   const renderSubjectItem = (itemData) => {

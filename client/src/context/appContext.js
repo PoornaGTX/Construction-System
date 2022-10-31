@@ -223,11 +223,12 @@ const AppProvider = ({ children }) => {
       type: CREATE_PRODUCT_BEGIN,
     });
     try {
-      const { pName, price, qty } = state;
+      const { pName, price, qty, supplierName, user } = state;
       await authFetch.post("/createProduct", {
         name: pName,
         price,
         qty,
+        supplierName: user.name
       });
       dispatch({
         type: CREATE_PRODUCT_SUCCESS,
@@ -290,11 +291,12 @@ const AppProvider = ({ children }) => {
   const editProduct = async () => {
     dispatch({ type: EDIT_PRODUCT_BEGIN });
     try {
-      const { pName, qty, price } = state;
+      const { pName, qty, price, supplierName, user } = state;
       await authFetch.patch(`/updateProducts/${state.editProductId}`, {
         name: pName,
         qty,
         price,
+        supplierName:user.name,
       });
       dispatch({
         type: EDIT_PRODUCT_SUCCESS,

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const cartScheme = new Schema(
   {
-    name: {
+    supName: {
       type: String,
       required: true,
       trim: true,
@@ -41,6 +41,10 @@ const cartScheme = new Schema(
     date: {
       type: Date,
       require: true,
+    },
+    type: {
+      type: String,
+      required: [true, "Please provide type"],
     },
   },
   { timestamps: true }

@@ -23,7 +23,7 @@ const AdminForm = ({
       <AdminInput label={labelName2} value={projectDetails.projectLocation} />
       <AdminInput
         label={labelName3}
-        value={projectDetails.projectEstimatedCost}
+        value={`Rs.${projectDetails.projectEstimatedCost}`}
       />
       <AdminInput label={labelName4} value={projectDetails.projectManager} />
       <AdminInput label={labelName5} value={projectDetails.projectDeadLine} />

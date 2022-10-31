@@ -22,7 +22,7 @@ const addToCart = async (req, res) => {
 };
 
 const getAllCart = async (req, res) => {
-  const carts = await Cart.find({});
+  const carts = await Cart.find({ createdBy: req.user.userId });
   res.status(200).json({ carts });
 };
 const clearCart = async (req, res) => {
