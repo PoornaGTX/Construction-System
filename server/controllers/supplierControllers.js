@@ -76,10 +76,12 @@ const createProduct = async (req, res) => {
 };
 
 const getMyOrders = async (req, res) => {
+
   const supplierName = req.body.name;
   const orderStatus = req.body.status;
 
   const orders = await Order.find({ status: orderStatus, 'cartproducts.supName': supplierName });
+
   res
     .status(StatusCodes.OK)
     .send({ orders, totalOrders: orders.length, numOfPages: 1 });

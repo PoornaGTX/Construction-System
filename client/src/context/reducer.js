@@ -43,6 +43,7 @@ import {
   EDIT_PROJECT_ERROR,
   EDIT_PROJECT_SUCCESS,
   SET_EDIT_PROJECT,
+  GET_ALL_SUPP_ORDERS_SUCCESS
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -409,6 +410,14 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === GET_ALL_SUPP_ORDERS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      supOrders: action.payload.orders,
     };
   }
 

@@ -46,6 +46,7 @@ import {
   EDIT_PROJECT_ERROR,
   EDIT_PROJECT_SUCCESS,
   SET_EDIT_PROJECT,
+  GET_ALL_SUPP_ORDERS_SUCCESS
 } from "./actions";
 //set as default
 const user = localStorage.getItem("user");
@@ -78,6 +79,7 @@ export const initialState = {
   projectEstimatedCost: "",
   projectDeadLine: "",
   projectManager: "",
+  supOrders:[]
 };
 
 const AppContext = React.createContext();
@@ -487,6 +489,29 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const getAllSupplierOrders = async () => {
+    dispatch({ type: GET_ALL_PRODUCTS_BEGIN });
+    try {
+      const { data } = await authFetch.post('/getMyOrders/', { name:"Dilupa12",
+      status:"approved"});
+
+      const { orders, numOfPages, totalProducts } = data;
+
+      dispatch({
+        type: GET_ALL_SUPP_ORDERS_SUCCESS,
+        payload: {
+          orders,
+          numOfPages,
+          totalProducts,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      logoutUser();
+    }
+    clearAlert();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -514,6 +539,7 @@ const AppProvider = ({ children }) => {
         deleteProject,
         setEditProject,
         editProject,
+        getAllSupplierOrders
       }}
     >
       {children}

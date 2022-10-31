@@ -1,9 +1,9 @@
 import React from 'react'
 
-const SupplierOrder = () => {
+const SupplierOrder = ({cartproducts}) => {
   return (
     <div>
-      
+      {cartproducts}
     </div>
   )
 }
