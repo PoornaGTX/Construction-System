@@ -1,7 +1,11 @@
 import React from "react";
-
+import { OrderRequestContainer } from "../components/index";
 const OrderRequests = () => {
-  return <div>OrderRequests</div>;
+  return (
+    <>
+      <OrderRequestContainer />
+    </>
+  );
 };
 
 export default OrderRequests;

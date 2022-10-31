@@ -8,7 +8,7 @@ import SearchContainer from "./SearchContainer";
 import Logo from "./Logo";
 import ProjectContainer from "./ProjectContainer";
 import AllSiteManagersContainer from "./AllSiteManagersContainer";
-
+import OrderRequestContainer from "./OrderRequestContainer";
 export {
   AllSiteManagersContainer,
   SearchContainer,
@@ -20,4 +20,5 @@ export {
   SmallSidebar,
   Logo,
   ProjectContainer,
+  OrderRequestContainer,
 };
