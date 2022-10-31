@@ -22,15 +22,24 @@ const SubjectGirdTitle = ({
   const navigation = useNavigation();
 
   const [aQty, setAQty] = useState(0);
-  const date = "2020-05-18";
+  const [date, setDate] = useState(0);
 
   const productAmountHandler = (enteredAmount) => {
     setAQty(+enteredAmount);
   };
 
+  const datehandler = (enteredAmount) => {
+    setDate(enteredAmount);
+  };
+
+  const handler =()=>{
+    setAQty(10);
+    setDate(0);
+  }
+
   return (
     <View style={styles.gridItem}>
-      <View style={[styles.innerContainer, { backgroundColor: color }]}>
+      <View style={styles.innerContainer}>
         <Text style={styles.titleHead}>{supplierName}</Text>
         <View style={styles.detailsContainer}>
           <View style={styles.image}>
@@ -45,23 +54,42 @@ const SubjectGirdTitle = ({
             <View style={styles.mainTitle}>
               <Text style={styles.title}>Quntity :</Text>
               <Text style={styles.title}>Price(PU):</Text>
-              <Text style={styles.title}>Amount:</Text>
-              <Text style={styles.title}>Deliver Date:</Text>
+              {/* <Text style={styles.title}>Amount:</Text>
+              <View style={styles.dateTille}>
+                <Text style={styles.title}>Deliver Date:</Text>
+              </View> */}
             </View>
             <View style={styles.subTitle}>
               <Text style={styles.title}>{qty}</Text>
               <Text style={styles.title}>Rs.{price}.00</Text>
-              <View style={styles.input}>
+
+              {/* <View style={styles.input}>
                 <TextInput onChangeText={productAmountHandler} />
-              </View>
-              <Text style={styles.title}>2020-05-18</Text>
+              </View> */}
+              {/* <View>
+                <TextInput style={styles.inputdate} placeholder="MM-DD-YYYY" />
+              </View> */}
             </View>
           </View>
         </View>
       </View>
+
+      <View style={styles.testText}>
+        <View style={styles.amountContainer}>
+           <Text style={styles.amountText}>Amount</Text>
+           <Text style={{fontSize:18,fontWeight:'bold'}}>Date</Text>
+        </View>
+
+        <View style={styles.amountInput}>
+          <TextInput style={styles.inputAmount} onChangeText={productAmountHandler} keyboardType="numeric" />
+          <TextInput style={styles.inputdate} value={date} onChangeText={datehandler} placeholder="MM-DD-YYYY" keyboardType="numeric"/>
+        </View>
+     
+      </View>
+     
       <Button
         onPressProp={() =>
-          onPressHandler(_id, price, qty, supplierName, aQty, date)
+          onPressHandler(_id, price, qty, supplierName, aQty, date,handler)
         }
         color="#3eabab"
         fontSize={15}
@@ -78,7 +106,7 @@ const styles = StyleSheet.create({
   gridItem: {
     flex: 1,
     margin: 16,
-    height: 250,
+    height: 300,
     borderRadius: 8,
     elevation: 4,
     shadowColor: "black",
@@ -101,6 +129,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 0,
+    marginTop:10
   },
   innerContainerUpdateAdmin: {
     borderRadius: 0,
@@ -124,7 +153,7 @@ const styles = StyleSheet.create({
   },
   titleHead: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 20,
     textAlign: "center",
     marginBottom: 10,
   },
@@ -141,4 +170,63 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: "#d8ebeb",
   },
+
+  inputdate: {
+    backgroundColor: "#d8ebeb",
+    marginTop: 10,
+    fontSize:18,
+
+  },
+
+  inputAmount: {
+    backgroundColor: "#d8ebeb",
+    marginTop: 10,
+    fontSize:18,
+  },
+
+  dateTille: {
+    marginTop: 10,
+  },
+
+  testText: {
+    alignContent: "center",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    marginHorizontal: 50,
+    marginVertical:10
+  },
+  tesView:{
+    alignItems:'center',
+    alignContent:'center',
+    justifyContent:'center'
+  },
+  amountContainer:{
+    marginLeft:40
+  },
+  amountText:{
+    marginVertical:10,
+    fontSize:18,
+    fontWeight:'bold'
+  },
+  amountInput:{
+    marginRight:40,
+    justifyContent:'center'
+  },
+
 });
+
+{
+  /* <View style={styles.input}>
+<TextInput onChangeText={productAmountHandler} />
+</View>
+<View>
+<TextInput style={styles.inputdate} placeholder="MM-DD-YYYY" />
+</View>
+
+
+<Text style={styles.title}>Amount:</Text>
+<View style={styles.dateTille}>
+  <Text style={styles.title}>Deliver Date:</Text>
+</View> */
+}

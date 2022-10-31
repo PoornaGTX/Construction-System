@@ -1,6 +1,6 @@
 import { View, Pressable, Text, StyleSheet } from "react-native";
 
-const Button = ({ children, onPressProp, mode, style, color, fontSize }) => {
+const Button = ({ children, onPressProp, mode, style, color, fontSize,height }) => {
   return (
     <View style={style}>
       <Pressable
@@ -11,7 +11,7 @@ const Button = ({ children, onPressProp, mode, style, color, fontSize }) => {
           style={[
             styles.button,
             mode === "flat" && styles.flat,
-            { backgroundColor: color },
+            { backgroundColor: color,height:height },
           ]}
         >
           <Text
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 8,
     backgroundColor: "#9b095c",
+
   },
   flat: {
     backgroundColor: "transparent",

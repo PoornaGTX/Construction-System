@@ -1,12 +1,21 @@
-import { useLayoutEffect, useContext, useState } from "react";
+import { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
+import { useAppContext } from "../context/appContext";
+import { useIsFocused } from "@react-navigation/core";
 
 //components
-import IconButton from "../components/icons/IconButton";
-import { KnowledgelabContext } from "../store/KLab-context";
 import AdminForm from "../components/Form/AdminForm";
 
-const ProjectScreen = ({ route, navigation }) => {
+const ProjectScreen = () => {
+  const { getAllProjectDetails, projectDetails } = useAppContext();
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      getAllProjectDetails();
+    }
+  }, [isFocused]);
+
   return (
     <View style={styles.container}>
       <AdminForm
@@ -15,6 +24,7 @@ const ProjectScreen = ({ route, navigation }) => {
         labelName3="Project EstimatedCost"
         labelName4="Project Manager"
         labelName5="Project DeadLine"
+        projectDetails={projectDetails}
       />
     </View>
   );

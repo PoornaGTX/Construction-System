@@ -6,7 +6,7 @@ import { useIsFocused } from "@react-navigation/core";
 import Button from "../components/icons/Button";
 
 const StatsScreenAdmin = ({ route }) => {
-  const { getCart, cart, deleteCartitem } = useAppContext();
+  const { getCart, cart, deleteCartitem,addToOrder } = useAppContext();
 
   const isFocused = useIsFocused();
 
@@ -27,6 +27,12 @@ const StatsScreenAdmin = ({ route }) => {
     deleteCartitem(cartItemID);
   };
 
+  const cartConfirmHamdler = () => {
+    addToOrder(cart,totalCart)
+  };
+
+
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -43,7 +49,7 @@ const StatsScreenAdmin = ({ route }) => {
             {+totalCart > 100000 && (
               <Text style={styles.approvelTitle}>You need Approvel</Text>
             )}
-            {totalCart > 0 && <Button color="red">Confirm cart</Button>}
+            {totalCart > 0 && <Button color="red" onPressProp={cartConfirmHamdler}>Confirm cart</Button>}
           </View>
         </View>
 

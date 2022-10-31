@@ -3,7 +3,6 @@ const express = require("express");
 const {
   createProjects,
   getProjectDetails,
-  getProjects,
   deleteProject,
   updateProject,
 } = require("../controllers/ProjectController");
@@ -14,8 +13,6 @@ const router = express.Router();
 router.delete("/:id", deleteProject);
 router.patch("/:id", updateProject);
 router.post("/", createProjects);
-router.get("/", getProjectDetails);
-router.get("/", getProjects);
-
+router.get("/:email", getProjectDetails);
 
 module.exports = router;

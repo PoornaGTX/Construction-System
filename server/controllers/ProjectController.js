@@ -115,8 +115,7 @@ const createProjects = async (req, res) => {
 };
 
 const getProjectDetails = async (req, res) => {
-  const { email: email } = req.body;
-  console.log(email);
+  const { email: email } = req.params;
   const project = await Project.findOne({ projectManager: email });
   res.status(200).json({ project });
 };
@@ -127,5 +126,4 @@ module.exports = {
   getProjects,
   deleteProject,
   updateProject,
-
 };

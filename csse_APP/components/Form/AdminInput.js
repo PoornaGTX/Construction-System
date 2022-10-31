@@ -1,10 +1,10 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 
-const AdminInput = ({ label, textInputAllProps }) => {
+const AdminInput = ({ label, value }) => {
   return (
     <View style={styles.inputConainer}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput {...textInputAllProps} style={styles.input} />
+      <TextInput value={value} style={styles.input} editable={false} />
     </View>
   );
 };

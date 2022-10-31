@@ -85,6 +85,18 @@ function AuthenticatedStack() {
       }}
     >
       <Bottom.Screen
+        name="AdminHome"
+        component={AdminBottomTabHome}
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="construct" size={size} color="black" />
+          ),
+        }}
+      />
+
+      <Bottom.Screen
         name="Project"
         component={ProjectScreen}
         options={{
@@ -97,17 +109,6 @@ function AuthenticatedStack() {
         }}
       />
 
-      <Bottom.Screen
-        name="AdminHome"
-        component={AdminBottomTabHome}
-        options={{
-          headerShown: false,
-          tabBarShowLabel: false,
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="construct" size={size} color="black" />
-          ),
-        }}
-      />
       <Bottom.Screen
         name="Stats"
         component={StatsScreenAdmin}

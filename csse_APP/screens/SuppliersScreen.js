@@ -1,5 +1,13 @@
 import { useLayoutEffect, useContext, useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, Alert, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  Alert,
+  View,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/core";
 
@@ -15,14 +23,21 @@ const SuppliersScreen = ({ route }) => {
 
   const { addToCart, getAllProducts, products } = useAppContext();
 
-  const NevigateToCartHandler = (_id, price, qty, supplierName, aQty, date) => {
+  const NevigateToCartHandler = (_id, price, qty, supplierName, aQty, date,handler) => {
     const name = supplierName;
     const pid = _id;
     const total = +price * +aQty;
 
     if (+qty < +aQty) {
       return Alert.alert(
-        "Authntication failed!",
+        "greather than amount avalible!",
+        "Could not log you in. Please check credentials or try again later"
+      );
+    }
+
+    if (+aQty <=0) {
+      return Alert.alert(
+        "less tha 0",
         "Could not log you in. Please check credentials or try again later"
       );
     }
@@ -37,18 +52,23 @@ const SuppliersScreen = ({ route }) => {
       date,
     });
 
+
+    handler();
+   
     return Alert.alert(
       "Add to cart success",
       "Could not log you in. Please check credentials or try again later"
     );
   };
 
+  
   const displaySubjects = products.filter((singleProduct) => {
     return singleProduct.name === type;
   });
 
   useEffect(() => {
     getAllProducts();
+
   }, []);
 
   const renderSubjectItem = (itemData) => {
