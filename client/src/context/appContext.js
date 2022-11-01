@@ -53,6 +53,7 @@ import {
   EDIT_APPROVE_ORDER_ERROR,
   EDIT_APPROVE_ORDER_SUCCESS,
   EDIT_APPROVE_ORDER_BEGIN,
+  SET_EDIT_DELIVER_ORDER
 } from "./actions";
 //set as default
 const user = localStorage.getItem("user");
@@ -525,6 +526,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SET_EDIT_APPROVE_ORDER, payload: { id } });
   };
 
+  const setEditDeliverOrder = (id) => {
+    dispatch({ type: SET_EDIT_DELIVER_ORDER, payload: { id } });
+  };
+
   //edit job
   const editOrderStatus = async () => {
     dispatch({ type: EDIT_APPROVE_ORDER_BEGIN });
@@ -556,7 +561,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_ALL_PRODUCTS_BEGIN });
     try {
       const { data } = await authFetch.post('/getMyOrders/', { name:"Dilupa12",
-      status:"approved"});
+      status:["approved","delivered"]});
 
       const { orders, numOfPages, totalProducts } = data;
 
@@ -606,6 +611,7 @@ const AppProvider = ({ children }) => {
         getAllSelectedProducts,
         setEditApproveOrder,
         editOrderStatus,
+        setEditDeliverOrder
       }}
     >
       {children}

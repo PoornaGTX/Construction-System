@@ -9,6 +9,8 @@ import AllSiteManagers from "./AllSiteManagers";
 import AddNewProject from "./AddNewProject";
 import OrderRequests from "./OrderRequests";
 import ApproveOrder from "./ApproveOrder";
+import OrderDeliveryNotice from "./OrderDeliveryNotice";
+
 
 export {
   AllProjects,
@@ -22,4 +24,5 @@ export {
   AddNewProject,
   OrderRequests,
   ApproveOrder,
+  OrderDeliveryNotice
 };
