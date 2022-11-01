@@ -12,6 +12,7 @@ import {
   AddNewProject,
   OrderRequests,
   ApproveOrder,
+  OrderDeliveryNotice,
 } from "./dashboard/index";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import ProtectedRouter from "./components/ProtectedRoute";
@@ -94,6 +95,14 @@ function App() {
                   <ProtectedManagerRoute>
                     <OrderRequests />
                   </ProtectedManagerRoute>
+                }
+              />
+              <Route
+                path="order-delivery-notice"
+                element={
+                  <ProtectedSupplierRoute>
+                    <OrderDeliveryNotice />
+                  </ProtectedSupplierRoute>
                 }
               />
             </Route>

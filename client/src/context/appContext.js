@@ -46,12 +46,14 @@ import {
   EDIT_PROJECT_ERROR,
   EDIT_PROJECT_SUCCESS,
   SET_EDIT_PROJECT,
+  GET_ALL_SUPP_ORDERS_SUCCESS,
   GET_ALL_ORDERS_ABOVE_ONE_LAKH_BEGIN,
   GET_ALL_ORDERS_ABOVE_ONE_LAKH_SUCCESS,
   SET_EDIT_APPROVE_ORDER,
   EDIT_APPROVE_ORDER_ERROR,
   EDIT_APPROVE_ORDER_SUCCESS,
   EDIT_APPROVE_ORDER_BEGIN,
+  SET_EDIT_DELIVER_ORDER
 } from "./actions";
 //set as default
 const user = localStorage.getItem("user");
@@ -84,6 +86,7 @@ export const initialState = {
   projectEstimatedCost: "",
   projectDeadLine: "",
   projectManager: "",
+  supOrders:[],
   selectedOrders: [],
   OrderStatus: "",
   isEditingOrderStatus: false,
@@ -525,6 +528,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SET_EDIT_APPROVE_ORDER, payload: { id } });
   };
 
+  const setEditDeliverOrder = (id) => {
+    dispatch({ type: SET_EDIT_DELIVER_ORDER, payload: { id } });
+  };
+
   //edit job
   const editOrderStatus = async () => {
     dispatch({ type: EDIT_APPROVE_ORDER_BEGIN });
@@ -548,6 +555,29 @@ const AppProvider = ({ children }) => {
           msg: error.response.data.msg,
         },
       });
+    }
+    clearAlert();
+  };
+
+  const getAllSupplierOrders = async () => {
+    dispatch({ type: GET_ALL_PRODUCTS_BEGIN });
+    try {
+      const { data } = await authFetch.post('/getMyOrders/', { name:"Dilupa12",
+      status:["approved","delivered"]});
+
+      const { orders, numOfPages, totalProducts } = data;
+
+      dispatch({
+        type: GET_ALL_SUPP_ORDERS_SUCCESS,
+        payload: {
+          orders,
+          numOfPages,
+          totalProducts,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      logoutUser();
     }
     clearAlert();
   };
@@ -579,9 +609,11 @@ const AppProvider = ({ children }) => {
         deleteProject,
         setEditProject,
         editProject,
+        getAllSupplierOrders,
         getAllSelectedProducts,
         setEditApproveOrder,
         editOrderStatus,
+        setEditDeliverOrder
       }}
     >
       {children}

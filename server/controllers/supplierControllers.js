@@ -3,8 +3,8 @@ const { StatusCodes } = require("http-status-codes");
 const {
   BadRequestError,
   NotFoundError,
-  UnauthenticatedError,
 } = require("../errors/index");
+const Order = require("../modal/Order");
 //get all products
 const getProducts = async (req, res) => {
   const products = await Product.find({ createdBy: req.user.userId });
@@ -12,6 +12,7 @@ const getProducts = async (req, res) => {
     .status(StatusCodes.OK)
     .send({ products, totalProducts: products.length, numOfPages: 1 });
 };
+
 //get single product
 const getSingleProduct = async (req, res) => {
   try {
@@ -24,6 +25,7 @@ const getSingleProduct = async (req, res) => {
     res.status(404).send({ msg: error });
   }
 };
+
 //delete a product
 const deleteProduct = async (req, res) => {
   const { id: pid } = req.params;
@@ -36,6 +38,7 @@ const deleteProduct = async (req, res) => {
     res.status(404).send({ msg: error });
   }
 };
+
 //update a product
 const updateProduct = async (req, res) => {
   const { id: pid } = req.params;
@@ -49,14 +52,7 @@ const updateProduct = async (req, res) => {
   if (!product) {
     throw new NotFoundError(`No Product found with id ${pid}`);
   }
-  console.log(product.createdBy);
-  console.log(req.user.userId);
-  console.log(typeof req.user.userId);
-  console.log(typeof product.createdBy);
-  // //check permissions
-  // if (req.user.userId !== product.createdBy) {
-  //   throw new UnauthenticatedError("Not authorized to access this route");
-  // }
+
   const UpdatedProduct = await Product.findOneAndUpdate(
     { _id: pid },
     req.body,
@@ -67,6 +63,7 @@ const updateProduct = async (req, res) => {
   );
   res.status(200).send({ UpdatedProduct });
 };
+
 //create a new product
 const createProduct = async (req, res) => {
   const { qty, name, price, supplierName } = req.body;
@@ -78,10 +75,23 @@ const createProduct = async (req, res) => {
   res.status(StatusCodes.OK).send({ products });
 };
 
+const getMyOrders = async (req, res) => {
+
+  const supplierName = req.body.name;
+  const orderStatus = req.body.status;
+
+  const orders = await Order.find({ status: orderStatus, 'cartproducts.supName': supplierName });
+
+  res
+    .status(StatusCodes.OK)
+    .send({ orders, totalOrders: orders.length, numOfPages: 1 });
+};
+
 module.exports = {
   getProducts,
   createProduct,
   getSingleProduct,
   deleteProduct,
   updateProduct,
+  getMyOrders
 };
