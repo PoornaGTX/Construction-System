@@ -46,7 +46,13 @@ import {
   EDIT_PROJECT_ERROR,
   EDIT_PROJECT_SUCCESS,
   SET_EDIT_PROJECT,
-  GET_ALL_SUPP_ORDERS_SUCCESS
+  GET_ALL_SUPP_ORDERS_SUCCESS,
+  GET_ALL_ORDERS_ABOVE_ONE_LAKH_BEGIN,
+  GET_ALL_ORDERS_ABOVE_ONE_LAKH_SUCCESS,
+  SET_EDIT_APPROVE_ORDER,
+  EDIT_APPROVE_ORDER_ERROR,
+  EDIT_APPROVE_ORDER_SUCCESS,
+  EDIT_APPROVE_ORDER_BEGIN,
 } from "./actions";
 //set as default
 const user = localStorage.getItem("user");
@@ -79,7 +85,12 @@ export const initialState = {
   projectEstimatedCost: "",
   projectDeadLine: "",
   projectManager: "",
-  supOrders:[]
+  supOrders:[],
+  selectedOrders: [],
+  OrderStatus: "",
+  isEditingOrderStatus: false,
+  editOrderId: "",
+  selectedOrder: {},
 };
 
 const AppContext = React.createContext();
@@ -220,7 +231,7 @@ const AppProvider = ({ children }) => {
         name: pName,
         price,
         qty,
-        supplierName: user.name
+        supplierName: user.name,
       });
       dispatch({
         type: CREATE_PRODUCT_SUCCESS,
@@ -288,7 +299,7 @@ const AppProvider = ({ children }) => {
         name: pName,
         qty,
         price,
-        supplierName:user.name,
+        supplierName: user.name,
       });
       dispatch({
         type: EDIT_PRODUCT_SUCCESS,
@@ -488,6 +499,58 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   };
+  //get all projects
+  const getAllSelectedProducts = async () => {
+    dispatch({ type: GET_ALL_ORDERS_ABOVE_ONE_LAKH_BEGIN });
+    try {
+      const { data } = await axios.get("/api/Projects/order");
+      // console.log(data);
+      const { orders } = data;
+      // console.log(products);
+      dispatch({
+        type: GET_ALL_ORDERS_ABOVE_ONE_LAKH_SUCCESS,
+        payload: {
+          orders,
+        },
+      });
+      // console.log(state.products);
+    } catch (error) {
+      console.log(error);
+      logoutUser();
+    }
+    clearAlert();
+  };
+  //set edit project
+  const setEditApproveOrder = (id) => {
+    dispatch({ type: SET_EDIT_APPROVE_ORDER, payload: { id } });
+  };
+
+  //edit job
+  const editOrderStatus = async () => {
+    dispatch({ type: EDIT_APPROVE_ORDER_BEGIN });
+    try {
+      const { OrderStatus, editOrderId } = state;
+      console.log("#########################");
+      console.log(OrderStatus);
+      console.log("######################");
+      await authFetch.patch(`/Projects/order/${editOrderId}`, { OrderStatus });
+      dispatch({
+        type: EDIT_APPROVE_ORDER_SUCCESS,
+      });
+      dispatch({ type: CLEAR_VALUES });
+    } catch (error) {
+      if (error.response.status === 401) {
+        return;
+      }
+      dispatch({
+        type: EDIT_APPROVE_ORDER_ERROR,
+        payload: {
+          msg: error.response.data.msg,
+        },
+      });
+    }
+    clearAlert();
+  };
 
   const getAllSupplierOrders = async () => {
     dispatch({ type: GET_ALL_PRODUCTS_BEGIN });
@@ -539,7 +602,10 @@ const AppProvider = ({ children }) => {
         deleteProject,
         setEditProject,
         editProject,
-        getAllSupplierOrders
+        getAllSupplierOrders,
+        getAllSelectedProducts,
+        setEditApproveOrder,
+        editOrderStatus,
       }}
     >
       {children}
