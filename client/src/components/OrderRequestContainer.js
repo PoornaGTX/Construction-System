@@ -5,11 +5,21 @@ import Loading from "./Loading";
 import SelectedOrder from "./SelectedOrder";
 
 const OrderRequestContainer = () => {
-  const { getAllSelectedProducts, selectedOrders, isLoading, getAllUsers } =
-    useAppContext();
+  const {
+    getAllSelectedProducts,
+    selectedOrders,
+    isLoading,
+    getAllUsers,
+    users,
+    projects,
+    getAllProjects,
+  } = useAppContext();
   useEffect(() => {
     getAllSelectedProducts();
+    getAllUsers();
+    getAllProjects();
   }, []);
+
   if (isLoading) {
     return <Loading center />;
   }
@@ -28,7 +38,21 @@ const OrderRequestContainer = () => {
       </h5>
       <div className="jobs">
         {selectedOrders.map((order) => {
-          return <SelectedOrder key={order._id} {...order} />;
+          let siteManagers = users.filter((user) => {
+            return user.type === "Site Manager" && user._id === order.createdBy;
+          });
+          let project = projects.find(
+            (project) => project.projectManager === siteManagers[0].email
+          );
+          console.log(project);
+          return (
+            <SelectedOrder
+              key={order._id}
+              {...order}
+              SiteManager={siteManagers[0]}
+              project={project}
+            />
+          );
         })}
       </div>
     </Wrapper>

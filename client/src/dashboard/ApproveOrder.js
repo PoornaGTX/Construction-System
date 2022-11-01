@@ -148,7 +148,7 @@ td, th {
               {selectedOrder.cartproducts.map((item) => {
                 return (
                   <tr key={item._id}>
-                    <td>{item.name}</td>
+                    <td>{item.type}</td>
                     <td>{item.price}</td>
                     <td>{item.userQty}</td>
                     <td>{item.total}</td>

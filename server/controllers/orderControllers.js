@@ -24,16 +24,15 @@ const addToOrder = async (req, res) => {
   res.status(200).json({ Orders });
 };
 
-
 const getOrderAboveOneLakh = async (req, res) => {
-  const orders = await Order.find({ total: { $gt: 40000 } });
+  const orders = await Order.find({ total: { $gt: 100000 } });
   return res.status(200).json({ orders });
 };
 
 const getAllCart = async (req, res) => {
   const carts = await Cart.find({});
   res.status(200).json({ carts });
-}
+};
 const getAllOrders = async (req, res) => {
   const Orders = await Order.find({});
   res.status(200).json({ Orders });
@@ -67,5 +66,4 @@ module.exports = {
   getOrderAboveOneLakh,
   updateCart,
   getAllOrders,
-
 };
