@@ -9,16 +9,26 @@ const NavLinks = ({ toggleSidebar }) => {
   if (user.type === "Site Manager" || user.type === "ProcurementManager") {
     console.log("in");
     newLinks = newLinks.filter((link) => {
-      if (link.path !== "add-product" || link.path !== "orders") {
+      if (
+        link.path !== "add-product" &&
+        link.path !== "orders" &&
+        link.path !== "add-to-cart"
+      ) {
         return link;
       }
     });
     console.log(newLinks);
   }
- 
-  if (user.type === "Supplier" ) {
+
+  if (user.type === "Supplier") {
     newLinks = newLinks.filter((link) => {
-      if (link.path !== "add-to-cart" || link.path !== "all-projects" || link.path !== "all-site-managers" || link.path !== "add-new-project" || link.path !== "order-requests" ) {
+      if (
+        link.path !== "add-to-cart" ||
+        link.path !== "all-projects" ||
+        link.path !== "all-site-managers" ||
+        link.path !== "add-new-project" ||
+        link.path !== "order-requests"
+      ) {
         return link;
       }
     });

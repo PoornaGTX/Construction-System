@@ -168,9 +168,7 @@ tr:nth-child(even) {
     })
     .catch((err) => console.log(err));
 });
-// app.get("/hi", (req, res) => {
-//   res.send("hi");
-// });
+
 //other routes
 app.use("/api/Projects", ProjectRoutes);
 app.use("/api/auth", authRoutes);

@@ -10,7 +10,7 @@ import { GoRequestChanges } from "react-icons/go";
 const links = [
   {
     id: 1,
-    text: "all products",
+    text: "Home",
     path: "/",
     icon: <MdQueryStats />,
   },
@@ -33,31 +33,31 @@ const links = [
     icon: <ImProfile />,
   },
   {
-    id: 50,
+    id: 5,
     text: "Orders",
     path: "orders",
-    icon: <IoWalletOutline/>,
+    icon: <IoWalletOutline />,
   },
   {
-    id: 5,
+    id: 6,
     text: "All Projects",
     path: "all-projects",
     icon: <BsBuilding />,
   },
   {
-    id: 6,
+    id: 7,
     text: "All Site Managers",
     path: "all-site-managers",
     icon: <MdOutlineManageAccounts />,
   },
   {
-    id: 7,
+    id: 8,
     text: "Add New Project",
     path: "add-new-project",
     icon: <BiAddToQueue />,
   },
   {
-    id: 8,
+    id: 9,
     text: "Order Requests",
     path: "order-requests",
     icon: <GoRequestChanges />,

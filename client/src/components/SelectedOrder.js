@@ -14,7 +14,6 @@ import Wrapper from "../assets/wrappers/Job";
 import ProductInfo from "./ProductInfo";
 
 const SelectedOrder = ({
-  name,
   createdAt,
   total,
   qty,
@@ -22,13 +21,25 @@ const SelectedOrder = ({
   createdBy,
   status,
   SiteManager,
-  project,
 }) => {
-  const { setEditApproveOrder } = useAppContext();
+  const { setEditApproveOrder, getAllUsers, users, projects, getAllProjects } =
+    useAppContext();
+
+  let siteManagers = users.filter((user) => {
+    return user.type === "Site Manager" && user._id === createdBy;
+  });
+  let project = projects.find(
+    (project) => project.projectManager === siteManagers[0].email
+  );
+  console.log(projects);
+
+  SiteManager = siteManagers[0];
 
   let date = moment(createdAt);
   date = date.format("MMM Do, YYYY");
-  const cost = project.projectEstimatedCost.toString();
+  const cost = project.projectEstimatedCost
+    ? project.projectEstimatedCost.toString()
+    : null;
   return (
     <Wrapper>
       <header>
