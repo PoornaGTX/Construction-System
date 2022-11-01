@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
 import {
   FaLocationArrow,
@@ -19,34 +19,25 @@ const SelectedOrder = ({
   total,
   qty,
   _id,
+  createdBy,
   status,
-  siteManagers,
+  SiteManager,
+  project,
 }) => {
-  const {
-    setEditProduct,
-    deleteProduct,
-    user,
-    addItemToCart,
-    setEditApproveOrder,
-  } = useAppContext();
+  const { setEditApproveOrder } = useAppContext();
+
   let date = moment(createdAt);
   date = date.format("MMM Do, YYYY");
-
-  const imageSelector = () => {
-    if (name === "Sand") {
-      return "/products/sand.jpg";
-    } else if (name === "Bricks") {
-      return "/products/bricks.webp";
-    } else if (name === "Cement") {
-      return "/products/cement.webp";
-    } else {
-      return "/products/sand.jpg";
-    }
-  };
+  const cost = project.projectEstimatedCost.toString();
   return (
     <Wrapper>
       <header>
-        <img src={imageSelector()} alt="product" width={250} height={250} />
+        <img
+          src="https://static.vecteezy.com/system/resources/thumbnails/002/292/445/small_2x/illustration-of-box-icon-symbol-free-vector.jpg"
+          alt="product"
+          width={250}
+          height={250}
+        />
       </header>
       <div className="content">
         {/* content center later */}
@@ -54,6 +45,16 @@ const SelectedOrder = ({
           <ProductInfo icon={<FaLocationArrow />} text={total} />
           <ProductInfo icon={<FaLocationArrow />} text={status} />
           <ProductInfo icon={<FaLocationArrow />} text={date} />
+          <ProductInfo icon={<FaLocationArrow />} text={SiteManager.name} />
+          <ProductInfo icon={<FaLocationArrow />} text={cost} />
+          <ProductInfo
+            icon={<FaLocationArrow />}
+            text={SiteManager.allocatedProject}
+          />
+          <ProductInfo
+            icon={<FaLocationArrow />}
+            text={project.projectLocation}
+          />
         </div>
         <footer>
           <div className="actions">
@@ -65,19 +66,6 @@ const SelectedOrder = ({
               Edit
             </Link>
           </div>
-          {/* {user.type !== "Customer" && (
-          )}
-          {user.type === "Customer" && (
-            <div className="actions">
-              <Link
-                to={`/add-to-cart`}
-                onClick={() => addItemToCart({ name, price, qty, _id })}
-                className="btn edit-btn"
-              >
-                Add to cart
-              </Link>
-            </div>
-          )} */}
         </footer>
       </div>
     </Wrapper>
