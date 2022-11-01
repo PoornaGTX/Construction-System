@@ -499,6 +499,8 @@ const AppProvider = ({ children }) => {
   };
   //get all projects
   const getAllSelectedProducts = async () => {
+    await getAllProjects();
+    await getAllUsers();
     dispatch({ type: GET_ALL_ORDERS_ABOVE_ONE_LAKH_BEGIN });
     try {
       const { data } = await axios.get("/api/Projects/order");

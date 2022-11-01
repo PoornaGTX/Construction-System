@@ -19,8 +19,10 @@ import ProtectedSupplierRoute from "./components/ProtectedSupplierRoute";
 import ProtectedCustomerRoute from "./components/ProtectedCustomerRoute";
 import Orders from "./dashboard/Orders";
 import ProtectedManagerRoute from "./components/ProtectedManagerRoute";
+import { useAppContext } from "./context/appContext";
 
 function App() {
+  const { user } = useAppContext();
   return (
     <div className="App">
       <>
@@ -35,6 +37,7 @@ function App() {
               }
             >
               <Route index element={<AllProducts />} />
+
               <Route
                 path="add-product"
                 element={
@@ -43,8 +46,8 @@ function App() {
                   </ProtectedSupplierRoute>
                 }
               />
-             <Route path="approve-order" element={<ApproveOrder />} />
-               <Route
+              <Route path="approve-order" element={<ApproveOrder />} />
+              <Route
                 path="orders"
                 element={
                   <ProtectedSupplierRoute>
