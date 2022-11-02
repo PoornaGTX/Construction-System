@@ -10,4 +10,6 @@ const router = express.Router();
 
 router.route("/").post(authenticateUser, addToOrder);
 router.route("/").get(authenticateUser, getOrderSummery);
+router.route("/").get(getAllOrders);
+
 module.exports = router;
