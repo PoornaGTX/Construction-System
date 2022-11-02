@@ -1,12 +1,23 @@
 import { useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  ImageBackground,
+  Dimensions,
+} from "react-native";
 import CartGridTitle from "../components/CartGridTitle";
 import { useAppContext } from "../context/appContext";
 import { useIsFocused } from "@react-navigation/core";
 import Button from "../components/icons/Button";
+import { images } from "../components/ui/ProductImages/Product";
+import { LinearGradient } from "expo-linear-gradient";
+import { Colors } from "../constants/styles";
 
 const StatsScreenAdmin = ({ route }) => {
-  const { getCart, cart, deleteCartitem,addToOrder } = useAppContext();
+  const { getCart, cart, deleteCartitem, addToOrder } = useAppContext();
 
   const isFocused = useIsFocused();
 
@@ -25,46 +36,60 @@ const StatsScreenAdmin = ({ route }) => {
   const cartDeleteButtonHandler = (pid) => {
     const cartItemID = pid;
     deleteCartitem(cartItemID);
+    return Alert.alert("Successfull", "item deleted successfully");
   };
 
   const cartConfirmHamdler = () => {
-    addToOrder(cart,totalCart)
+    addToOrder(cart, totalCart);
   };
 
-
-
   return (
-    <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.total}>
-          <View style={styles.totalFlex}>
-            <View style={styles.cartTotalTtile}>
-              <Text style={styles.title}>Total Cart Amount</Text>
+    <LinearGradient colors={["black", "black"]} style={styles.liner}>
+      <ImageBackground
+        style={[styles.container, styles.image]}
+        source={images.siteCart}
+        resizeMode="cover"
+        imageStyle={styles.backImage}
+      >
+        <ScrollView>
+          <View style={styles.total}>
+            <View style={styles.totalFlex}>
+              <View>
+                {totalCart === 0 ? (
+                  <Text style={styles.titleTotal}>No cart available</Text>
+                ) : (
+                  <Text style={styles.titleTotal}>Total Cart Amount</Text>
+                )}
+              </View>
+              <View style={styles.cartTotal}>
+                <Text style={styles.titleTotal}>Rs.{totalCart}.00</Text>
+              </View>
             </View>
-            <View style={styles.cartTotal}>
-              <Text style={styles.title}>Rs.{totalCart}.00</Text>
+            <View style={styles.approvel}>
+              {+totalCart > 100000 && (
+                <Text style={styles.approvelTitle}>You need Approvel</Text>
+              )}
+              {totalCart > 0 && (
+                <Button color="#e32929" onPressProp={cartConfirmHamdler}>
+                  Confirm cart
+                </Button>
+              )}
             </View>
           </View>
-          <View style={styles.approvel}>
-            {+totalCart > 100000 && (
-              <Text style={styles.approvelTitle}>You need Approvel</Text>
-            )}
-            {totalCart > 0 && <Button color="red" onPressProp={cartConfirmHamdler}>Confirm cart</Button>}
-          </View>
-        </View>
 
-        {cart.map((item) => {
-          return (
-            <CartGridTitle
-              key={item._id}
-              {...item}
-              totalCart={totalCart}
-              deleteButtonHandler={cartDeleteButtonHandler}
-            />
-          );
-        })}
-      </ScrollView>
-    </View>
+          {cart.map((item) => {
+            return (
+              <CartGridTitle
+                key={item._id}
+                {...item}
+                totalCart={totalCart}
+                deleteButtonHandler={cartDeleteButtonHandler}
+              />
+            );
+          })}
+        </ScrollView>
+      </ImageBackground>
+    </LinearGradient>
   );
 };
 export default StatsScreenAdmin;
@@ -73,15 +98,15 @@ const styles = StyleSheet.create({
   container: {
     alignContent: "center",
     alignItems: "center",
-    backgroundColor: "#200364",
     flex: 1,
   },
   total: {
     marginHorizontal: 10,
     marginVertical: 20,
-    backgroundColor: "blue",
+    backgroundColor: Colors.primaryBlack,
     borderRadius: 8,
     paddingHorizontal: 10,
+    opacity: 0.9,
   },
   totalFlex: {
     flexDirection: "row",
@@ -90,12 +115,11 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   cartTotal: {
-    marginLeft: 60,
+    marginLeft: 20,
   },
-  cartTotalTtile: {},
   title: {
     fontSize: 20,
-    color: "white",
+    color: Colors.primaryWhite,
   },
   approvel: {
     alignItems: "center",
@@ -105,5 +129,25 @@ const styles = StyleSheet.create({
     color: "red",
     fontWeight: "bold",
     marginBottom: 10,
+    fontSize: 18,
+  },
+  titleTotal: {
+    fontSize: 22,
+    color: Colors.primaryWhite,
+    fontWeight: "bold",
+  },
+  image: {
+    flex: 1,
+    position: "absolute",
+    left: 0,
+    top: 0,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+  },
+  liner: {
+    flex: 1,
+  },
+  backImage: {
+    opacity: 0.8,
   },
 });

@@ -45,7 +45,6 @@ const updateProduct = async (req, res) => {
     throw new BadRequestError("Please Provide All Values.");
   }
   const product = await Product.find({ _id: pid });
-  console.log(product);
   if (!product) {
     throw new NotFoundError(`No Product found with id ${pid}`);
   }

@@ -14,8 +14,8 @@ import LoginScreen from "./screens/LoginScreen";
 import ProductScreen from "./screens/ProductScreen";
 import SuppliersScreen from "./screens/SuppliersScreen";
 import ProjectScreen from "./screens/ProjectScreen";
-import ManageGradesScreen from "./screens/ManageGradesScreen";
 import StatsScreenAdmin from "./screens/StatsScreenAdmin";
+import OrderScreen from "./screens/OrderScreen";
 
 import { AppProvider } from "./context/appContext";
 import { useAppContext } from "./context/appContext";
@@ -29,9 +29,10 @@ const AuthStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.primary500 },
-        headerTintColor: "white",
-        contentStyle: { backgroundColor: Colors.primary100 },
+        headerStyle: { backgroundColor: Colors.primaryWhite },
+        headerTintColor: Colors.primaryBlack,
+        contentStyle: { backgroundColor: Colors.primaryWhite},
+        headerShown: false,
       }}
     >
       <Stack.Screen name="Login" component={LoginScreen} />
@@ -45,32 +46,32 @@ const AdminBottomTabHome = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#3db1ff" },
+        headerStyle: { backgroundColor: Colors.primaryBlack },
         headerTitleAlign: "center",
+        contentStyle: { backgroundColor: Colors.primaryBlack },
       }}
     >
       <Stack.Screen
         name="Products"
         component={ProductScreen}
         options={{
-          contentStyle: { backgroundColor: "white" },
+          // contentStyle: { backgroundColor: "white" },
           headerTitleAlign: "center",
+          headerTintColor: Colors.primaryWhite,
         }}
       />
       <Stack.Screen
         name="Suppliers"
         component={SuppliersScreen}
         options={{
-          contentStyle: { backgroundColor: "#d7dbdb" },
+          // contentStyle: { backgroundColor: "#d7dbdb" },
           headerTitleAlign: "center",
+          headerTintColor: Colors.primaryWhite,
         }}
       />
 
-      <Stack.Screen
-        name="ManageGrade"
-        component={ManageGradesScreen}
-        options={{ presentation: "modal", title: "Manage Grades" }}
-      />
+      <Stack.Screen name="Login" component={LoginScreen} />
+
     </Stack.Navigator>
   );
 };
@@ -79,8 +80,8 @@ function AuthenticatedStack() {
   return (
     <Bottom.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#3db1ff" },
-        tabBarStyle: { backgroundColor: "#3db1ff" },
+        headerStyle: { backgroundColor: Colors.primaryBlack },
+        tabBarStyle: { backgroundColor: Colors.primaryBlack },
         tabBarActiveTintColor: "red",
       }}
     >
@@ -91,7 +92,7 @@ function AuthenticatedStack() {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="construct" size={size} color="black" />
+            <Ionicons name="home" size={size} color={Colors.primaryWhite} />
           ),
         }}
       />
@@ -103,9 +104,10 @@ function AuthenticatedStack() {
           headerShown: true,
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color="black" />
+            <Ionicons name="construct" size={size} color={Colors.primaryWhite} />
           ),
           headerTitleAlign: "center",
+          headerTintColor: Colors.primaryBlack,
         }}
       />
 
@@ -115,9 +117,24 @@ function AuthenticatedStack() {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="cart" size={size} color="black" />
+            <Ionicons name="cart" size={size} color={Colors.primaryWhite} />
           ),
           headerTitleAlign: "center",
+          headerTitle: "Site Cart",
+          headerTintColor: Colors.primaryWhite,
+        }}
+      />
+
+      <Bottom.Screen
+        name="Order"
+        component={OrderScreen}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="clipboard" size={size} color={Colors.primaryWhite} />
+          ),
+          headerTitleAlign: "center",
+          headerTintColor: Colors.primaryWhite,
         }}
       />
     </Bottom.Navigator>

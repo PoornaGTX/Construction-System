@@ -2,10 +2,8 @@ import { useState } from "react";
 import { Alert, StyleSheet, View, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import FlatButton from "../ui/FlatButton";
 import AuthForm from "./AuthForm";
 import { Colors } from "../../constants/styles";
-
 function AuthContent({ isLogin, onAuthenticate }) {
   const navigation = useNavigation();
 
@@ -15,16 +13,6 @@ function AuthContent({ isLogin, onAuthenticate }) {
     confirmEmail: false,
     confirmPassword: false,
   });
-
-  //navigation method to login or signUp
-  function switchAuthModeHandler() {
-    if (isLogin) {
-      navigation.navigate("Signup");
-    } else {
-      navigation.navigate("Login");
-      // navigation.replace() not provide back button
-    }
-  }
 
   function submitHandler(credentials) {
     let { email, confirmEmail, password, confirmPassword } = credentials;
@@ -61,11 +49,11 @@ function AuthContent({ isLogin, onAuthenticate }) {
         onSubmit={submitHandler}
         credentialsInvalid={credentialsInvalid}
       />
-      <View style={styles.buttons}>
+      {/* <View style={styles.buttons}>
         <FlatButton onPress={switchAuthModeHandler}>
           {isLogin ? "Create a new user" : "Log in instead"}
         </FlatButton>
-      </View>
+      </View> */}
     </View>
   );
 }
@@ -78,12 +66,13 @@ const styles = StyleSheet.create({
     marginHorizontal: Platform.OS === "web" ? "30%" : 32,
     padding: 16,
     borderRadius: 8,
-    backgroundColor: Colors.primary800,
+    backgroundColor: "black",
     elevation: 2,
     shadowColor: "black",
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.35,
     shadowRadius: 4,
+    opacity: 0.9,
   },
   buttons: {
     marginTop: 8,

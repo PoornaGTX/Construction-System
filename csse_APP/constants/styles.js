@@ -4,4 +4,10 @@ export const Colors = {
     primary800: '#610440',
     error100: '#fcdcbf',
     error500: '#f37c13',
+    primaryWhite:'white',
+    primaryBlack:'black'
+  }
+
+  export const sum=(a,b)=>{
+    return a+b;
   }

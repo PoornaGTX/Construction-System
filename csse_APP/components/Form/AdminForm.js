@@ -4,6 +4,7 @@ import { View, StyleSheet, Text, Alert } from "react-native";
 import AdminInput from "./AdminInput";
 import Button from "../icons/Button";
 import ColorPixer from "../colorPixer/ColorPixer";
+import { Colors } from "../../constants/styles";
 
 const AdminForm = ({
   labelName1,
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   },
   formTitle: {
     fontSize: 25,
-    color: "white",
+    color: Colors.primaryWhite,
     textAlign: "center",
     fontWeight: "bold",
     marginVertical: 16,
