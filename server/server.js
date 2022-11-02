@@ -25,7 +25,7 @@ dotenv.config();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
-require("./db/connectDB");
+require("./db/db");
 
 //set logger middleware
 if (process.env.NODE_ENV !== "production") {
@@ -49,7 +49,6 @@ const updateQty = async (req, res) => {
     }
     return res.status(404).json({ msg: "Resource not found." });
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ msg: "Resource not found." });
   }
 };
@@ -58,8 +57,6 @@ app.patch("/api/updateQty", updateQty);
 //payment route
 app.post("/api/payment", (req, res) => {
   const { product, token, Total } = req.body;
-  console.log("PRODUCT", product);
-  console.log("PRICE", product.price);
   product.items.map((item) => {
     console.log(item.name);
   });

@@ -24,7 +24,6 @@ const ApproveOrder = () => {
   //handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(pName, price, qty);
     if (!OrderStatus) {
       displayAlert();
       return;
@@ -78,6 +77,7 @@ const ApproveOrder = () => {
                 <option value="">select</option>
                 <option value="pending">Pending</option>
                 <option value="approved">Approved</option>
+                <option value="declined">Declined</option>
               </select>
             </div>
             <FormRow

@@ -31,7 +31,6 @@ const SelectedOrder = ({
   let project = projects.find(
     (project) => project.projectManager === siteManagers[0].email
   );
-  console.log(projects);
 
   SiteManager = siteManagers[0];
 
