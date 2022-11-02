@@ -131,16 +131,13 @@ const AppProvider = ({ children }) => {
   };
   //Register user
   const registerUser = async (currentUser) => {
-    // console.log(currentUser);
     dispatch({ type: REGISTER_UER_BEGIN });
     try {
       const response = await axios.post("/api/auth/register", currentUser);
       const { user, token } = response.data;
-      // console.log({ user, token });
       dispatch({ type: REGISTER_UER_SUCCESS, payload: { user, token } });
       addUserToLocalStorage({ token, user });
     } catch (error) {
-      // console.log(error);
       dispatch({
         type: REGISTER_UER_ERROR,
         payload: { msg: error.response.data.msg },
@@ -160,7 +157,6 @@ const AppProvider = ({ children }) => {
   };
   //login user
   const loginUser = async (currentUser) => {
-    // console.log(currentUser);
     dispatch({ type: LOGIN_USER_BEGIN });
     try {
       const response = await axios.post("/api/auth/login", currentUser);
@@ -195,7 +191,6 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await authFetch.patch("/auth/updateUser", currentUser);
       const { user, token } = data;
-      // console.log(data);
       dispatch({
         type: UPDATE_USER_SUCCESS,
         payload: { user, token },
@@ -261,9 +256,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_ALL_PRODUCTS_BEGIN });
     try {
       const { data } = await authFetch.get(url);
-      // console.log(data);
       const { products, numOfPages, totalProducts } = data;
-      // console.log(products);
       dispatch({
         type: GET_ALL_PRODUCTS_SUCCESS,
         payload: {
@@ -272,9 +265,7 @@ const AppProvider = ({ children }) => {
           totalProducts,
         },
       });
-      // console.log(state.products);
     } catch (error) {
-      console.log(error);
       logoutUser();
     }
     clearAlert();
@@ -291,7 +282,6 @@ const AppProvider = ({ children }) => {
   };
   //set edit job
   const setEditProduct = (id) => {
-    // console.log(`set edit job:${id}`);
     dispatch({ type: SET_EDIT_PRODUCT, payload: { id } });
   };
   //edit job
@@ -334,7 +324,6 @@ const AppProvider = ({ children }) => {
         createdBy: state.user._id,
       };
       const response = await authFetch.post("/Customers/cart", cartItem);
-      // console.log(response.data);
       dispatch({ type: ADD_TO_CART_SUCCESS });
     } catch (error) {
       if (error.response.status === 401) return;
@@ -352,16 +341,13 @@ const AppProvider = ({ children }) => {
       const { data } = await authFetch.get(uri);
 
       const { carts } = data;
-      console.log(carts);
       dispatch({
         type: GET_ALL_CART_SUCCESS,
         payload: {
           carts,
         },
       });
-      // console.log(state.products);
     } catch (error) {
-      console.log(error);
       logoutUser();
     }
     clearAlert();
@@ -370,11 +356,9 @@ const AppProvider = ({ children }) => {
   const clearCart = async () => {
     dispatch({ type: CLEAR_CART });
     try {
-      console.log("clear cart");
       const response = await authFetch.delete("Customers/cart");
       getCart();
     } catch (error) {
-      console.log(error);
       logoutUser();
     }
   };
@@ -417,18 +401,14 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_ALL_PROJECTS_BEGIN });
     try {
       const { data } = await authFetch.get("/Projects/");
-      // console.log(data);
       const { projects } = data;
-      // console.log(products);
       dispatch({
         type: GET_ALL_PROJECTS_SUCCESS,
         payload: {
           projects,
         },
       });
-      // console.log(state.products);
     } catch (error) {
-      console.log(error);
       logoutUser();
     }
     clearAlert();
@@ -438,18 +418,14 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_ALL_USERS_BEGIN });
     try {
       const { data } = await axios.get("/api/auth/");
-      // console.log(data);
       const { users } = data;
-      // console.log(products);
       dispatch({
         type: GET_ALL_USERS_SUCCESS,
         payload: {
           users,
         },
       });
-      // console.log(state.products);
     } catch (error) {
-      console.log(error);
       logoutUser();
     }
     clearAlert();
@@ -510,18 +486,14 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_ALL_ORDERS_ABOVE_ONE_LAKH_BEGIN });
     try {
       const { data } = await axios.get("/api/Projects/order");
-      // console.log(data);
       const { orders } = data;
-      // console.log(products);
       dispatch({
         type: GET_ALL_ORDERS_ABOVE_ONE_LAKH_SUCCESS,
         payload: {
           orders,
         },
       });
-      // console.log(state.products);
     } catch (error) {
-      console.log(error);
       logoutUser();
     }
     clearAlert();
@@ -540,9 +512,6 @@ const AppProvider = ({ children }) => {
     dispatch({ type: EDIT_APPROVE_ORDER_BEGIN });
     try {
       const { OrderStatus, editOrderId } = state;
-      console.log("#########################");
-      console.log(OrderStatus);
-      console.log("######################");
       await authFetch.patch(`/Projects/order/${editOrderId}`, { OrderStatus });
       dispatch({
         type: EDIT_APPROVE_ORDER_SUCCESS,
@@ -630,4 +599,3 @@ export const useAppContext = () => {
 
 export { AppProvider };
 
-console.log();

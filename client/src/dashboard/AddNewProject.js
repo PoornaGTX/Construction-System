@@ -29,7 +29,6 @@ const AddNewProject = () => {
   //handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(pName, price, qty);
     if (!projectName || !projectLocation || !projectEstimatedCost) {
       displayAlert();
       return;
@@ -39,7 +38,6 @@ const AddNewProject = () => {
       return;
     }
     createProject();
-    console.log(projectManager);
   };
   //handle inputs
   const handleProductInput = (e) => {

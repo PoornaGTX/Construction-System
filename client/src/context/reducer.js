@@ -281,7 +281,6 @@ const reducer = (state, action) => {
   }
   if (action.type === ADD_TO_CART_ERROR) {
     let err = action.payload.msg;
-    console.log(err);
     if (action.payload.msg === "pid field has to be unique") {
       err = "Product is already in the cart";
     }

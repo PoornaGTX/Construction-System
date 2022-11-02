@@ -7,7 +7,6 @@ const NavLinks = ({ toggleSidebar }) => {
   let newLinks = links;
 
   if (user.type === "Site Manager" || user.type === "ProcurementManager") {
-    console.log("in");
     newLinks = newLinks.filter((link) => {
       if (
         link.path !== "add-product" &&
@@ -17,7 +16,6 @@ const NavLinks = ({ toggleSidebar }) => {
         return link;
       }
     });
-    console.log(newLinks);
   }
 
   if (user.type === "Supplier") {
