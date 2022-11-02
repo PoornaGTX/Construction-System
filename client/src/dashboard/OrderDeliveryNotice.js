@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/appContext";
 import { FormRow, Alert } from "../components/index";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import moment from "moment";
 const OrderDeliveryNotice = () => {
-
-  const [cementQty, setCementQty] = useState(0);
-  const [sandQty, setSandQty] = useState(0);
-  const [bricksQty, setBricksQty] = useState(0);
 
   const {
     showAlert,
@@ -20,19 +16,18 @@ const OrderDeliveryNotice = () => {
     editOrderStatus,
     selectedOrder,
     user,
-    setEditProduct,
-    editProduct
+    orderedCementQty,
+    orderedBricksQty,
+    orderedSandQty
   } = useAppContext();
   //handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(pName, price, qty);
     if (!OrderStatus) {
       displayAlert();
       return;
     }
     if (isEditingOrderStatus) {
-      //edit function
       editOrderStatus();
       return;
     }
@@ -43,39 +38,58 @@ const OrderDeliveryNotice = () => {
     const value = e.target.value;
     handleChange({ name, value });
   };
-  const imageSelector = () => {
-    if (pName === "Sand") {
-      return "/products/sand.jpg";
-    } else if (pName === "Bricks") {
-      return "/products/bricks.webp";
-    } else if (pName === "Cement") {
-      return "/products/cement.webp";
-    } else {
-      return "/products/sand.jpg";
-    }
-  };
+  
   let date = moment(selectedOrder.createdAt);
   date = date.format("MMM Do, YYYY");
 
+  function setCementOrder() {
+    const cQty = selectedOrder.cartproducts.filter((item)=>item.supName===user.name&&item.type==='Cement')
+    const orderCement = cQty[0]?.userQty ? cQty[0]?.userQty : 0
+    const cid = cQty[0]?.pid
+    // console.log('cementId',cid);
+    const orderedCementQtyy = "orderedCementQty"
+    handleChange({name:orderedCementQtyy, value:orderCement})
+    // console.log(orderedCementQtyy,orderedCementQty)
+  }
+
+  function setBricksOrder() {
+    const bQty = selectedOrder.cartproducts.filter((item)=>item.supName===user.name&&item.type==='Bricks')
+    const orderBricks = bQty[0]?.userQty?bQty[0]?.userQty:0
+    const bid = bQty[0]?.pid
+    // console.log('bricksId',bid);
+    const orderedBricksQtyy = "orderedBricksQty"
+    handleChange({name:orderedBricksQtyy, value:orderBricks})
+    // console.log(orderedBricksQtyy,orderBricks)
+  }
+
+  function setSandOrder() {
+    const sQty = selectedOrder.cartproducts.filter((item)=>item.supName===user.name&&item.type==='Sand')
+    const orderSand = (sQty[0]?.userQty)?sQty[0]?.userQty:0
+    const sid = sQty[0]?.pid
+    // console.log('sandID',sid);
+    const orderedSandQtyy = "orderedSandQty"
+    handleChange({name:orderedSandQtyy, value:orderSand})
+    // console.log(orderedSandQtyy,orderSand)
+  }
+
+  useEffect(() => {
+    setCementOrder()
+  }, [orderedCementQty]);
   
-  const cQty = selectedOrder.cartproducts.filter((item)=>item.supName===user.name&&item.type==='Cement')
-  console.log(cQty[0]?.userQty)
+  useEffect(() => {
+    setBricksOrder()
+  }, [orderedBricksQty]);
 
-  const bQty = selectedOrder.cartproducts.filter((item)=>item.supName===user.name&&item.type==='Bricks')
-  console.log(bQty[0]?.userQty)
-
-  const sQty = selectedOrder.cartproducts.filter((item)=>item.supName===user.name&&item.type==='Sand')
-  console.log(sQty[0]?.userQty)
+  useEffect(() => {
+    setSandOrder()
+  }, [orderedSandQty]);
 
   return (
     <>
       <Wrapper>
         <form className="form">
-          <h3>Edit Order</h3>
+          <h3>Order Delivery Notice</h3>
           {showAlert && <Alert />}
-          {pName && (
-            <img src={imageSelector()} alt="product" width={250} height={250} />
-          )}
           <div className="form-center">
             <div className="form-row">
               <label htmlFor="type" className="form-label">
@@ -90,6 +104,7 @@ const OrderDeliveryNotice = () => {
               >
                 <option value="">select</option>
                 <option value="delivered">Delivered</option>
+                <option value="approved">Approved</option>
               </select>
             </div>
             <FormRow

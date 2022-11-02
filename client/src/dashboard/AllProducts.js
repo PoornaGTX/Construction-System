@@ -10,7 +10,6 @@ const AllProducts = () => {
   }
   return (
     <>
-      <SearchContainer />
       <ProductContainer />
     </>
   );
