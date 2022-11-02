@@ -22,7 +22,10 @@ import {
   GET_PROJECT_ERROR,
   CREATE_ORDER_BEGIN,
   CREATE_ORDER_SUCCESS,
-  CREATE_ORDER_ERROR
+  CREATE_ORDER_ERROR,
+  GET_ORDER_BEGIN,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_ERROR,
 } from "./action";
 
 const reducer = (state, action) => {
@@ -206,7 +209,6 @@ const reducer = (state, action) => {
     };
   }
 
-
   if (action.type === CREATE_ORDER_BEGIN) {
     return { ...state, isLoading: true };
   }
@@ -222,6 +224,32 @@ const reducer = (state, action) => {
   }
 
   if (action.type === CREATE_ORDER_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: "hello",
+    };
+  }
+
+  //get all order summery
+  if (action.type === GET_ORDER_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+
+  if (action.type === GET_ORDER_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      order: action.payload.Orders,
+      alertType: "success",
+      alertText: "User Created! Redirecting",
+    };
+  }
+
+  if (action.type === GET_ORDER_ERROR) {
     return {
       ...state,
       isLoading: false,

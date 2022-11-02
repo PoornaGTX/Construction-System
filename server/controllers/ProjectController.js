@@ -57,7 +57,6 @@ const updateProject = async (req, res) => {
     throw new BadRequestError("Please Provide All Values.");
   }
   const project = await Project.find({ _id: pid });
-  console.log(project);
   if (!project) {
     throw new NotFoundError(`No Product found with id ${pid}`);
   }
@@ -97,7 +96,6 @@ const createProjects = async (req, res) => {
     throw new BadRequestError("Please provide all values.");
   }
   const projects = await Project.create(req.body);
-  // console.log(projects);
 
   const UpdateUser = await User.findOneAndUpdate(
     { email: projectManager },

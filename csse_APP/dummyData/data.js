@@ -1,12 +1,12 @@
 export const ProductName = [
-  { id: "Pn1", Name: "Cement", color: "#f5428d" },
-  { id: "Pn2", Name: "Sand", color: "#f54242" },
-  { id: "Pn3", Name: "Bricks", color: "#f5a442" },
-  { id: "Pn4", Name: "Product1", color: "#f5d142" },
-  { id: "Pn5", Name: "Product2", color: "#368dff" },
-  { id: "Pn6", Name: "Product3", color: "#41d95d" },
-  { id: "Pn7", Name: "Product4", color: "#368dff" },
-  { id: "Pn8", Name: "Product5", color: "#41d95d" },
+  { id: "Pn1", Name: "Cement", color: "white" },
+  { id: "Pn2", Name: "Sand", color: "white" },
+  { id: "Pn3", Name: "Bricks", color: "white" },
+  { id: "Pn4", Name: "Steel", color: "white" },
+  { id: "Pn5", Name: "Pipes", color: "white" },
+  { id: "Pn6", Name: "Stone", color: "white" },
+  { id: "Pn7", Name: "Wood", color: "white" },
+  { id: "Pn8", Name: "Roofing Sheets", color: "white" },
 ];
 
 export const Prodcuts = [

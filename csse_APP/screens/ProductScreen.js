@@ -1,9 +1,11 @@
 import { useLayoutEffect } from "react";
-import { FlatList } from "react-native";
+import { FlatList, ImageBackground, StyleSheet } from "react-native";
 
 import { ProductName } from "../dummyData/data";
-import GradeGirdTitle from "../components/GradeGirdTitle";
+import ProductGirdTitle from "../components/ProductGirdTitle";
 import IconButton from "../components/icons/IconButton";
+import { images } from "../components/ui/ProductImages/Product";
+import { LinearGradient } from "expo-linear-gradient";
 
 const ProductScreen = ({ navigation }) => {
   const renderGradesItem = (itemData) => {
@@ -12,7 +14,7 @@ const ProductScreen = ({ navigation }) => {
     };
 
     return (
-      <GradeGirdTitle
+      <ProductGirdTitle
         name={itemData.item.Name}
         color={itemData.item.color}
         type={itemData.item.type}
@@ -22,7 +24,7 @@ const ProductScreen = ({ navigation }) => {
   };
 
   const headerButtonHandler = () => {
-    navigation.navigate("ManageGrade");
+    navigation.navigate("Login");
   };
 
   useLayoutEffect(() => {
@@ -30,8 +32,8 @@ const ProductScreen = ({ navigation }) => {
       headerRight: () => {
         return (
           <IconButton
-            icon="add"
-            color="black"
+            icon="exit"
+            color="white"
             size={24}
             onPressProp={headerButtonHandler}
           />
@@ -41,13 +43,34 @@ const ProductScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <FlatList
-      data={ProductName}
-      keyExtractor={(item) => item.id}
-      renderItem={renderGradesItem}
-      numColumns={2}
-    />
+    <LinearGradient colors={["black", "black"]} style={styles.liner}>
+      <ImageBackground
+        style={styles.image}
+        source={images.Project}
+        resizeMode="cover"
+        imageStyle={styles.backImage}
+      >
+        <FlatList
+          data={ProductName}
+          keyExtractor={(item) => item.id}
+          renderItem={renderGradesItem}
+          numColumns={2}
+        />
+      </ImageBackground>
+    </LinearGradient>
   );
 };
 
 export default ProductScreen;
+
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+  },
+  liner: {
+    flex: 1,
+  },
+  backImage: {
+    opacity: 0.6,
+  },
+});

@@ -1,4 +1,5 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
+import { Colors } from "../../constants/styles";
 
 const AdminInput = ({ label, value }) => {
   return (
@@ -17,15 +18,17 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   label: {
-    fontSize: 14,
-    color: "#c6affc",
+    fontSize: 18,
+    color: Colors.primaryWhite,
     marginBottom: 4,
+    fontWeight: "bold",
   },
   input: {
-    backgroundColor: "#c6affc",
+    backgroundColor: Colors.primaryWhite,
     padding: 6,
     borderRadius: 6,
     fontSize: 18,
     color: "#2d0689",
+    opacity: 0.7,
   },
 });

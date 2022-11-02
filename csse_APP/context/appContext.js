@@ -27,6 +27,10 @@ import {
   CREATE_ORDER_BEGIN,
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_ERROR,
+  GET_ORDER_BEGIN,
+  GETE_ORDER_SUCCESS,
+  GET_ORDER_ERROR,
+  GET_ORDER_SUCCESS,
 } from "./action";
 
 const initialState = {
@@ -40,6 +44,7 @@ const initialState = {
   cart: [],
   products: [],
   projectDetails: "",
+  order: [],
 };
 
 const AppContext = React.createContext();
@@ -273,6 +278,27 @@ const AppProvider = ({ children }) => {
         // payload: { msg: error.response.data.msg },
       });
     }
+    getCart();
+  };
+
+  //get all products
+  const getOrderSummery = async () => {
+    dispatch({ type: GET_ORDER_BEGIN });
+
+    try {
+      const response = await authFetch.get("/order");
+      const { Orders } = response.data;
+
+      dispatch({
+        type: GET_ORDER_SUCCESS,
+        payload: { Orders },
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_ORDER_ERROR,
+        // payload: { msg: error.response.data.msg },
+      });
+    }
   };
 
   return (
@@ -287,6 +313,7 @@ const AppProvider = ({ children }) => {
         deleteCartitem,
         getAllProjectDetails,
         addToOrder,
+        getOrderSummery,
       }}
     >
       {children}
