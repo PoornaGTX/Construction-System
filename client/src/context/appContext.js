@@ -92,6 +92,9 @@ export const initialState = {
   isEditingOrderStatus: false,
   editOrderId: "",
   selectedOrder: {},
+  orderedCementQty:0,
+  orderedSandQty:0,
+  orderedBricksQty:0,
 };
 
 const AppContext = React.createContext();
@@ -562,7 +565,7 @@ const AppProvider = ({ children }) => {
   const getAllSupplierOrders = async () => {
     dispatch({ type: GET_ALL_PRODUCTS_BEGIN });
     try {
-      const { data } = await authFetch.post('/getMyOrders/', { name:"Dilupa12",
+      const { data } = await authFetch.post('/getMyOrders/', { name:state.user.name,
       status:["approved","delivered"]});
 
       const { orders, numOfPages, totalProducts } = data;

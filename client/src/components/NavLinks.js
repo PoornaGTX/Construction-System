@@ -23,10 +23,10 @@ const NavLinks = ({ toggleSidebar }) => {
   if (user.type === "Supplier") {
     newLinks = newLinks.filter((link) => {
       if (
-        link.path !== "add-to-cart" ||
-        link.path !== "all-projects" ||
-        link.path !== "all-site-managers" ||
-        link.path !== "add-new-project" ||
+        link.path !== "add-to-cart" &&
+        link.path !== "all-projects" &&
+        link.path !== "all-site-managers" &&
+        link.path !== "add-new-project" &&
         link.path !== "order-requests"
       ) {
         return link;
