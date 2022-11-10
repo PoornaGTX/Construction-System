@@ -21,7 +21,8 @@ const orderRoutes = require("./routes/orderRoutes");
 const notFound = require("./middleware/not-found");
 const errorHandler = require("./middleware/error-handler");
 const app = express();
-dotenv.config();
+//load configuration from .env file
+require("dotenv-flow").config();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
