@@ -6,7 +6,8 @@
   "scripts": {
     "server": "nodemon server --ignore client",
     "client": "npm start --prefix ../client",
-    "start": "cross-env NODE_ENV=development  concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "start": "cross-env NODE_ENV=development  concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "test": "cross-env NODE_ENV=test mocha --recursive --exit"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +31,9 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
-    "concurrently": "^7.1.0"
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "concurrently": "^7.1.0",
+    "mocha": "^10.1.0"
   }
 }
