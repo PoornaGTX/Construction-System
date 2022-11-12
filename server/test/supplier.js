@@ -43,7 +43,7 @@ describe("Projects API", () => {
         .request(server)
         .get("/api/getProducts")
         .auth(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgyNTc2MTIsImV4cCI6MTY2ODM0NDAxMn0.67JICz_108VFi6Uo-K3vh34wWPuuP7BxXoqvNav9VrM",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgyNTg0OTgsImV4cCI6MTY2ODg2MzI5OH0.fu3rEgKAm-LblS6MwxSZY7BzcoTLz8KWCpPU1IxkMQ4",
           { type: "bearer" }
         )
         .end((err, res) => {
@@ -80,7 +80,7 @@ describe("Projects API", () => {
         .request(server)
         .post("/api/createProduct")
         .auth(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgyNTc2MTIsImV4cCI6MTY2ODM0NDAxMn0.67JICz_108VFi6Uo-K3vh34wWPuuP7BxXoqvNav9VrM",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgyNTg0OTgsImV4cCI6MTY2ODg2MzI5OH0.fu3rEgKAm-LblS6MwxSZY7BzcoTLz8KWCpPU1IxkMQ4",
           { type: "bearer" }
         )
         .send(product)
@@ -109,7 +109,7 @@ describe("Projects API", () => {
         .request(server)
         .post("/api/createProduct")
         .auth(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgyNTc2MTIsImV4cCI6MTY2ODM0NDAxMn0.67JICz_108VFi6Uo-K3vh34wWPuuP7BxXoqvNav9VrM",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgyNTg0OTgsImV4cCI6MTY2ODg2MzI5OH0.fu3rEgKAm-LblS6MwxSZY7BzcoTLz8KWCpPU1IxkMQ4",
           { type: "bearer" }
         )
         .send(product)
@@ -137,7 +137,7 @@ describe("Projects API", () => {
         .request(server)
         .delete("/api/deleteProducts/" + cid)
         .auth(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgyNTc2MTIsImV4cCI6MTY2ODM0NDAxMn0.67JICz_108VFi6Uo-K3vh34wWPuuP7BxXoqvNav9VrM",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgyNTg0OTgsImV4cCI6MTY2ODg2MzI5OH0.fu3rEgKAm-LblS6MwxSZY7BzcoTLz8KWCpPU1IxkMQ4",
           { type: "bearer" }
         )
         .end((err, res) => {
