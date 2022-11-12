@@ -1,6 +1,5 @@
 const express = require("express");
 
-const { supplierAPI } = require("../controllers/supplierControllers");
 const {
   getProducts,
   createProduct,
@@ -8,7 +7,8 @@ const {
   deleteProduct,
   updateProduct,
   getMyOrders,
-} = supplierAPI();
+} = require("../controllers/supplierControllers");
+
 const router = express.Router();
 
 router.get("/getProducts", getProducts);
