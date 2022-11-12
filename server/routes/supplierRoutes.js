@@ -6,7 +6,8 @@ const {
   getSingleProduct,
   deleteProduct,
   updateProduct,
-  getMyOrders
+  getMyOrders,
+  qtyReducer
 } = require("../controllers/supplierControllers");
 
 const router = express.Router();
@@ -17,6 +18,7 @@ router.delete("/deleteProducts/:id", deleteProduct);
 router.post("/createProduct", createProduct);
 router.patch("/updateProducts/:id", updateProduct);
 router.route("/getMyOrders").post(getMyOrders);
+router.patch("/reduceProductQty", qtyReducer);
 
 
 module.exports = router;
