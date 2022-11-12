@@ -80,7 +80,7 @@ describe("Projects API", () => {
         .request(server)
         .post("/api/Customers/cart")
         .auth(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgwODg1NzAsImV4cCI6MTY2ODE3NDk3MH0.-M5UWIgeBrTjXqUQAeSAzgWiLHgQOL95F2MBsX6Rx_Y",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgyNTc2MTIsImV4cCI6MTY2ODM0NDAxMn0.67JICz_108VFi6Uo-K3vh34wWPuuP7BxXoqvNav9VrM",
           { type: "bearer" }
         )
         .send(cartItem)
@@ -112,7 +112,7 @@ describe("Projects API", () => {
         .request(server)
         .post("/api/Customers/cart")
         .auth(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgwODg1NzAsImV4cCI6MTY2ODE3NDk3MH0.-M5UWIgeBrTjXqUQAeSAzgWiLHgQOL95F2MBsX6Rx_Y",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgyNTc2MTIsImV4cCI6MTY2ODM0NDAxMn0.67JICz_108VFi6Uo-K3vh34wWPuuP7BxXoqvNav9VrM",
           { type: "bearer" }
         )
         .send(cartItem)
@@ -144,7 +144,7 @@ describe("Projects API", () => {
         .request(server)
         .delete("/api/Customers/cart/" + cid)
         .auth(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgwODg1NzAsImV4cCI6MTY2ODE3NDk3MH0.-M5UWIgeBrTjXqUQAeSAzgWiLHgQOL95F2MBsX6Rx_Y",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzU5ODg4MTYzMzU1ZDJjODVmZThmZTkiLCJpYXQiOjE2NjgyNTc2MTIsImV4cCI6MTY2ODM0NDAxMn0.67JICz_108VFi6Uo-K3vh34wWPuuP7BxXoqvNav9VrM",
           { type: "bearer" }
         )
         .end((err, res) => {
