@@ -1,5 +1,6 @@
 const express = require("express");
 
+const { supplierAPI } = require("../controllers/supplierControllers");
 const {
   getProducts,
   createProduct,
@@ -7,9 +8,8 @@ const {
   deleteProduct,
   updateProduct,
   getMyOrders,
-  qtyReducer
-} = require("../controllers/supplierControllers");
-
+  qtyReducer,
+} = supplierAPI();
 const router = express.Router();
 
 router.get("/getProducts", getProducts);
@@ -19,6 +19,5 @@ router.post("/createProduct", createProduct);
 router.patch("/updateProducts/:id", updateProduct);
 router.route("/getMyOrders").post(getMyOrders);
 router.patch("/reduceProductQty", qtyReducer);
-
 
 module.exports = router;

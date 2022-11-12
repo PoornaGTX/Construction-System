@@ -1,9 +1,13 @@
 const express = require("express");
+
+const { orderAPI } = require("../controllers/orderControllers");
 const {
+  getOrderAboveOneLakh,
+  updateCart,
   addToOrder,
   getAllOrders,
   getOrderSummery,
-} = require("../controllers/orderControllers");
+} = orderAPI();
 
 const authenticateUser = require("../middleware/auth");
 const router = express.Router();
