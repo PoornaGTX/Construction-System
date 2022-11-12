@@ -31,7 +31,7 @@ const AuthStack = () => {
       screenOptions={{
         headerStyle: { backgroundColor: Colors.primaryWhite },
         headerTintColor: Colors.primaryBlack,
-        contentStyle: { backgroundColor: Colors.primaryWhite},
+        contentStyle: { backgroundColor: Colors.primaryWhite },
         headerShown: false,
       }}
     >
@@ -71,7 +71,6 @@ const AdminBottomTabHome = () => {
       />
 
       <Stack.Screen name="Login" component={LoginScreen} />
-
     </Stack.Navigator>
   );
 };
@@ -104,7 +103,11 @@ function AuthenticatedStack() {
           headerShown: true,
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="construct" size={size} color={Colors.primaryWhite} />
+            <Ionicons
+              name="construct"
+              size={size}
+              color={Colors.primaryWhite}
+            />
           ),
           headerTitleAlign: "center",
           headerTintColor: Colors.primaryBlack,
@@ -131,7 +134,11 @@ function AuthenticatedStack() {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="clipboard" size={size} color={Colors.primaryWhite} />
+            <Ionicons
+              name="clipboard"
+              size={size}
+              color={Colors.primaryWhite}
+            />
           ),
           headerTitleAlign: "center",
           headerTintColor: Colors.primaryWhite,
@@ -146,7 +153,8 @@ function Navigation() {
 
   return (
     <NavigationContainer>
-      {!isLogedIn ? <AuthStack /> : <AuthenticatedStack />}
+      {isLogedIn && <AuthenticatedStack />}
+      {!isLogedIn && <AuthStack />}
     </NavigationContainer>
   );
 }

@@ -6,8 +6,12 @@ import ProductGirdTitle from "../components/ProductGirdTitle";
 import IconButton from "../components/icons/IconButton";
 import { images } from "../components/ui/ProductImages/Product";
 import { LinearGradient } from "expo-linear-gradient";
+import { useAppContext } from "../context/appContext";
 
 const ProductScreen = ({ navigation }) => {
+  //golobal methods and data
+  const { logOutUser } = useAppContext();
+
   const renderGradesItem = (itemData) => {
     const pressHandler = () => {
       navigation.navigate("Suppliers", { typeName: itemData.item.Name });
@@ -23,8 +27,9 @@ const ProductScreen = ({ navigation }) => {
     );
   };
 
+  //event handler
   const headerButtonHandler = () => {
-    navigation.navigate("Login");
+    logOutUser();
   };
 
   useLayoutEffect(() => {

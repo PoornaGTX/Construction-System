@@ -9,6 +9,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import AdminForm from "../components/Form/AdminForm";
 
 const ProjectScreen = () => {
+  //golobal methods and data
   const { getAllProjectDetails, projectDetails } = useAppContext();
   const isFocused = useIsFocused();
 
@@ -37,9 +38,9 @@ const ProjectScreen = () => {
         <AdminForm
           labelName1="Project Name"
           labelName2="Project Location"
-          labelName3="Project EstimatedCost"
-          labelName4="Project Manager"
-          labelName5="Project DeadLine"
+          labelName3="Project Estimated Cost"
+          labelName4="Project Manager Email"
+          labelName5="Project Deadline"
           projectDetails={projectDetails}
         />
       </ImageBackground>
