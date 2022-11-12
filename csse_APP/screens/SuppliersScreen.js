@@ -46,6 +46,7 @@ const SuppliersScreen = ({ route }) => {
     const pid = _id;
     const total = +price * +aQty;
 
+    //check quantity
     if (+qty < +aQty) {
       return Alert.alert(
         "Quantity Error",
