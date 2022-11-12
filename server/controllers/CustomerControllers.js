@@ -31,8 +31,12 @@ const clearCart = async (req, res) => {
 
 const deleteCartItem = async (req, res) => {
   const { id: cartItemID } = req.params;
-  const carts = await Cart.deleteOne({ _id: cartItemID });
-  res.status(200).json({ carts });
+  try {
+    const carts = await Cart.deleteOne({ _id: cartItemID });
+    return res.status(200).json({ carts });
+  } catch (error) {
+    return res.status(400).json({ carts: [], msg: error });
+  }
 };
 
 module.exports = {
