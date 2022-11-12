@@ -46,6 +46,14 @@ import {
   EDIT_PROJECT_ERROR,
   EDIT_PROJECT_SUCCESS,
   SET_EDIT_PROJECT,
+  GET_ALL_SUPP_ORDERS_SUCCESS,
+  GET_ALL_ORDERS_ABOVE_ONE_LAKH_BEGIN,
+  GET_ALL_ORDERS_ABOVE_ONE_LAKH_SUCCESS,
+  SET_EDIT_APPROVE_ORDER,
+  EDIT_APPROVE_ORDER_ERROR,
+  EDIT_APPROVE_ORDER_SUCCESS,
+  EDIT_APPROVE_ORDER_BEGIN,
+  SET_EDIT_DELIVER_ORDER
 } from "./actions";
 //set as default
 const user = localStorage.getItem("user");
@@ -78,6 +86,15 @@ export const initialState = {
   projectEstimatedCost: "",
   projectDeadLine: "",
   projectManager: "",
+  supOrders:[],
+  selectedOrders: [],
+  OrderStatus: "",
+  isEditingOrderStatus: false,
+  editOrderId: "",
+  selectedOrder: {},
+  orderedCementQty:0,
+  orderedSandQty:0,
+  orderedBricksQty:0,
 };
 
 const AppContext = React.createContext();
@@ -114,16 +131,13 @@ const AppProvider = ({ children }) => {
   };
   //Register user
   const registerUser = async (currentUser) => {
-    // console.log(currentUser);
     dispatch({ type: REGISTER_UER_BEGIN });
     try {
       const response = await axios.post("/api/auth/register", currentUser);
       const { user, token } = response.data;
-      // console.log({ user, token });
       dispatch({ type: REGISTER_UER_SUCCESS, payload: { user, token } });
       addUserToLocalStorage({ token, user });
     } catch (error) {
-      // console.log(error);
       dispatch({
         type: REGISTER_UER_ERROR,
         payload: { msg: error.response.data.msg },
@@ -143,7 +157,6 @@ const AppProvider = ({ children }) => {
   };
   //login user
   const loginUser = async (currentUser) => {
-    // console.log(currentUser);
     dispatch({ type: LOGIN_USER_BEGIN });
     try {
       const response = await axios.post("/api/auth/login", currentUser);
@@ -178,7 +191,6 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await authFetch.patch("/auth/updateUser", currentUser);
       const { user, token } = data;
-      // console.log(data);
       dispatch({
         type: UPDATE_USER_SUCCESS,
         payload: { user, token },
@@ -213,11 +225,12 @@ const AppProvider = ({ children }) => {
       type: CREATE_PRODUCT_BEGIN,
     });
     try {
-      const { pName, price, qty } = state;
+      const { pName, price, qty, supplierName, user } = state;
       await authFetch.post("/createProduct", {
         name: pName,
         price,
         qty,
+        supplierName: user.name,
       });
       dispatch({
         type: CREATE_PRODUCT_SUCCESS,
@@ -243,9 +256,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_ALL_PRODUCTS_BEGIN });
     try {
       const { data } = await authFetch.get(url);
-      // console.log(data);
       const { products, numOfPages, totalProducts } = data;
-      // console.log(products);
       dispatch({
         type: GET_ALL_PRODUCTS_SUCCESS,
         payload: {
@@ -254,9 +265,7 @@ const AppProvider = ({ children }) => {
           totalProducts,
         },
       });
-      // console.log(state.products);
     } catch (error) {
-      console.log(error);
       logoutUser();
     }
     clearAlert();
@@ -273,18 +282,18 @@ const AppProvider = ({ children }) => {
   };
   //set edit job
   const setEditProduct = (id) => {
-    // console.log(`set edit job:${id}`);
     dispatch({ type: SET_EDIT_PRODUCT, payload: { id } });
   };
   //edit job
   const editProduct = async () => {
     dispatch({ type: EDIT_PRODUCT_BEGIN });
     try {
-      const { pName, qty, price } = state;
+      const { pName, qty, price, supplierName, user } = state;
       await authFetch.patch(`/updateProducts/${state.editProductId}`, {
         name: pName,
         qty,
         price,
+        supplierName: user.name,
       });
       dispatch({
         type: EDIT_PRODUCT_SUCCESS,
@@ -315,7 +324,6 @@ const AppProvider = ({ children }) => {
         createdBy: state.user._id,
       };
       const response = await authFetch.post("/Customers/cart", cartItem);
-      // console.log(response.data);
       dispatch({ type: ADD_TO_CART_SUCCESS });
     } catch (error) {
       if (error.response.status === 401) return;
@@ -333,16 +341,13 @@ const AppProvider = ({ children }) => {
       const { data } = await authFetch.get(uri);
 
       const { carts } = data;
-      console.log(carts);
       dispatch({
         type: GET_ALL_CART_SUCCESS,
         payload: {
           carts,
         },
       });
-      // console.log(state.products);
     } catch (error) {
-      console.log(error);
       logoutUser();
     }
     clearAlert();
@@ -351,11 +356,9 @@ const AppProvider = ({ children }) => {
   const clearCart = async () => {
     dispatch({ type: CLEAR_CART });
     try {
-      console.log("clear cart");
       const response = await authFetch.delete("Customers/cart");
       getCart();
     } catch (error) {
-      console.log(error);
       logoutUser();
     }
   };
@@ -398,18 +401,14 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_ALL_PROJECTS_BEGIN });
     try {
       const { data } = await authFetch.get("/Projects/");
-      // console.log(data);
       const { projects } = data;
-      // console.log(products);
       dispatch({
         type: GET_ALL_PROJECTS_SUCCESS,
         payload: {
           projects,
         },
       });
-      // console.log(state.products);
     } catch (error) {
-      console.log(error);
       logoutUser();
     }
     clearAlert();
@@ -419,18 +418,14 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_ALL_USERS_BEGIN });
     try {
       const { data } = await axios.get("/api/auth/");
-      // console.log(data);
       const { users } = data;
-      // console.log(products);
       dispatch({
         type: GET_ALL_USERS_SUCCESS,
         payload: {
           users,
         },
       });
-      // console.log(state.products);
     } catch (error) {
-      console.log(error);
       logoutUser();
     }
     clearAlert();
@@ -484,6 +479,80 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   };
+  //get all projects
+  const getAllSelectedProducts = async () => {
+    await getAllProjects();
+    await getAllUsers();
+    dispatch({ type: GET_ALL_ORDERS_ABOVE_ONE_LAKH_BEGIN });
+    try {
+      const { data } = await axios.get("/api/Projects/order");
+      const { orders } = data;
+      dispatch({
+        type: GET_ALL_ORDERS_ABOVE_ONE_LAKH_SUCCESS,
+        payload: {
+          orders,
+        },
+      });
+    } catch (error) {
+      logoutUser();
+    }
+    clearAlert();
+  };
+  //set edit project
+  const setEditApproveOrder = (id) => {
+    dispatch({ type: SET_EDIT_APPROVE_ORDER, payload: { id } });
+  };
+
+  const setEditDeliverOrder = (id) => {
+    dispatch({ type: SET_EDIT_DELIVER_ORDER, payload: { id } });
+  };
+
+  //edit job
+  const editOrderStatus = async () => {
+    dispatch({ type: EDIT_APPROVE_ORDER_BEGIN });
+    try {
+      const { OrderStatus, editOrderId } = state;
+      await authFetch.patch(`/Projects/order/${editOrderId}`, { OrderStatus });
+      dispatch({
+        type: EDIT_APPROVE_ORDER_SUCCESS,
+      });
+      dispatch({ type: CLEAR_VALUES });
+    } catch (error) {
+      if (error.response.status === 401) {
+        return;
+      }
+      dispatch({
+        type: EDIT_APPROVE_ORDER_ERROR,
+        payload: {
+          msg: error.response.data.msg,
+        },
+      });
+    }
+    clearAlert();
+  };
+
+  const getAllSupplierOrders = async () => {
+    dispatch({ type: GET_ALL_PRODUCTS_BEGIN });
+    try {
+      const { data } = await authFetch.post('/getMyOrders/', { name:state.user.name,
+      status:["approved","delivered"]});
+
+      const { orders, numOfPages, totalProducts } = data;
+
+      dispatch({
+        type: GET_ALL_SUPP_ORDERS_SUCCESS,
+        payload: {
+          orders,
+          numOfPages,
+          totalProducts,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      logoutUser();
+    }
+    clearAlert();
+  };
 
   return (
     <AppContext.Provider
@@ -512,6 +581,11 @@ const AppProvider = ({ children }) => {
         deleteProject,
         setEditProject,
         editProject,
+        getAllSupplierOrders,
+        getAllSelectedProducts,
+        setEditApproveOrder,
+        editOrderStatus,
+        setEditDeliverOrder
       }}
     >
       {children}
@@ -525,4 +599,3 @@ export const useAppContext = () => {
 
 export { AppProvider };
 
-console.log();

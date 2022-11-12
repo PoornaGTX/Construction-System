@@ -43,6 +43,14 @@ import {
   EDIT_PROJECT_ERROR,
   EDIT_PROJECT_SUCCESS,
   SET_EDIT_PROJECT,
+  GET_ALL_SUPP_ORDERS_SUCCESS,
+  GET_ALL_ORDERS_ABOVE_ONE_LAKH_BEGIN,
+  GET_ALL_ORDERS_ABOVE_ONE_LAKH_SUCCESS,
+  SET_EDIT_APPROVE_ORDER,
+  EDIT_APPROVE_ORDER_ERROR,
+  EDIT_APPROVE_ORDER_SUCCESS,
+  EDIT_APPROVE_ORDER_BEGIN,
+  SET_EDIT_DELIVER_ORDER
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -273,7 +281,6 @@ const reducer = (state, action) => {
   }
   if (action.type === ADD_TO_CART_ERROR) {
     let err = action.payload.msg;
-    console.log(err);
     if (action.payload.msg === "pid field has to be unique") {
       err = "Product is already in the cart";
     }
@@ -412,6 +419,82 @@ const reducer = (state, action) => {
     };
   }
 
+  if (action.type === GET_ALL_SUPP_ORDERS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      supOrders: action.payload.orders,
+    };
+  }
+
+  //get all selected orders
+  if (action.type === GET_ALL_ORDERS_ABOVE_ONE_LAKH_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+      showAlert: false,
+    };
+  }
+  if (action.type === GET_ALL_ORDERS_ABOVE_ONE_LAKH_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      selectedOrders: action.payload.orders,
+    };
+  }
+
+  //set edit project
+  if (action.type === SET_EDIT_APPROVE_ORDER) {
+    const orders = state.selectedOrders.find(
+      (orders) => orders._id === action.payload.id
+    );
+    const { status, _id } = orders;
+    return {
+      ...state,
+      isLoading: true,
+      isEditingOrderStatus: true,
+      editOrderId: _id,
+      OrderStatus: status,
+      selectedOrder: orders,
+    };
+  }
+
+  if (action.type === SET_EDIT_DELIVER_ORDER) {
+    const orders = state.supOrders.find(
+      (orders) => orders._id === action.payload.id
+    );
+    const { status, _id } = orders;
+    return {
+      ...state,
+      isLoading: true,
+      isEditingOrderStatus: true,
+      editOrderId: _id,
+      OrderStatus: status,
+      selectedOrder: orders,
+    };
+  }
+  //edit product
+  if (action.type === EDIT_APPROVE_ORDER_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === EDIT_APPROVE_ORDER_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "Order Updated!",
+    };
+  }
+  if (action.type === EDIT_APPROVE_ORDER_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
   throw new Error(`no such action:${action.type}`);
 };
 

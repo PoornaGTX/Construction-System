@@ -69,9 +69,6 @@ const AppProvider = ({ children }) => {
     (error) => {
       if (error.response.status === 401) {
         // logoutUser();
-        console.log("====================================");
-        console.log("axios error");
-        console.log("====================================");
       }
       return Promise.reject(error);
     }

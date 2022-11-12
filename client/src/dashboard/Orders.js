@@ -1,9 +1,10 @@
 import React from 'react'
+import SupplierOrderContainer from '../components/SupplierOrderContainer'
 
 const Orders = () => {
   return (
     <div>
-      Orders
+      <SupplierOrderContainer/>
     </div>
   )
 }

@@ -19,6 +19,11 @@ const productScheme = new Schema(
       required: true,
       trim: true,
     },
+    supplierName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "User",

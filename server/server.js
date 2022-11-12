@@ -21,11 +21,12 @@ const orderRoutes = require("./routes/orderRoutes");
 const notFound = require("./middleware/not-found");
 const errorHandler = require("./middleware/error-handler");
 const app = express();
-dotenv.config();
+//load configuration from .env file
+require("dotenv-flow").config();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
-require("./db/connectDB");
+require("./db/db");
 
 //set logger middleware
 if (process.env.NODE_ENV !== "production") {
@@ -49,7 +50,6 @@ const updateQty = async (req, res) => {
     }
     return res.status(404).json({ msg: "Resource not found." });
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ msg: "Resource not found." });
   }
 };
@@ -58,8 +58,6 @@ app.patch("/api/updateQty", updateQty);
 //payment route
 app.post("/api/payment", (req, res) => {
   const { product, token, Total } = req.body;
-  console.log("PRODUCT", product);
-  console.log("PRICE", product.price);
   product.items.map((item) => {
     console.log(item.name);
   });
@@ -168,9 +166,7 @@ tr:nth-child(even) {
     })
     .catch((err) => console.log(err));
 });
-// app.get("/hi", (req, res) => {
-//   res.send("hi");
-// });
+
 //other routes
 app.use("/api/Projects", ProjectRoutes);
 app.use("/api/auth", authRoutes);
@@ -184,6 +180,8 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Service started on port: ${port}`);
 });
+
+module.exports = app;
 
 // "server": "nodemon server --ignore client",
 // "client": "npm start --prefix ../client",
