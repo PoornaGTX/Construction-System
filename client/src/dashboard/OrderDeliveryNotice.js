@@ -29,6 +29,7 @@ const OrderDeliveryNotice = () => {
       return;
     }
     if (isEditingOrderStatus) {
+      console.log(orderQty);
       editOrderStatus();
       reduceDeliveredQty(orderQty);
       return;
@@ -80,21 +81,21 @@ const OrderDeliveryNotice = () => {
   const orderQty = [
     {
       name: 'cement',
-      pid: cid,
+      pid: cid || '636149393f1a0b68c5782daf',
       qty: cementOrder
     },
     {
       name: 'Sand',
-      pid: sid,
+      pid: sid || '636149133f1a0b68c5782dab',
       qty: sandOrder
     },
     {
       name: 'Bricks',
-      pid: bid,
+      pid: bid || '636149643f1a0b68c5782db3',
       qty: bricksOrder
     },
   ]
-
+  
   useEffect(() => {
     setCementOrder()
   }, [orderedCementQty]);

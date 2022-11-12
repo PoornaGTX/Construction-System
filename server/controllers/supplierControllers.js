@@ -95,6 +95,7 @@ const qtyReducer = async (req, res) => {
       const totalQty = pro[0].qty
      const newQty = totalQty-pr.qty
      const UpdatedPro = await Product.findByIdAndUpdate( { _id: id },{...pro, qty:newQty});
+    console.log(pro);
     }
   })
 };
