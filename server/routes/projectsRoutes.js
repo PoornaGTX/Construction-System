@@ -1,17 +1,14 @@
 const express = require("express");
-const {
-  getOrderAboveOneLakh,
-  updateCart,
-} = require("../controllers/orderControllers");
-
+const { orderAPI } = require("../controllers/orderControllers");
+const { getOrderAboveOneLakh, updateCart } = orderAPI();
+const { projectAPI } = require("../controllers/ProjectController");
 const {
   createProjects,
   getProjectDetails,
   deleteProject,
   updateProject,
   getProjects,
-} = require("../controllers/ProjectController");
-
+} = projectAPI();
 const router = express.Router();
 
 // router.get("/getProducts/:id", getSingleProduct);
