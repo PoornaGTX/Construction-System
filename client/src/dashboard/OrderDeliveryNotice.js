@@ -18,7 +18,8 @@ const OrderDeliveryNotice = () => {
     user,
     orderedCementQty,
     orderedBricksQty,
-    orderedSandQty
+    orderedSandQty,
+    reduceDeliveredQty
   } = useAppContext();
   //handle submit
   const handleSubmit = (e) => {
@@ -29,6 +30,7 @@ const OrderDeliveryNotice = () => {
     }
     if (isEditingOrderStatus) {
       editOrderStatus();
+      reduceDeliveredQty(orderQty);
       return;
     }
   };
@@ -42,35 +44,56 @@ const OrderDeliveryNotice = () => {
   let date = moment(selectedOrder.createdAt);
   date = date.format("MMM Do, YYYY");
 
+  const [cid, setCid] = useState(0);
+  const [cementOrder, seCementOrderState] = useState(0);
+
+  const [bid, setBid] = useState(0);
+  const [bricksOrder, setBricksOrderState] = useState(0);
+
+  const [sid, setSid] = useState(0);
+  const [sandOrder, setSandOrderState] = useState(0);
+
   function setCementOrder() {
     const cQty = selectedOrder.cartproducts.filter((item)=>item.supName===user.name&&item.type==='Cement')
     const orderCement = cQty[0]?.userQty ? cQty[0]?.userQty : 0
+    seCementOrderState(orderCement)
     const cid = cQty[0]?.pid
-    // console.log('cementId',cid);
-    const orderedCementQtyy = "orderedCementQty"
-    handleChange({name:orderedCementQtyy, value:orderCement})
-    // console.log(orderedCementQtyy,orderedCementQty)
+    setCid(cid)
   }
 
   function setBricksOrder() {
     const bQty = selectedOrder.cartproducts.filter((item)=>item.supName===user.name&&item.type==='Bricks')
     const orderBricks = bQty[0]?.userQty?bQty[0]?.userQty:0
+    setBricksOrderState(orderBricks)
     const bid = bQty[0]?.pid
-    // console.log('bricksId',bid);
-    const orderedBricksQtyy = "orderedBricksQty"
-    handleChange({name:orderedBricksQtyy, value:orderBricks})
-    // console.log(orderedBricksQtyy,orderBricks)
+    setBid(bid)
   }
 
   function setSandOrder() {
     const sQty = selectedOrder.cartproducts.filter((item)=>item.supName===user.name&&item.type==='Sand')
     const orderSand = (sQty[0]?.userQty)?sQty[0]?.userQty:0
+    setSandOrderState(orderSand)
     const sid = sQty[0]?.pid
-    // console.log('sandID',sid);
-    const orderedSandQtyy = "orderedSandQty"
-    handleChange({name:orderedSandQtyy, value:orderSand})
-    // console.log(orderedSandQtyy,orderSand)
+    setSid(sid)
   }
+
+  const orderQty = [
+    {
+      name: 'cement',
+      pid: cid,
+      qty: cementOrder
+    },
+    {
+      name: 'Sand',
+      pid: sid,
+      qty: sandOrder
+    },
+    {
+      name: 'Bricks',
+      pid: bid,
+      qty: bricksOrder
+    },
+  ]
 
   useEffect(() => {
     setCementOrder()
