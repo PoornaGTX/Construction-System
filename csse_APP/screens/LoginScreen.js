@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ImageBackground,
   Dimensions,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import AuthContent from "../components/Auth/AuthContent";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
@@ -18,9 +18,11 @@ function LoginScreen({ navigation }) {
 
   const { loginUser, showAlert, alertType } = useAppContext();
 
+  //event handler
   const loginHandler = async ({ email, password }) => {
     setIsAuthenticating(true);
     try {
+      //db method
       loginUser({ email, password });
     } catch (error) {
       Alert.alert(
@@ -37,9 +39,11 @@ function LoginScreen({ navigation }) {
   };
 
   if (showAlert && alertType === "danger") {
-    Alert.alert("Authntication failed!", "Could not log you in. Please check credentials or try again later", [
-      { text: "Okay", onPress: alertHandler },
-    ]);
+    Alert.alert(
+      "Authntication failed!",
+      "Could not log you in. Please check credentials or try again later",
+      [{ text: "Okay", onPress: alertHandler }]
+    );
   }
 
   if (isAuthenticating) {
@@ -57,7 +61,6 @@ function LoginScreen({ navigation }) {
         <View style={styles.form}>
           <AuthContent isLogin onAuthenticate={loginHandler} />
         </View>
-        
       </ImageBackground>
     </LinearGradient>
   );

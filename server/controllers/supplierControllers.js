@@ -85,6 +85,23 @@ const getMyOrders = async (req, res) => {
     .send({ orders, totalOrders: orders.length, numOfPages: 1 });
 };
 
+const qtyReducer = async (req, res) => {
+  const dataArr = req.body;
+  dataArr.map(async (pr) => {
+    const pro = await Product.find({ _id: pr.pid });
+    if (pro) {
+      const id = pr.pid;
+      const totalQty = pro[0].qty;
+      const newQty = totalQty - pr.qty;
+      const UpdatedPro = await Product.findByIdAndUpdate(
+        { _id: id },
+        { ...pro, qty: newQty }
+      );
+      console.log(pro);
+    }
+  });
+};
+
 module.exports = {
   getProducts,
   createProduct,
@@ -92,4 +109,5 @@ module.exports = {
   deleteProduct,
   updateProduct,
   getMyOrders,
+  qtyReducer,
 };

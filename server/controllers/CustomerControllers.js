@@ -39,10 +39,23 @@ const deleteCartItem = async (req, res) => {
   }
 };
 
+const updateCartItem = async (req, res) => {
+  const { id: cartItemID } = req.params;
+
+  const { CartData } = req.body;
+  console.log("====================================");
+  console.log(cartItemID);
+  console.log("====================================");
+
+  const carts = await Cart.findOneAndUpdate({ _id: cartItemID }, req.body);
+  res.status(StatusCodes.OK).json({ carts });
+};
+
 module.exports = {
   getAllProducts,
   addToCart,
   getAllCart,
   clearCart,
   deleteCartItem,
+  updateCartItem,
 };

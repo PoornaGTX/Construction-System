@@ -17,6 +17,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../constants/styles";
 
 const StatsScreenAdmin = ({ route }) => {
+  //golobal methods and data
   const { getCart, cart, deleteCartitem, addToOrder } = useAppContext();
 
   const isFocused = useIsFocused();
@@ -33,14 +34,15 @@ const StatsScreenAdmin = ({ route }) => {
     totalCart = totalCart + total;
   });
 
+  //event handler
   const cartDeleteButtonHandler = (pid) => {
     const cartItemID = pid;
-    deleteCartitem(cartItemID);
+    deleteCartitem(cartItemID); //db method
     return Alert.alert("Successfull", "item deleted successfully");
   };
 
   const cartConfirmHamdler = () => {
-    addToOrder(cart, totalCart);
+    addToOrder(cart, totalCart); //db method
   };
 
   return (
@@ -138,7 +140,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    position: "absolute",
+    position: "relative",
     left: 0,
     top: 0,
     width: Dimensions.get("window").width,
