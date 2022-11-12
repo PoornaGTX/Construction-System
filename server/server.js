@@ -187,4 +187,7 @@ app.listen(port, () => {
 
 // "server": "nodemon server --ignore client",
 // "client": "npm start --prefix ../client",
-// "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+// "start": "cross-env NODE_ENV=development  concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+// "test": "cross-env NODE_ENV=test mocha --recursive --exit"
+
+//"start": "nodemon server.js"

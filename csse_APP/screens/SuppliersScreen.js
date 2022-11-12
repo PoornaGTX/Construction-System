@@ -5,6 +5,7 @@ import {
   Alert,
   StyleSheet,
   ImageBackground,
+  Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/core";
@@ -22,6 +23,7 @@ const SuppliersScreen = ({ route }) => {
   const type = route.params.typeName;
   const navigation = useNavigation();
 
+  //golobal methods and data
   const {
     addToCart,
     getAllProducts,
@@ -60,7 +62,7 @@ const SuppliersScreen = ({ route }) => {
     if (date === "") {
       return Alert.alert(
         "Please Enter A Date",
-        "You submited an order with empty date",
+        "You submited an order with empty date"
       );
     }
 

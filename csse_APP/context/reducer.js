@@ -26,6 +26,10 @@ import {
   GET_ORDER_BEGIN,
   GET_ORDER_SUCCESS,
   GET_ORDER_ERROR,
+  UPDATE_CART_ITEM_BEGIN,
+  UPDATE_CART_ITEM_SUCCESS,
+  UPDATE_CART_ITEM_ERROR,
+  LOGOUT_BEGIN,
 } from "./action";
 
 const reducer = (state, action) => {
@@ -256,6 +260,49 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "danger",
       alertText: "hello",
+    };
+  }
+
+  //update cart
+  if (action.type === UPDATE_CART_ITEM_BEGIN) {
+    return { ...state, isLoading: true, showAlert: false };
+  }
+
+  if (action.type === UPDATE_CART_ITEM_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "User Created! Redirecting",
+    };
+  }
+
+  if (action.type === UPDATE_CART_ITEM_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: "hello",
+    };
+  }
+
+  //logOut user
+  if (action.type === LOGOUT_BEGIN) {
+    return {
+      ...state,
+      isLoading: false,
+      token: "",
+      user: "",
+      isLogedIn: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "Login Successful! Redirecting",
+      cart: [],
+      products: [],
+      projectDetails: "",
+      order: [],
     };
   }
 

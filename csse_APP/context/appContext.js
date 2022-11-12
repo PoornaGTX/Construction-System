@@ -31,6 +31,10 @@ import {
   GETE_ORDER_SUCCESS,
   GET_ORDER_ERROR,
   GET_ORDER_SUCCESS,
+  UPDATE_CART_ITEM_BEGIN,
+  UPDATE_CART_ITEM_SUCCESS,
+  UPDATE_CART_ITEM_ERROR,
+  LOGOUT_BEGIN,
 } from "./action";
 
 const initialState = {
@@ -301,6 +305,32 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  //updateCartitem
+  const updateCartitem = async (cartItemID, CartData) => {
+    console.log(cartItemID);
+    dispatch({ type: UPDATE_CART_ITEM_BEGIN });
+    try {
+      const response = await authFetch.patch(
+        `/Customers/cart/${cartItemID}`,
+        CartData
+      );
+      dispatch({
+        type: UPDATE_CART_ITEM_SUCCESS,
+      });
+      getCart();
+    } catch (error) {
+      dispatch({
+        type: UPDATE_CART_ITEM_ERROR,
+        // payload: { msg: error.response.data.msg },
+      });
+    }
+    getCart();
+  };
+
+  const logOutUser = async () => {
+    dispatch({ type: LOGOUT_BEGIN });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -314,6 +344,8 @@ const AppProvider = ({ children }) => {
         getAllProjectDetails,
         addToOrder,
         getOrderSummery,
+        updateCartitem,
+        logOutUser,
       }}
     >
       {children}

@@ -14,12 +14,14 @@ import { images } from "../components/ui/ProductImages/Product";
 import { LinearGradient } from "expo-linear-gradient";
 
 const OrderScreen = ({ route }) => {
+  //golobal methods and data
   const { getOrderSummery, order } = useAppContext();
 
   const isFocused = useIsFocused();
 
   useEffect(() => {
     if (isFocused) {
+      //event handler
       getOrderSummery();
     }
   }, [isFocused]);
