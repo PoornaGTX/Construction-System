@@ -554,6 +554,14 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const reduceDeliveredQty = async (dataArr) => {
+    try {
+      await authFetch.patch(`/reduceProductQty/`, dataArr);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -585,7 +593,8 @@ const AppProvider = ({ children }) => {
         getAllSelectedProducts,
         setEditApproveOrder,
         editOrderStatus,
-        setEditDeliverOrder
+        setEditDeliverOrder,
+        reduceDeliveredQty
       }}
     >
       {children}
