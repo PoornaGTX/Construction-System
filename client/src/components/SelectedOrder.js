@@ -52,7 +52,7 @@ const SelectedOrder = ({
       <div className="content">
         {/* content center later */}
         <div className="content-center">
-          {/* <ProductInfo icon={<FaLocationArrow />} text={total} /> */}
+          <ProductInfo icon={<FaLocationArrow />} text={total} />
           <ProductInfo icon={<FaLocationArrow />} text={status} />
           <ProductInfo icon={<FaLocationArrow />} text={date} />
           <ProductInfo icon={<FaLocationArrow />} text={SiteManager.name} />
